@@ -1,3 +1,4 @@
+import { CookiePreferencesLink } from '@/components/cookie-consent'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -117,10 +118,15 @@ export function Footer() {
           </nav>
         </div>
 
-        {/* Bottom Section - Copyright */}
-        <div className="mt-8 border-gray-200">
-          <div className="text-left text-gray-500 text-xs">
-            <p>&copy; 2025 Observatório Nacional de Mobilidade Sustentável. Todos os direitos reservados.</p>
+        <div className="mt-8 flex flex-col gap-3 border-gray-200 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-left text-gray-500 text-xs">
+            &copy; 2025 Observatório Nacional de Mobilidade Sustentável. Todos os direitos reservados.
+          </p>
+          <div className="flex gap-4 text-xs text-gray-500">
+            <Link href="/privacidade" className="hover:text-gray-800 transition-colors">
+              Privacidade
+            </Link>
+            <CookiePreferencesLink className="hover:text-gray-800 transition-colors" />
           </div>
         </div>
       </div>
