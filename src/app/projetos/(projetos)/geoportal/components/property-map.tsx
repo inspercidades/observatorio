@@ -9,12 +9,13 @@ import { useEffect, useRef, useState } from "react"
 import { toast } from "sonner"
 import { cityLayersConfig, getAvailableLayers, type CityLayer } from "../lib/city-layers"
 import regionManifest from "../lib/region-manifest.json"
-import { getModalLayerStyle, getModalMetric, formatModalValue, type ModalMetric } from "../lib/modal-style"
+import { getModalLayerStyle, getModalMetric, formatModalFeatureValue, type ModalMetric } from "../lib/modal-style"
 import { createStyledLayer } from "../lib/layer-styles"
 import { CityAccordion } from "./city-accordion"
 import { CityLayers } from "./city-layers"
 import { CityLayersComparison } from "./city-layers-comparison"
 import { CollapsibleLegend } from "./collapsible-legend"
+import { RegionProfile } from "./region-profile"
 
 // Dynamic import for mapbox-gl-compare to avoid SSR issues
 type MapboxCompareInstance = {
@@ -84,7 +85,7 @@ function createDefaultLayerConfig(layerId: string, layerConfig: { layerType?: 'f
   } as mapboxgl.AnyLayer
 }
 
-function createMapLayer(layer: CityLayer, regionId: string, municipalityId?: string): mapboxgl.AnyLayer {
+function createMapLayer(layer: CityLayer, regionId: string, municipalityId?: string, recorte = ''): mapboxgl.AnyLayer {
   if (!layer.sourceLayer) throw new Error(`Missing source layer for ${layer.id}`)
 
   if (layer.metric) {
@@ -93,7 +94,7 @@ function createMapLayer(layer: CityLayer, regionId: string, municipalityId?: str
       ? [municipalityId]
       : region?.municipalities.map((item) => item.id) ?? []
     return {
-      ...getModalLayerStyle(layer.id, layer.metric),
+      ...getModalLayerStyle(layer.id, layer.metric, recorte),
       filter: ['in', ['get', 'code_muni'], ['literal', municipalityCodes]],
     } as mapboxgl.AnyLayer
   }
@@ -131,6 +132,9 @@ export default function PropertyMap() {
   const [isComparisonMode, setIsComparisonMode] = useState(false)
   const [selectedLayer1, setSelectedLayer1] = useState<string | null>(null)
   const [selectedLayer2, setSelectedLayer2] = useState<string | null>(null)
+  const [recorte, setRecorte] = useState('')
+  const [recorte1, setRecorte1] = useState('')
+  const [recorte2, setRecorte2] = useState('')
   const [mapLoaded, setMapLoaded] = useState(false)
   const [layerLoadingStates, setLayerLoadingStates] = useState<Record<string, 'loading' | 'loaded' | 'error'>>({})
   const [mapTheme, setMapTheme] = useState<'dark' | 'light'>('dark')
@@ -141,10 +145,10 @@ export default function PropertyMap() {
     coordinates: [number, number]
   } | null>(null)
   const popupRef = useRef<mapboxgl.Popup | null>(null)
-  const eventHandlersRef = useRef<Map<string, { mouseenter: () => void; mouseleave: () => void; mousemove: (e: mapboxgl.MapLayerMouseEvent) => void }>>(new Map())
+  const eventHandlersRef = useRef<WeakMap<mapboxgl.Map, Map<string, { mouseenter: () => void; mouseleave: () => void; mousemove: (e: mapboxgl.MapLayerMouseEvent) => void }>>>(new WeakMap())
   
   // Function to add hover handlers for a layer
-  const addHoverHandlers = (layerId: string, layerName: string, targetMap?: mapboxgl.Map, metric?: ModalMetric) => {
+  const addHoverHandlers = (layerId: string, layerName: string, targetMap?: mapboxgl.Map, metric?: ModalMetric, selectedRecorte = '') => {
     const mapInstance = targetMap || map.current
     if (!mapInstance) return
 
@@ -184,7 +188,7 @@ export default function PropertyMap() {
         const areaName = document.createElement('strong')
         areaName.textContent = String(feature.properties?.name_weighting || feature.properties?.name_muni || 'Área de ponderação')
         const metricValue = document.createElement('p')
-        metricValue.textContent = `${getModalMetric(metric).label}: ${formatModalValue(metric, feature.properties?.[metric])}`
+        metricValue.textContent = `${getModalMetric(metric).label}: ${formatModalFeatureValue(metric, feature.properties ?? {}, selectedRecorte)}`
         popupContent.append(areaName, metricValue)
         popupRef.current = new mapboxgl.Popup({ closeButton: false, closeOnClick: false })
           .setLngLat(coordinates)
@@ -248,11 +252,13 @@ export default function PropertyMap() {
     }
 
     // Store handlers for later removal
-    eventHandlersRef.current.set(layerId, {
+    const mapHandlers = eventHandlersRef.current.get(mapInstance) ?? new Map()
+    mapHandlers.set(layerId, {
       mouseenter: mouseenterHandler,
       mouseleave: mouseleaveHandler,
       mousemove: mousemoveHandler
     })
+    eventHandlersRef.current.set(mapInstance, mapHandlers)
 
     // Add event listeners
     mapInstance.on('mouseenter', layerId, mouseenterHandler)
@@ -265,7 +271,8 @@ export default function PropertyMap() {
     const mapInstance = targetMap || map.current
     if (!mapInstance) return
 
-    const handlers = eventHandlersRef.current.get(layerId)
+    const mapHandlers = eventHandlersRef.current.get(mapInstance)
+    const handlers = mapHandlers?.get(layerId)
     if (handlers) {
       // Remove event listeners using the stored handler functions
       mapInstance.off('mouseenter', layerId, handlers.mouseenter)
@@ -273,9 +280,32 @@ export default function PropertyMap() {
       mapInstance.off('mousemove', layerId, handlers.mousemove)
       
       // Remove from stored handlers
-      eventHandlersRef.current.delete(layerId)
+      mapHandlers?.delete(layerId)
     }
   }
+
+  useEffect(() => {
+    if (!mapLoaded) return
+    const cityLayers = getAvailableLayers(selectedRegion, selectedMunicipality)
+    const update = (targetMap: mapboxgl.Map | null, layerIds: string[], selectedRecorte: string) => {
+      if (!targetMap) return
+      for (const layerId of layerIds) {
+        const layer = cityLayers.find((item) => item.id === layerId)
+        if (!layer?.metric || !targetMap.getLayer(layerId)) continue
+        const paint = getModalLayerStyle(layerId, layer.metric, selectedRecorte).paint
+        if (paint) targetMap.setPaintProperty(layerId, 'fill-color', paint['fill-color'])
+        removeHoverHandlers(layerId, targetMap)
+        addHoverHandlers(layerId, layer.name, targetMap, layer.metric, selectedRecorte)
+      }
+    }
+    if (isComparisonMode) {
+      update(beforeMap.current, selectedLayer1 ? [selectedLayer1] : [], recorte1)
+      update(afterMap.current, selectedLayer2 ? [selectedLayer2] : [], recorte2)
+    } else {
+      update(map.current, selectedLayers, recorte)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [recorte, recorte1, recorte2, mapLoaded, isComparisonMode])
 
   // Function to update layer opacity
   const updateLayerOpacity = (layerId: string, opacity: number, targetMap?: mapboxgl.Map) => {
@@ -313,20 +343,13 @@ export default function PropertyMap() {
   }
 
   // Function to handle opacity changes
-  const handleOpacityChange = (layerId: string, opacity: number) => {
+  const handleOpacityChange = (layerId: string, opacity: number, isLayer1?: boolean) => {
     console.log(`handleOpacityChange called: layerId=${layerId}, opacity=${opacity}, isComparisonMode=${isComparisonMode}`)
-    setLayerOpacities(prev => ({ ...prev, [layerId]: opacity }))
+    const key = isComparisonMode ? `${isLayer1 ? 'left' : 'right'}:${layerId}` : layerId
+    setLayerOpacities(prev => ({ ...prev, [key]: opacity }))
     
     if (isComparisonMode) {
-      // In comparison mode, update opacity on the map that contains the layer
-      if (beforeMap.current && beforeMap.current.getLayer(layerId)) {
-        console.log(`Updating opacity for layer ${layerId} on beforeMap`)
-        updateLayerOpacity(layerId, opacity, beforeMap.current)
-      }
-      if (afterMap.current && afterMap.current.getLayer(layerId)) {
-        console.log(`Updating opacity for layer ${layerId} on afterMap`)
-        updateLayerOpacity(layerId, opacity, afterMap.current)
-      }
+      updateLayerOpacity(layerId, opacity, isLayer1 ? beforeMap.current ?? undefined : afterMap.current ?? undefined)
     } else {
       // In normal mode, update opacity on the main map
       updateLayerOpacity(layerId, opacity)
@@ -388,7 +411,7 @@ export default function PropertyMap() {
   }
 
   // Function to re-add all active layers to a map
-  const reAddLayers = (mapInstance: mapboxgl.Map, layersToAdd: string[]) => {
+  const reAddLayers = (mapInstance: mapboxgl.Map, layersToAdd: string[], selectedRecorte = '', side?: 'left' | 'right') => {
     const cityLayers = getAvailableLayers(selectedRegion, selectedMunicipality)
 
     layersToAdd.forEach(layerId => {
@@ -404,7 +427,7 @@ export default function PropertyMap() {
           }
 
           // Try to use custom style first, fallback to default
-          const layerConfigToAdd = createMapLayer(layerConfig, selectedRegion, selectedMunicipality)
+          const layerConfigToAdd = createMapLayer(layerConfig, selectedRegion, selectedMunicipality, selectedRecorte)
 
           // Add layer
           if (!mapInstance.getLayer(layerId)) {
@@ -413,10 +436,10 @@ export default function PropertyMap() {
 
           // Re-add hover handlers
           removeHoverHandlers(layerId, mapInstance)
-          addHoverHandlers(layerId, layerConfig.name, mapInstance, layerConfig.metric)
+          addHoverHandlers(layerId, layerConfig.name, mapInstance, layerConfig.metric, selectedRecorte)
 
           // Restore opacity
-          const opacity = layerOpacities[layerId] ?? 80
+          const opacity = layerOpacities[side ? `${side}:${layerId}` : layerId] ?? 80
           updateLayerOpacity(layerId, opacity, mapInstance)
 
           console.log(`Re-added layer ${layerId} after style change`)
@@ -438,13 +461,13 @@ export default function PropertyMap() {
       // Handle comparison mode
       const handleBeforeStyleLoad = () => {
         if (selectedLayer1 && beforeMap.current) {
-          reAddLayers(beforeMap.current, [selectedLayer1])
+          reAddLayers(beforeMap.current, [selectedLayer1], recorte1, 'left')
         }
       }
 
       const handleAfterStyleLoad = () => {
         if (selectedLayer2 && afterMap.current) {
-          reAddLayers(afterMap.current, [selectedLayer2])
+          reAddLayers(afterMap.current, [selectedLayer2], recorte2, 'right')
         }
       }
 
@@ -460,7 +483,7 @@ export default function PropertyMap() {
       // Handle normal mode
       const handleStyleLoad = () => {
         if (map.current && selectedLayers.length > 0) {
-          reAddLayers(map.current, selectedLayers)
+          reAddLayers(map.current, selectedLayers, recorte)
         }
       }
 
@@ -658,12 +681,12 @@ export default function PropertyMap() {
             })
 
             // Try to use custom style first, fallback to default
-            const layerConfigToAdd = createMapLayer(layerConfig, selectedRegion, selectedMunicipality)
+            const layerConfigToAdd = createMapLayer(layerConfig, selectedRegion, selectedMunicipality, recorte)
 
             map.current!.addLayer(layerConfigToAdd)
 
             // Add hover functionality
-            addHoverHandlers(layerId, layerConfig.name, map.current!, layerConfig.metric)
+            addHoverHandlers(layerId, layerConfig.name, map.current!, layerConfig.metric, recorte)
 
             // Set default opacity
             const opacity = layerOpacities[layerId] ?? 80
@@ -686,6 +709,9 @@ export default function PropertyMap() {
     setSelectedLayers([])
     setSelectedLayer1(null)
     setSelectedLayer2(null)
+    setRecorte('')
+    setRecorte1('')
+    setRecorte2('')
     setLayerOpacities({})
     setSelectedRegion(regionId)
     setSelectedMunicipality(municipalityId)
@@ -714,7 +740,7 @@ export default function PropertyMap() {
 
       // Show success toast
       toast.success("Modo de Comparação Ativado", {
-        description: "Selecione 2 camadas diferentes para comparação",
+        description: "Selecione uma camada e um recorte em cada lado",
         duration: 4000,
       })
     } else {
@@ -792,7 +818,7 @@ export default function PropertyMap() {
   const handleLayer1Change = (layerId: string | null) => {
     // Remove previous layer first if exists
     if (selectedLayer1 && beforeMap.current && afterMap.current && mapLoaded) {
-      removeComparisonLayer(selectedLayer1)
+      removeComparisonLayer(selectedLayer1, true)
     }
     
     setSelectedLayer1(layerId)
@@ -806,7 +832,7 @@ export default function PropertyMap() {
   const handleLayer2Change = (layerId: string | null) => {
     // Remove previous layer first if exists
     if (selectedLayer2 && beforeMap.current && afterMap.current && mapLoaded) {
-      removeComparisonLayer(selectedLayer2)
+      removeComparisonLayer(selectedLayer2, false)
     }
     
     setSelectedLayer2(layerId)
@@ -827,7 +853,8 @@ export default function PropertyMap() {
       console.log(`Adding comparison layer: ${layerId}`, { isLayer1, tilesetId: layerConfig.tilesetId, sourceLayer: layerConfig.sourceLayer })
       
       // Set loading state
-      setLayerLoadingStates(prev => ({ ...prev, [layerId]: 'loading' }))
+      const side = isLayer1 ? 'left' : 'right'
+      setLayerLoadingStates(prev => ({ ...prev, [`${side}:${layerId}`]: 'loading' }))
       
       try {
         // Determine target map
@@ -840,31 +867,32 @@ export default function PropertyMap() {
         })
         
         // Try to use custom style first, fallback to default
-        const layerConfigToAdd = createMapLayer(layerConfig, selectedRegion, selectedMunicipality)
+        const selectedRecorte = isLayer1 ? recorte1 : recorte2
+        const layerConfigToAdd = createMapLayer(layerConfig, selectedRegion, selectedMunicipality, selectedRecorte)
 
         targetMap!.addLayer(layerConfigToAdd)
         
         // Add hover functionality for this layer
-        addHoverHandlers(layerId, layerConfig.name, targetMap, layerConfig.metric)
+        addHoverHandlers(layerId, layerConfig.name, targetMap, layerConfig.metric, selectedRecorte)
         
         // Set default opacity for the layer
         const defaultOpacity = 80
-        setLayerOpacities(prev => ({ ...prev, [layerId]: defaultOpacity }))
+        setLayerOpacities(prev => ({ ...prev, [`${side}:${layerId}`]: defaultOpacity }))
         updateLayerOpacity(layerId, defaultOpacity, targetMap)
         
         console.log(`Successfully added comparison layer: ${layerId}`)
         
         // Set loaded state
-        setLayerLoadingStates(prev => ({ ...prev, [layerId]: 'loaded' }))
+        setLayerLoadingStates(prev => ({ ...prev, [`${side}:${layerId}`]: 'loaded' }))
         
       } catch (error) {
         console.error(`Error adding comparison layer ${layerId}:`, error)
-        setLayerLoadingStates(prev => ({ ...prev, [layerId]: 'error' }))
+        setLayerLoadingStates(prev => ({ ...prev, [`${side}:${layerId}`]: 'error' }))
       }
     }
   }
 
-  const removeComparisonLayer = (layerId: string) => {
+  const removeComparisonLayer = (layerId: string, isLayer1: boolean) => {
     if (!beforeMap.current || !afterMap.current || !mapLoaded) return
 
     const cityLayers = getAvailableLayers(selectedRegion, selectedMunicipality)
@@ -873,8 +901,8 @@ export default function PropertyMap() {
     if (layerConfig?.tilesetId) {
       console.log(`Removing comparison layer: ${layerId}`)
       
-      // Remove from both maps
-      const mapsToClean = [beforeMap.current, afterMap.current]
+      const side = isLayer1 ? 'left' : 'right'
+      const mapsToClean = [isLayer1 ? beforeMap.current : afterMap.current]
       for (const mapInstance of mapsToClean) {
         if (mapInstance) {
           // Remove hover handlers first
@@ -892,14 +920,14 @@ export default function PropertyMap() {
       // Update loading state
       setLayerLoadingStates(prev => {
         const newState = { ...prev }
-        delete newState[layerId]
+        delete newState[`${side}:${layerId}`]
         return newState
       })
       
       // Remove opacity
       setLayerOpacities(prev => {
         const newState = { ...prev }
-        delete newState[layerId]
+        delete newState[`${side}:${layerId}`]
         return newState
       })
     }
@@ -964,12 +992,12 @@ export default function PropertyMap() {
             })
             
             // Try to use custom style first, fallback to default
-            const layerConfigToAdd = createMapLayer(layerConfig, selectedRegion, selectedMunicipality)
+            const layerConfigToAdd = createMapLayer(layerConfig, selectedRegion, selectedMunicipality, recorte)
 
             map.current!.addLayer(layerConfigToAdd)
             
             // Add hover functionality for this layer
-            addHoverHandlers(layerId, layerConfig.name, map.current!, layerConfig.metric)
+            addHoverHandlers(layerId, layerConfig.name, map.current!, layerConfig.metric, recorte)
             
             // Set default opacity for the layer
             const defaultOpacity = 80
@@ -1059,6 +1087,10 @@ export default function PropertyMap() {
                 layerLoadingStates={layerLoadingStates}
                 layerOpacities={layerOpacities}
                 onOpacityChange={handleOpacityChange}
+                recorte1={recorte1}
+                recorte2={recorte2}
+                onRecorte1Change={setRecorte1}
+                onRecorte2Change={setRecorte2}
               />
             ) : (
               <CityLayers
@@ -1069,6 +1101,8 @@ export default function PropertyMap() {
                 layerLoadingStates={layerLoadingStates}
                 layerOpacities={layerOpacities}
                 onOpacityChange={handleOpacityChange}
+                recorte={recorte}
+                onRecorteChange={setRecorte}
               />
             )}
           </div>
@@ -1083,8 +1117,11 @@ export default function PropertyMap() {
          cityLayersConfig={cityLayersConfig}
          mapTheme={mapTheme}
          onThemeToggle={handleThemeToggle}
+         recorte={recorte}
+         comparison={isComparisonMode ? { left: selectedLayer1, right: selectedLayer2, recorte1, recorte2 } : undefined}
        />
-       <div className="absolute top-4 right-4 z-9">
+       <div className="absolute top-4 right-4 z-9 flex items-center gap-2">
+        <RegionProfile selectedRegion={selectedRegion} />
         <Tooltip>
           <TooltipTrigger asChild>
             <button

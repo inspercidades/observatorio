@@ -19,9 +19,11 @@ interface CollapsibleLegendProps {
   }>>
   mapTheme: 'dark' | 'light'
   onThemeToggle: () => void
+  recorte?: string
+  comparison?: { left: string | null; right: string | null; recorte1: string; recorte2: string }
 }
 
-export function CollapsibleLegend({ selectedLayers, selectedCity, selectedMunicipality, cityLayersConfig, mapTheme, onThemeToggle }: CollapsibleLegendProps) {
+export function CollapsibleLegend({ selectedLayers, selectedCity, selectedMunicipality, cityLayersConfig, mapTheme, onThemeToggle, recorte, comparison }: CollapsibleLegendProps) {
   const [isCollapsed, setIsCollapsed] = useState(true)
 
   const toggleCollapse = () => {
@@ -90,12 +92,14 @@ export function CollapsibleLegend({ selectedLayers, selectedCity, selectedMunici
                </Button>
              </div>
             {hasLayers ? (
-              <MapLegend
-                selectedLayers={selectedLayers}
-                selectedCity={selectedCity}
-                selectedMunicipality={selectedMunicipality}
-                cityLayersConfig={cityLayersConfig}
-              />
+              comparison ? (
+                <>
+                  {comparison.left && <MapLegend selectedLayers={[comparison.left]} selectedCity={selectedCity} selectedMunicipality={selectedMunicipality} cityLayersConfig={cityLayersConfig} recorte={comparison.recorte1} sideLabel="Esquerda" />}
+                  {comparison.right && <MapLegend selectedLayers={[comparison.right]} selectedCity={selectedCity} selectedMunicipality={selectedMunicipality} cityLayersConfig={cityLayersConfig} recorte={comparison.recorte2} sideLabel="Direita" />}
+                </>
+              ) : (
+                <MapLegend selectedLayers={selectedLayers} selectedCity={selectedCity} selectedMunicipality={selectedMunicipality} cityLayersConfig={cityLayersConfig} recorte={recorte} />
+              )
             ) : (
               <div className="text-center text-gray-500 py-8">
                 <LayoutList className="w-12 h-12 mx-auto mb-2 opacity-50" />

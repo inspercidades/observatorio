@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { getLayerLegend, LegendItem } from "../lib/layer-styles"
 import { getAvailableLayers } from "../lib/city-layers"
 import { getModalLegend, type ModalMetric } from "../lib/modal-style"
+import demographicMap from "../lib/demographic-map.json"
 
 interface LayerLegendProps {
   layerId: string
@@ -13,11 +14,12 @@ interface LayerLegendProps {
   sourceLayer?: string
   metric?: ModalMetric
   description?: string
+  recorte?: string
 }
 
 // Get legend configuration, preferring layer-styles.ts data
-const getLegendConfig = (layerId: string, layerType: string, sourceLayer?: string, metric?: ModalMetric): LegendItem[] => {
-  if (metric) return getModalLegend(metric)
+const getLegendConfig = (layerId: string, layerType: string, sourceLayer?: string, metric?: ModalMetric, recorte = ''): LegendItem[] => {
+  if (metric) return getModalLegend(metric, recorte)
   // First, try to get legend from layer-styles.ts using sourceLayer
   if (sourceLayer) {
     const autoLegend = getLayerLegend(sourceLayer)
@@ -49,8 +51,10 @@ const getLegendConfig = (layerId: string, layerType: string, sourceLayer?: strin
   ]
 }
 
-export function LayerLegend({ layerId, layerName, layerType, sourceLayer, metric, description }: LayerLegendProps) {
-  const legendItems = getLegendConfig(layerId, layerType, sourceLayer, metric)
+export function LayerLegend({ layerId, layerName, layerType, sourceLayer, metric, description, recorte }: LayerLegendProps) {
+  const legendItems = getLegendConfig(layerId, layerType, sourceLayer, metric, recorte)
+  const [dimension, groupId] = recorte?.split(':') ?? []
+  const group = dimension && groupId ? demographicMap.dimensions[dimension as keyof typeof demographicMap.dimensions]?.find((item) => item.id === groupId) : undefined
 
   return (
     <Card className="mb-3 border-none shadow-none">
@@ -58,6 +62,7 @@ export function LayerLegend({ layerId, layerName, layerType, sourceLayer, metric
         <CardTitle className="text-sm flex items-center gap-0">
           {layerName}
         </CardTitle>
+        {group && <p className="text-xs text-gray-600">Recorte: {group.label}</p>}
         {description && (
           <p className="text-xs text-gray-600 mt-0 mb-2">{description}</p>
         )}
@@ -102,9 +107,11 @@ interface MapLegendProps {
     sourceLayer?: string
     metric?: ModalMetric
   }>>
+  recorte?: string
+  sideLabel?: string
 }
 
-export function MapLegend({ selectedLayers, selectedCity, selectedMunicipality }: MapLegendProps) {
+export function MapLegend({ selectedLayers, selectedCity, selectedMunicipality, recorte, sideLabel }: MapLegendProps) {
   const cityLayers = getAvailableLayers(selectedCity, selectedMunicipality)
   const enabledLayers = cityLayers.filter(layer =>
     selectedLayers.includes(layer.id) && layer.layerType
@@ -120,10 +127,11 @@ export function MapLegend({ selectedLayers, selectedCity, selectedMunicipality }
         <LayerLegend
           key={layer.id}
           layerId={layer.id}
-          layerName={layer.name}
+          layerName={sideLabel ? `${sideLabel}: ${layer.name}` : layer.name}
           layerType={layer.layerType || 'fill'}
           sourceLayer={layer.sourceLayer}
           metric={layer.metric}
+          recorte={recorte}
           description={layer.description}
         />
       ))}

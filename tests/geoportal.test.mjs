@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
-import { getModalLayerStyle, getModalLegend, formatModalValue } from '../src/app/projetos/(projetos)/geoportal/lib/modal-style.ts'
+import { getModalLayerStyle, getModalLegend, formatModalValue, getModalProperty, formatModalFeatureValue, formatProfileMetricValue } from '../src/app/projetos/(projetos)/geoportal/lib/modal-style.ts'
 import { toggleLayer } from '../src/app/projetos/(projetos)/geoportal/lib/layer-selection.ts'
 import regionManifest from '../src/app/projetos/(projetos)/geoportal/lib/region-manifest.json' with { type: 'json' }
 import { getVisibleRegions } from '../src/app/projetos/(projetos)/geoportal/lib/region-selector.ts'
@@ -32,6 +32,27 @@ test('each modal metric has its own expression, classes, and formatting', () => 
   assert.equal(formatModalValue('share_public', 0.234), '23,4%')
   assert.equal(formatModalValue('mean_minutes', 32.5), '32,5 min')
   assert.equal(formatModalValue('mean_minutes', null), 'Sem dados')
+})
+
+test('demographic recortes use selected metric properties and suppress small samples', () => {
+  assert.equal(getModalProperty('share_public', 'sex:1'), 'share_public__sex_1')
+  assert.equal(getModalProperty('share_public', ''), 'share_public')
+  const style = getModalLayerStyle('modal', 'share_public', 'sex:1')
+  assert.match(JSON.stringify(style.paint['fill-color']), /sample_n__sex_1/)
+  assert.match(JSON.stringify(style.paint['fill-color']), /share_public__sex_1/)
+  assert.equal(formatModalFeatureValue('share_public', { sample_n__sex_1: 29, share_public__sex_1: 0.3 }, 'sex:1'), 'Amostra insuficiente')
+  assert.equal(formatModalFeatureValue('share_public', { sample_n__sex_1: 30, share_public__sex_1: 0.3 }, 'sex:1'), '30%')
+  assert.equal(formatModalFeatureValue('share_public', { share_public__sex_1: 0.3 }, 'sex:1'), 'Sem dados')
+  assert.equal(formatModalFeatureValue('share_public', { share_public: 0.3 }, ''), '30%')
+  assert.ok(getModalLegend('share_public', 'sex:1').some((item) => item.value === 'Amostra insuficiente'))
+  assert.equal(formatProfileMetricValue('share_public', 0.3, 29), 'Amostra insuficiente')
+  assert.equal(formatProfileMetricValue('share_public', null, 30), 'Sem dados')
+  assert.equal(formatProfileMetricValue('share_public', 0.3, 30), '30%')
+  assert.deepEqual(style.paint['fill-color'][1], [
+    'all',
+    ['==', ['typeof', ['get', 'sample_n__sex_1']], 'number'],
+    ['<', ['get', 'sample_n__sex_1'], 30],
+  ])
 })
 
 test('the RM manifest preserves IDs, memberships, and map bounds', () => {

@@ -1,0 +1,29 @@
+{
+  "minimum_sample": 30,
+  "dimensions": {
+    "sex": [
+      { "id": "1", "label": "Masculino" },
+      { "id": "2", "label": "Feminino" }
+    ],
+    "race": [
+      { "id": "1", "label": "Branca" },
+      { "id": "2", "label": "Preta" },
+      { "id": "3", "label": "Amarela" },
+      { "id": "4", "label": "Parda" },
+      { "id": "5", "label": "Indígena" }
+    ],
+    "schooling": [
+      { "id": "1", "label": "Sem instrução e fundamental incompleto" },
+      { "id": "2", "label": "Fundamental completo e médio incompleto" },
+      { "id": "3", "label": "Médio completo e superior incompleto" },
+      { "id": "4", "label": "Superior completo" }
+    ],
+    "income": [
+      { "id": "1", "label": "Até ½ salário mínimo" },
+      { "id": "2", "label": "Mais de ½ a 1 salário mínimo" },
+      { "id": "3", "label": "Mais de 1 a 2 salários mínimos" },
+      { "id": "4", "label": "Mais de 2 a 3 salários mínimos" },
+      { "id": "5", "label": "Mais de 3 salários mínimos" }
+    ]
+  }
+}

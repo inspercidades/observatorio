@@ -14,6 +14,7 @@ import { useEffect, useState } from "react"
 import { getAvailableLayers } from "../lib/city-layers"
 import { toggleLayer } from "../lib/layer-selection"
 import regionManifest from "../lib/region-manifest.json"
+import { RecorteSelect } from "./recorte-select"
 
 interface CityLayersProps {
   selectedCity: string
@@ -23,9 +24,11 @@ interface CityLayersProps {
   layerLoadingStates?: Record<string, 'loading' | 'loaded' | 'error'>
   layerOpacities?: Record<string, number>
   onOpacityChange?: (layerId: string, opacity: number) => void
+  recorte: string
+  onRecorteChange: (value: string) => void
 }
 
-export function CityLayers({ selectedCity, selectedMunicipality, selectedLayers, onLayersChange, layerLoadingStates = {}, layerOpacities = {}, onOpacityChange }: CityLayersProps) {
+export function CityLayers({ selectedCity, selectedMunicipality, selectedLayers, onLayersChange, layerLoadingStates = {}, layerOpacities = {}, onOpacityChange, recorte, onRecorteChange }: CityLayersProps) {
   const cityLayers = getAvailableLayers(selectedCity, selectedMunicipality)
   const region = regionManifest.regions.find((item) => item.id === selectedCity)
   const activeOverlays = selectedLayers.filter((id) => cityLayers.find((layer) => layer.id === id)?.layerType !== 'fill').length
@@ -129,6 +132,7 @@ export function CityLayers({ selectedCity, selectedMunicipality, selectedLayers,
                         {/* Opacity slider */}
                         {isSelected && (
                           <div className="mt-2 space-y-2">
+                            {layer.metric && <RecorteSelect id={`recorte-${layer.id}`} value={recorte} onChange={onRecorteChange} />}
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2">
                                 <Eye className="w-4 h-4 text-gray-500" />

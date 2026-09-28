@@ -13,6 +13,7 @@ import { Eye, Info } from "lucide-react"
 import { useEffect, useState } from "react"
 import { getAvailableLayers } from "../lib/city-layers"
 import regionManifest from "../lib/region-manifest.json"
+import { RecorteSelect } from "./recorte-select"
 
 interface CityLayersComparisonProps {
   selectedCity: string
@@ -23,7 +24,11 @@ interface CityLayersComparisonProps {
   onLayer2Change: (layerId: string | null) => void
   layerLoadingStates?: Record<string, 'loading' | 'loaded' | 'error'>
   layerOpacities?: Record<string, number>
-  onOpacityChange?: (layerId: string, opacity: number) => void
+  onOpacityChange?: (layerId: string, opacity: number, isLayer1: boolean) => void
+  recorte1: string
+  recorte2: string
+  onRecorte1Change: (value: string) => void
+  onRecorte2Change: (value: string) => void
 }
 
 export function CityLayersComparison({ 
@@ -35,7 +40,11 @@ export function CityLayersComparison({
   onLayer2Change, 
   layerLoadingStates = {}, 
   layerOpacities = {}, 
-  onOpacityChange 
+  onOpacityChange,
+  recorte1,
+  recorte2,
+  onRecorte1Change,
+  onRecorte2Change,
 }: CityLayersComparisonProps) {
   const cityLayers = getAvailableLayers(selectedCity, selectedMunicipality)
   const region = regionManifest.regions.find((item) => item.id === selectedCity)
@@ -47,59 +56,46 @@ export function CityLayersComparison({
   const [accordionValue, setAccordionValue] = useState<string[]>(["layer1", "layer2"])
 
   const handleLayerToggle = (layerId: string, checked: boolean, isLayer1: boolean) => {
-    // Prevent selection if layer is already selected in the other section
-    if (checked && isLayerDisabled(layerId, isLayer1)) {
-      return
-    }
-
     if (checked) {
       if (isLayer1) {
-        // Se está selecionando na camada 1, remove da camada 2 se estiver lá
-        if (selectedLayer2 === layerId) {
-          onLayer2Change(null)
-        }
         // Se já havia uma camada 1 selecionada, remove ela primeiro
         if (selectedLayer1 && selectedLayer1 !== layerId) {
           onLayer1Change(null)
           // Clean up local opacity when layer is disabled
           setLocalOpacities(prev => {
             const newState = { ...prev }
-            delete newState[selectedLayer1]
+            delete newState[`left:${selectedLayer1}`]
             return newState
           })
         }
         onLayer1Change(layerId)
         // Set default opacity when layer is enabled
         const defaultOpacity = 80
-        if (!(layerId in layerOpacities) && !(layerId in localOpacities)) {
-          setLocalOpacities(prev => ({ ...prev, [layerId]: defaultOpacity }))
-          onOpacityChange?.(layerId, defaultOpacity)
+        if (!(`left:${layerId}` in layerOpacities) && !(`left:${layerId}` in localOpacities)) {
+          setLocalOpacities(prev => ({ ...prev, [`left:${layerId}`]: defaultOpacity }))
+          onOpacityChange?.(layerId, defaultOpacity, true)
         }
         // Trigger attention to layer2 if it's not selected
         if (!selectedLayer2) {
           triggerAttention('layer2')
         }
       } else {
-        // Se está selecionando na camada 2, remove da camada 1 se estiver lá
-        if (selectedLayer1 === layerId) {
-          onLayer1Change(null)
-        }
         // Se já havia uma camada 2 selecionada, remove ela primeiro
         if (selectedLayer2 && selectedLayer2 !== layerId) {
           onLayer2Change(null)
           // Clean up local opacity when layer is disabled
           setLocalOpacities(prev => {
             const newState = { ...prev }
-            delete newState[selectedLayer2]
+            delete newState[`right:${selectedLayer2}`]
             return newState
           })
         }
         onLayer2Change(layerId)
         // Set default opacity when layer is enabled
         const defaultOpacity = 80
-        if (!(layerId in layerOpacities) && !(layerId in localOpacities)) {
-          setLocalOpacities(prev => ({ ...prev, [layerId]: defaultOpacity }))
-          onOpacityChange?.(layerId, defaultOpacity)
+        if (!(`right:${layerId}` in layerOpacities) && !(`right:${layerId}` in localOpacities)) {
+          setLocalOpacities(prev => ({ ...prev, [`right:${layerId}`]: defaultOpacity }))
+          onOpacityChange?.(layerId, defaultOpacity, false)
         }
         // Trigger attention to layer1 if it's not selected
         if (!selectedLayer1) {
@@ -112,7 +108,7 @@ export function CityLayersComparison({
         // Clean up local opacity when layer is disabled
         setLocalOpacities(prev => {
           const newState = { ...prev }
-          delete newState[layerId]
+          delete newState[`left:${layerId}`]
           return newState
         })
       } else {
@@ -120,31 +116,23 @@ export function CityLayersComparison({
         // Clean up local opacity when layer is disabled
         setLocalOpacities(prev => {
           const newState = { ...prev }
-          delete newState[layerId]
+          delete newState[`right:${layerId}`]
           return newState
         })
       }
     }
   }
 
-  const handleOpacityChange = (layerId: string, value: number[]) => {
+  const handleOpacityChange = (layerId: string, value: number[], isLayer1: boolean) => {
     const opacity = value[0]
-    setLocalOpacities(prev => ({ ...prev, [layerId]: opacity }))
-    onOpacityChange?.(layerId, opacity)
+    setLocalOpacities(prev => ({ ...prev, [`${isLayer1 ? 'left' : 'right'}:${layerId}`]: opacity }))
+    onOpacityChange?.(layerId, opacity, isLayer1)
   }
 
   // Get current opacity value (prioritize prop over local state)
-  const getCurrentOpacity = (layerId: string) => {
-    return layerOpacities[layerId] ?? localOpacities[layerId] ?? 80
-  }
-
-  // Check if a layer is disabled (already selected in the other section)
-  const isLayerDisabled = (layerId: string, isLayer1: boolean) => {
-    if (isLayer1) {
-      return selectedLayer2 === layerId
-    } else {
-      return selectedLayer1 === layerId
-    }
+  const getCurrentOpacity = (layerId: string, isLayer1: boolean) => {
+    const key = `${isLayer1 ? 'left' : 'right'}:${layerId}`
+    return layerOpacities[key] ?? localOpacities[key] ?? 80
   }
 
   const triggerAttention = (targetLayer: 'layer1' | 'layer2') => {
@@ -210,7 +198,6 @@ export function CityLayersComparison({
             <div className="space-y-0">
               {cityLayers.map((layer, index) => {
                 const isSelected = selectedLayer1 === layer.id
-                const isDisabled = isLayerDisabled(layer.id, true)
                 const category = layer.category ?? 'context'
                 const previousCategory = cityLayers[index - 1]?.category ?? 'context'
                 const municipality = region?.municipalities.find((item) => item.id === layer.municipalityId)
@@ -221,16 +208,14 @@ export function CityLayersComparison({
                     <div className={`px-4 gap-4 flex items-center justify-between py-3 transition-colors ${
                       isSelected 
                         ? 'bg-blue-50 border-l-4 border-l-blue-500' 
-                        : isDisabled
-                          ? 'bg-gray-100 opacity-50 cursor-not-allowed'
-                          : attentionState.show && attentionState.target === 'layer1'
+                        : attentionState.show && attentionState.target === 'layer1'
                             ? 'bg-flicker hover:bg-blue-50'
                             : 'hover:bg-gray-50'
                     }`}>
                       <div className="flex-1 min-w-0 flex flex-col gap-2">
                         <label
                           htmlFor={`layer-1-${layer.id}`}
-                          className={`text-sm flex flex-row items-center gap-2 text-black leading-relaxed ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                          className="text-sm flex flex-row items-center gap-2 text-black leading-relaxed cursor-pointer"
                           style={{ color: '#000000' }}
                         >
                           <div className="flex items-center gap-2">
@@ -250,19 +235,20 @@ export function CityLayersComparison({
                         {/* Opacity slider */}
                         {isSelected && (
                           <div className="mt-2 space-y-2">
+                            {layer.metric && <RecorteSelect id={`recorte-left-${layer.id}`} value={recorte1} onChange={onRecorte1Change} />}
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2">
                                 <Eye className="w-4 h-4 text-gray-500" />
                                 <span className="text-xs text-gray-600 font-medium">Opacidade</span>
                               </div>
                               <span className="text-xs text-gray-500 font-mono">
-                                {getCurrentOpacity(layer.id)}%
+                                {getCurrentOpacity(layer.id, true)}%
                               </span>
                             </div>
                             <Slider
                               className="w-full"
-                              value={[getCurrentOpacity(layer.id)]}
-                              onValueChange={(value) => handleOpacityChange(layer.id, value)}
+                              value={[getCurrentOpacity(layer.id, true)]}
+                              onValueChange={(value) => handleOpacityChange(layer.id, value, true)}
                               max={100}
                               step={1}
                               aria-label={`Ajustar opacidade da camada ${layer.name}`}
@@ -279,7 +265,7 @@ export function CityLayersComparison({
                         id={`layer-1-${layer.id}`}
                         checked={isSelected}
                         onCheckedChange={(checked) => handleLayerToggle(layer.id, checked, true)}
-                        disabled={layerLoadingStates[layer.id] === 'loading' || isDisabled}
+                        disabled={layerLoadingStates[`left:${layer.id}`] === 'loading'}
                       />
                     </div>
                     {index !== cityLayers.length - 1 && (
@@ -303,7 +289,6 @@ export function CityLayersComparison({
             <div className="space-y-0">
               {cityLayers.map((layer, index) => {
                 const isSelected = selectedLayer2 === layer.id
-                const isDisabled = isLayerDisabled(layer.id, false)
                 const category = layer.category ?? 'context'
                 const previousCategory = cityLayers[index - 1]?.category ?? 'context'
                 const municipality = region?.municipalities.find((item) => item.id === layer.municipalityId)
@@ -314,16 +299,14 @@ export function CityLayersComparison({
                     <div className={`px-4 gap-4 flex items-center justify-between py-3 transition-colors ${
                       isSelected 
                         ? 'bg-blue-50 border-l-4 border-l-blue-500' 
-                        : isDisabled
-                          ? 'bg-gray-100 opacity-50 cursor-not-allowed'
-                          : attentionState.show && attentionState.target === 'layer2'
+                        : attentionState.show && attentionState.target === 'layer2'
                             ? 'bg-flicker hover:bg-blue-50'
                             : 'hover:bg-gray-50'
                     }`}>
                       <div className="flex-1 min-w-0 flex flex-col gap-2">
                         <label
                           htmlFor={`layer-2-${layer.id}`}
-                          className={`text-sm flex flex-row items-center gap-2 text-black leading-relaxed ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                          className="text-sm flex flex-row items-center gap-2 text-black leading-relaxed cursor-pointer"
                           style={{ color: '#000000' }}
                         >
                           <div className="flex items-center gap-2">
@@ -343,19 +326,20 @@ export function CityLayersComparison({
                         {/* Opacity slider */}
                         {isSelected && (
                           <div className="mt-2 space-y-2">
+                            {layer.metric && <RecorteSelect id={`recorte-right-${layer.id}`} value={recorte2} onChange={onRecorte2Change} />}
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2">
                                 <Eye className="w-4 h-4 text-gray-500" />
                                 <span className="text-xs text-gray-600 font-medium">Opacidade</span>
                               </div>
                               <span className="text-xs text-gray-500 font-mono">
-                                {getCurrentOpacity(layer.id)}%
+                                {getCurrentOpacity(layer.id, false)}%
                               </span>
                             </div>
                             <Slider
                               className="w-full"
-                              value={[getCurrentOpacity(layer.id)]}
-                              onValueChange={(value) => handleOpacityChange(layer.id, value)}
+                              value={[getCurrentOpacity(layer.id, false)]}
+                              onValueChange={(value) => handleOpacityChange(layer.id, value, false)}
                               max={100}
                               step={1}
                               aria-label={`Ajustar opacidade da camada ${layer.name}`}
@@ -372,7 +356,7 @@ export function CityLayersComparison({
                         id={`layer-2-${layer.id}`}
                         checked={isSelected}
                         onCheckedChange={(checked) => handleLayerToggle(layer.id, checked, false)}
-                        disabled={layerLoadingStates[layer.id] === 'loading' || isDisabled}
+                        disabled={layerLoadingStates[`right:${layer.id}`] === 'loading'}
                       />
                     </div>
                     {index !== cityLayers.length - 1 && (
