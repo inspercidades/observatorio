@@ -1,0 +1,42 @@
+{
+  "tileset_name": "onms_divisao_modal_2022",
+  "source_layers": ["areas", "municipalities", "regions"],
+  "metrics": {
+    "share_public": {
+      "label": "Transporte público coletivo",
+      "unit": "percent",
+      "breaks": [0.1, 0.2, 0.35, 0.5],
+      "colors": ["#eff3ff", "#bdd7e7", "#6baed6", "#3182bd", "#08519c"]
+    },
+    "share_private": {
+      "label": "Veículos particulares",
+      "unit": "percent",
+      "breaks": [0.2, 0.35, 0.5, 0.65],
+      "colors": ["#feedde", "#fdbe85", "#fd8d3c", "#e6550d", "#a63603"]
+    },
+    "share_active": {
+      "label": "Modos ativos",
+      "unit": "percent",
+      "breaks": [0.1, 0.2, 0.3, 0.4],
+      "colors": ["#edf8e9", "#bae4b3", "#74c476", "#31a354", "#006d2c"]
+    },
+    "share_other": {
+      "label": "Outros modos",
+      "unit": "percent",
+      "breaks": [0.05, 0.1, 0.15, 0.2],
+      "colors": ["#f2f0f7", "#cbc9e2", "#9e9ac8", "#756bb1", "#54278f"]
+    },
+    "mean_minutes": {
+      "label": "Tempo médio de deslocamento",
+      "unit": "minutes",
+      "breaks": [20, 30, 45, 60],
+      "colors": ["#f2f0f7", "#cbc9e2", "#9e9ac8", "#756bb1", "#54278f"]
+    },
+    "share_60plus": {
+      "label": "Deslocamentos de uma hora ou mais",
+      "unit": "percent",
+      "breaks": [0.1, 0.2, 0.3, 0.4],
+      "colors": ["#f2f0f7", "#cbc9e2", "#9e9ac8", "#756bb1", "#54278f"]
+    }
+  }
+}
