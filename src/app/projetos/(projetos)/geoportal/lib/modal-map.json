@@ -20,12 +20,6 @@
       "breaks": [0.1, 0.2, 0.3, 0.4],
       "colors": ["#edf8e9", "#bae4b3", "#74c476", "#31a354", "#006d2c"]
     },
-    "share_other": {
-      "label": "Outros modos",
-      "unit": "percent",
-      "breaks": [0.05, 0.1, 0.15, 0.2],
-      "colors": ["#f2f0f7", "#cbc9e2", "#9e9ac8", "#756bb1", "#54278f"]
-    },
     "mean_minutes": {
       "label": "Tempo médio de deslocamento",
       "unit": "minutes",

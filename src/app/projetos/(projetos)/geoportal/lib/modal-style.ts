@@ -5,7 +5,7 @@ import demographicMap from './demographic-map.json' with { type: 'json' }
 export type ModalMetric = keyof typeof modalMap.metrics
 
 const noDataColor = '#bdbdbd'
-const suppressedColor = '#e0e0e0'
+const suppressedColor = 'rgba(0, 0, 0, 0)'
 
 export function getModalMetric(metric: ModalMetric) {
   return modalMap.metrics[metric]
@@ -72,6 +72,12 @@ export function formatModalValue(metric: ModalMetric, value: unknown): string {
   }
 
   return `${new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 1 }).format(value)} min`
+}
+
+export function formatAreaName(properties: Record<string, unknown>): string {
+  if (properties.name_weighting) return String(properties.name_weighting)
+  if (properties.name_muni && properties.code_weighting) return `${properties.name_muni} · área ${properties.code_weighting}`
+  return 'Área de ponderação'
 }
 
 export function formatModalFeatureValue(metric: ModalMetric, properties: Record<string, unknown>, recorte = ''): string {

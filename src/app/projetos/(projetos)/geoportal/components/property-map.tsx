@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react"
 import { toast } from "sonner"
 import { cityLayersConfig, getAvailableLayers, type CityLayer } from "../lib/city-layers"
 import regionManifest from "../lib/region-manifest.json"
-import { getModalLayerStyle, getModalMetric, formatModalFeatureValue, type ModalMetric } from "../lib/modal-style"
+import { getModalLayerStyle, getModalMetric, formatAreaName, formatModalFeatureValue, type ModalMetric } from "../lib/modal-style"
 import { createStyledLayer } from "../lib/layer-styles"
 import { CityAccordion } from "./city-accordion"
 import { CityLayers } from "./city-layers"
@@ -186,7 +186,7 @@ export default function PropertyMap() {
         const popupContent = document.createElement('div')
         popupContent.className = 'p-2 text-sm'
         const areaName = document.createElement('strong')
-        areaName.textContent = String(feature.properties?.name_weighting || feature.properties?.name_muni || 'Área de ponderação')
+        areaName.textContent = formatAreaName(feature.properties ?? {})
         const metricValue = document.createElement('p')
         metricValue.textContent = `${getModalMetric(metric).label}: ${formatModalFeatureValue(metric, feature.properties ?? {}, selectedRecorte)}`
         popupContent.append(areaName, metricValue)

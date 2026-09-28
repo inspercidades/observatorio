@@ -1,7 +1,9 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
-import { getModalLayerStyle, getModalLegend, formatModalValue, getModalProperty, formatModalFeatureValue, formatProfileMetricValue } from '../src/app/projetos/(projetos)/geoportal/lib/modal-style.ts'
+import { getModalLayerStyle, getModalLegend, formatModalValue, getModalProperty, formatModalFeatureValue, formatProfileMetricValue, formatAreaName } from '../src/app/projetos/(projetos)/geoportal/lib/modal-style.ts'
+import { cityLayersConfig } from '../src/app/projetos/(projetos)/geoportal/lib/city-layers.ts'
+import { layerText } from '../src/app/projetos/(projetos)/geoportal/lib/layer-texts.ts'
 import { toggleLayer } from '../src/app/projetos/(projetos)/geoportal/lib/layer-selection.ts'
 import regionManifest from '../src/app/projetos/(projetos)/geoportal/lib/region-manifest.json' with { type: 'json' }
 import { getVisibleRegions } from '../src/app/projetos/(projetos)/geoportal/lib/region-selector.ts'
@@ -74,4 +76,38 @@ test('region search finds municipalities and keeps the active RM first', () => {
   assert.equal(getVisibleRegions('', carbonifera.id)[0].id, carbonifera.id)
   assert.ok(getVisibleRegions('carbonifera', '').some((region) => region.id === carbonifera.id))
   assert.ok(getVisibleRegions('criciuma', '').some((region) => region.id === carbonifera.id))
+})
+
+test('every layer takes its tooltip and legend note from the central texts', () => {
+  const text = layerText('renda')
+  assert.match(text.description, /^Renda domiciliar média/)
+  assert.match(text.description, / Fonte: [^.]+.*\.$/)
+  assert.ok(text.legendNote.length > 0)
+  for (const layers of Object.values(cityLayersConfig)) {
+    for (const layer of layers) {
+      assert.match(layer.description ?? '', /Fonte: .+\.$/, layer.id)
+      assert.ok(layer.legendNote, layer.id)
+    }
+  }
+})
+
+test('the map leaves out other modes and keeps five metrics', () => {
+  const recife = cityLayersConfig['03001'].filter((layer) => layer.metric)
+  assert.deepEqual(recife.map((layer) => layer.metric), ['share_public', 'share_private', 'share_active', 'mean_minutes', 'share_60plus'])
+})
+
+test('suppressed cells are hollow and distinct from missing data', () => {
+  const style = getModalLayerStyle('modal', 'share_public', 'sex:1')
+  assert.equal(style.paint['fill-color'][2], 'rgba(0, 0, 0, 0)')
+  const legend = getModalLegend('share_public', 'sex:1')
+  const suppressed = legend.find((item) => item.value === 'Amostra insuficiente')
+  const missing = legend.find((item) => item.value === 'Sem dados')
+  assert.equal(suppressed.color, 'rgba(0, 0, 0, 0)')
+  assert.notEqual(suppressed.color, missing.color)
+})
+
+test('area names fall back to municipality and area code', () => {
+  assert.equal(formatAreaName({ name_weighting: 'Boa Viagem', name_muni: 'Recife', code_weighting: '2611606005' }), 'Boa Viagem')
+  assert.equal(formatAreaName({ name_weighting: null, name_muni: 'Recife', code_weighting: '2611606005' }), 'Recife · área 2611606005')
+  assert.equal(formatAreaName({}), 'Área de ponderação')
 })
