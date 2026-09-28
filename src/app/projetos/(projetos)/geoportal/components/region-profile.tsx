@@ -6,7 +6,6 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import demographicMap from "../lib/demographic-map.json"
 import modalMap from "../lib/modal-map.json"
-import profiles from "../lib/region-profiles.json"
 import regionManifest from "../lib/region-manifest.json"
 import { formatModalValue, formatProfileMetricValue, type ModalMetric } from "../lib/modal-style"
 
@@ -61,13 +60,21 @@ function CrossChart({ title, rows, metric, label }: { title: string; rows: Profi
 
 export function RegionProfile({ selectedRegion }: { selectedRegion: string }) {
   const [metric, setMetric] = useState<ModalMetric>('share_public')
+  const [profiles, setProfiles] = useState<Profile[] | null>(null)
   const region = regionManifest.regions.find((item) => item.id === selectedRegion)
-  const profile = (profiles as Profile[]).find((item) => item.code_region === selectedRegion)
+  const profile = profiles?.find((item) => item.code_region === selectedRegion)
 
-  if (profiles.length === 0) return null
+  // The profiles file is large, so it loads only when the dialog first opens.
+  const loadProfiles = (open: boolean) => {
+    if (!open || profiles) return
+    fetch('/geoportal/region-profiles.json')
+      .then((response) => (response.ok ? response.json() : []))
+      .then(setProfiles)
+      .catch(() => setProfiles([]))
+  }
 
   return (
-    <Dialog>
+    <Dialog onOpenChange={loadProfiles}>
       <DialogTrigger asChild>
         <Button variant="outline" className="bg-white shadow-lg" disabled={!region}>Perfil da região</Button>
       </DialogTrigger>
@@ -76,7 +83,9 @@ export function RegionProfile({ selectedRegion }: { selectedRegion: string }) {
           <DialogTitle>Perfil da região — {region?.name}</DialogTitle>
           <DialogDescription>Divisão modal e deslocamento dos trabalhadores ocupados no Censo 2022. Células com menos de {demographicMap.minimum_sample} respondentes não são exibidas.</DialogDescription>
         </DialogHeader>
-        {!profile ? (
+        {!profiles ? (
+          <p className="text-sm text-gray-600">Carregando perfil…</p>
+        ) : !profile ? (
           <p className="text-sm text-gray-600">Perfil ainda não disponível para esta região.</p>
         ) : (
           <div className="space-y-5">
