@@ -13,7 +13,7 @@ interface CollapsibleLegendProps {
   cityLayersConfig: Record<string, Array<{
     id: string
     name: string
-    description?: string
+    legendNote?: string
     layerType?: 'fill' | 'line' | 'circle' | 'symbol'
     sourceLayer?: string
   }>>

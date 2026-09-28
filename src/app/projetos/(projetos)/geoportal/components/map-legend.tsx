@@ -13,7 +13,7 @@ interface LayerLegendProps {
   layerType: 'fill' | 'line' | 'circle' | 'symbol'
   sourceLayer?: string
   metric?: ModalMetric
-  description?: string
+  legendNote?: string
   recorte?: string
 }
 
@@ -51,7 +51,7 @@ const getLegendConfig = (layerId: string, layerType: string, sourceLayer?: strin
   ]
 }
 
-export function LayerLegend({ layerId, layerName, layerType, sourceLayer, metric, description, recorte }: LayerLegendProps) {
+export function LayerLegend({ layerId, layerName, layerType, sourceLayer, metric, legendNote, recorte }: LayerLegendProps) {
   const legendItems = getLegendConfig(layerId, layerType, sourceLayer, metric, recorte)
   const [dimension, groupId] = recorte?.split(':') ?? []
   const group = dimension && groupId ? demographicMap.dimensions[dimension as keyof typeof demographicMap.dimensions]?.find((item) => item.id === groupId) : undefined
@@ -63,8 +63,8 @@ export function LayerLegend({ layerId, layerName, layerType, sourceLayer, metric
           {layerName}
         </CardTitle>
         {group && <p className="text-xs text-gray-600">Recorte: {group.label}</p>}
-        {description && (
-          <p className="text-xs text-gray-600 mt-0 mb-2">{description}</p>
+        {legendNote && (
+          <p className="text-xs text-gray-600 mt-0 mb-2">{legendNote}</p>
         )}
       </CardHeader>
       <CardContent className="space-y-2 p-0!">
@@ -74,7 +74,7 @@ export function LayerLegend({ layerId, layerName, layerType, sourceLayer, metric
               className={`flex-shrink-0 ${
                 layerType === 'line' ? 'w-6 h-0.5' : 
                 layerType === 'circle' ? 'w-4 h-4 rounded-full' :
-                'w-4 h-4 rounded-sm'
+                'w-4 h-4 rounded-sm border border-gray-400'
               }`}
               style={{ backgroundColor: item.color }}
             />
@@ -102,7 +102,7 @@ interface MapLegendProps {
   cityLayersConfig: Record<string, Array<{
     id: string
     name: string
-    description?: string
+    legendNote?: string
     layerType?: 'fill' | 'line' | 'circle' | 'symbol'
     sourceLayer?: string
     metric?: ModalMetric
@@ -132,7 +132,7 @@ export function MapLegend({ selectedLayers, selectedCity, selectedMunicipality, 
           sourceLayer={layer.sourceLayer}
           metric={layer.metric}
           recorte={recorte}
-          description={layer.description}
+          legendNote={layer.legendNote}
         />
       ))}
     </div>
