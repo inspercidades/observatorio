@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/accordion"
 import { useState } from "react"
 import regionManifest from "../lib/region-manifest.json"
+import { getVisibleRegions } from "../lib/region-selector"
 
 interface CityAccordionProps {
   selectedRegion: string
@@ -17,11 +18,14 @@ interface CityAccordionProps {
 
 export function CityAccordion({ selectedRegion, selectedMunicipality, onSelectionChange }: CityAccordionProps) {
   const [open, setOpen] = useState("")
+  const [search, setSearch] = useState("")
   const region = regionManifest.regions.find((item) => item.id === selectedRegion)
   const municipality = region?.municipalities.find((item) => item.id === selectedMunicipality)
+  const visibleRegions = getVisibleRegions(search, selectedRegion)
   const select = (regionId: string, municipalityId?: string) => {
     onSelectionChange(regionId, municipalityId)
     setOpen("")
+    setSearch("")
   }
 
   return (
@@ -31,11 +35,24 @@ export function CityAccordion({ selectedRegion, selectedMunicipality, onSelectio
           {municipality ? `${region?.name} · ${municipality.name}` : region?.name ?? "RMs e RIDEs"}
         </AccordionTrigger>
         <AccordionContent className="max-h-96 overflow-y-auto pb-0">
-          <button type="button" className="w-full px-4 py-3 text-left hover:bg-gray-50" onClick={() => onSelectionChange("")}>
+          <div className="px-4 py-2">
+            <input
+              type="search"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder="Buscar RM ou município"
+              aria-label="Buscar RM ou município"
+              className="w-full rounded border border-gray-300 px-3 py-2 text-sm"
+            />
+          </div>
+          <button type="button" className="w-full px-4 py-3 text-left hover:bg-gray-50" onClick={() => select("")}>
             Brasil
           </button>
-          {regionManifest.regions.map((item) => (
-            <details key={item.id} className="border-b border-gray-200">
+          {visibleRegions.length === 0 && (
+            <p className="px-4 py-3 text-sm text-gray-500">Nenhuma região ou município encontrado.</p>
+          )}
+          {visibleRegions.map((item) => (
+            <details key={`${item.id}-${Boolean(search)}`} open={Boolean(search) || item.id === selectedRegion} className="border-b border-gray-200">
               <summary className="cursor-pointer px-4 py-3 font-medium hover:bg-gray-50">
                 {item.name}
               </summary>

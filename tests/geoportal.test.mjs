@@ -4,6 +4,7 @@ import test from 'node:test'
 import { getModalLayerStyle, getModalLegend, formatModalValue } from '../src/app/projetos/(projetos)/geoportal/lib/modal-style.ts'
 import { toggleLayer } from '../src/app/projetos/(projetos)/geoportal/lib/layer-selection.ts'
 import regionManifest from '../src/app/projetos/(projetos)/geoportal/lib/region-manifest.json' with { type: 'json' }
+import { getVisibleRegions } from '../src/app/projetos/(projetos)/geoportal/lib/region-selector.ts'
 
 const layers = [
   { id: 'public', layerType: 'fill' },
@@ -44,4 +45,12 @@ test('the RM manifest preserves IDs, memberships, and map bounds', () => {
     assert.equal(region.bounds.length, 4)
     assert.ok(region.bounds[0] < region.bounds[2] && region.bounds[1] < region.bounds[3])
   }
+})
+
+test('region search finds municipalities and keeps the active RM first', () => {
+  const carbonifera = regionManifest.regions.find((region) => region.name === 'RM Carbonífera (SC)')
+  assert.ok(carbonifera)
+  assert.equal(getVisibleRegions('', carbonifera.id)[0].id, carbonifera.id)
+  assert.ok(getVisibleRegions('carbonifera', '').some((region) => region.id === carbonifera.id))
+  assert.ok(getVisibleRegions('criciuma', '').some((region) => region.id === carbonifera.id))
 })
