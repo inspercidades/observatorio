@@ -11,10 +11,12 @@ import { Switch } from "@/components/ui/switch"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { Eye, Info } from "lucide-react"
 import { useEffect, useState } from "react"
-import { cityLayersConfig } from "../lib/city-layers"
+import { getAvailableLayers } from "../lib/city-layers"
+import regionManifest from "../lib/region-manifest.json"
 
 interface CityLayersComparisonProps {
   selectedCity: string
+  selectedMunicipality?: string
   selectedLayer1: string | null
   selectedLayer2: string | null
   onLayer1Change: (layerId: string | null) => void
@@ -26,6 +28,7 @@ interface CityLayersComparisonProps {
 
 export function CityLayersComparison({ 
   selectedCity, 
+  selectedMunicipality,
   selectedLayer1, 
   selectedLayer2, 
   onLayer1Change, 
@@ -34,7 +37,8 @@ export function CityLayersComparison({
   layerOpacities = {}, 
   onOpacityChange 
 }: CityLayersComparisonProps) {
-  const cityLayers = cityLayersConfig[selectedCity] || []
+  const cityLayers = getAvailableLayers(selectedCity, selectedMunicipality)
+  const region = regionManifest.regions.find((item) => item.id === selectedCity)
   const [localOpacities, setLocalOpacities] = useState<Record<string, number>>({})
   const [attentionState, setAttentionState] = useState<{target: 'layer1' | 'layer2' | null, show: boolean}>({
     target: null,
@@ -169,7 +173,7 @@ export function CityLayersComparison({
   if (cityLayers.length === 0) {
     return (
       <div className="px-4 py-8 text-center">
-        <p className="text-gray-500 text-md">Nenhuma camada disponível para esta cidade</p>
+        <p className="text-gray-500 text-md">Nenhuma camada disponível para esta região</p>
       </div>
     )
   }
@@ -207,9 +211,13 @@ export function CityLayersComparison({
               {cityLayers.map((layer, index) => {
                 const isSelected = selectedLayer1 === layer.id
                 const isDisabled = isLayerDisabled(layer.id, true)
+                const category = layer.category ?? 'context'
+                const previousCategory = cityLayers[index - 1]?.category ?? 'context'
+                const municipality = region?.municipalities.find((item) => item.id === layer.municipalityId)
                 
                 return (
                   <div key={`layer1-${layer.id}`}>
+                    {(index === 0 || category !== previousCategory) && <h3 className="px-4 py-2 text-sm font-semibold text-gray-600">{{ modal: 'Divisão modal', commute: 'Tempo de deslocamento', context: 'Contexto' }[category]}</h3>}
                     <div className={`px-4 gap-4 flex items-center justify-between py-3 transition-colors ${
                       isSelected 
                         ? 'bg-blue-50 border-l-4 border-l-blue-500' 
@@ -226,7 +234,7 @@ export function CityLayersComparison({
                           style={{ color: '#000000' }}
                         >
                           <div className="flex items-center gap-2">
-                            <span className={`block truncate ${isSelected ? 'font-semibold' : 'font-medium'}`} style={{ color: '#000000' }}>{layer.name}</span>
+                            <span className={`block truncate ${isSelected ? 'font-semibold' : 'font-medium'}`} style={{ color: '#000000' }}>{municipality && !selectedMunicipality ? `${municipality.name} · ` : ''}{layer.name}</span>
                           </div>
                           {layer.description && (
                             <Tooltip>
@@ -296,9 +304,13 @@ export function CityLayersComparison({
               {cityLayers.map((layer, index) => {
                 const isSelected = selectedLayer2 === layer.id
                 const isDisabled = isLayerDisabled(layer.id, false)
+                const category = layer.category ?? 'context'
+                const previousCategory = cityLayers[index - 1]?.category ?? 'context'
+                const municipality = region?.municipalities.find((item) => item.id === layer.municipalityId)
                 
                 return (
                   <div key={`layer2-${layer.id}`}>
+                    {(index === 0 || category !== previousCategory) && <h3 className="px-4 py-2 text-sm font-semibold text-gray-600">{{ modal: 'Divisão modal', commute: 'Tempo de deslocamento', context: 'Contexto' }[category]}</h3>}
                     <div className={`px-4 gap-4 flex items-center justify-between py-3 transition-colors ${
                       isSelected 
                         ? 'bg-blue-50 border-l-4 border-l-blue-500' 
@@ -315,7 +327,7 @@ export function CityLayersComparison({
                           style={{ color: '#000000' }}
                         >
                           <div className="flex items-center gap-2">
-                            <span className={`block truncate ${isSelected ? 'font-semibold' : 'font-medium'}`} style={{ color: '#000000' }}>{layer.name}</span>
+                            <span className={`block truncate ${isSelected ? 'font-semibold' : 'font-medium'}`} style={{ color: '#000000' }}>{municipality && !selectedMunicipality ? `${municipality.name} · ` : ''}{layer.name}</span>
                           </div>
                           {layer.description && (
                             <Tooltip>

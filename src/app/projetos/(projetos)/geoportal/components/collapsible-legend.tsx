@@ -9,6 +9,7 @@ import { MapLegend } from "./map-legend"
 interface CollapsibleLegendProps {
   selectedLayers: string[]
   selectedCity: string
+  selectedMunicipality?: string
   cityLayersConfig: Record<string, Array<{
     id: string
     name: string
@@ -20,7 +21,7 @@ interface CollapsibleLegendProps {
   onThemeToggle: () => void
 }
 
-export function CollapsibleLegend({ selectedLayers, selectedCity, cityLayersConfig, mapTheme, onThemeToggle }: CollapsibleLegendProps) {
+export function CollapsibleLegend({ selectedLayers, selectedCity, selectedMunicipality, cityLayersConfig, mapTheme, onThemeToggle }: CollapsibleLegendProps) {
   const [isCollapsed, setIsCollapsed] = useState(true)
 
   const toggleCollapse = () => {
@@ -92,6 +93,7 @@ export function CollapsibleLegend({ selectedLayers, selectedCity, cityLayersConf
               <MapLegend
                 selectedLayers={selectedLayers}
                 selectedCity={selectedCity}
+                selectedMunicipality={selectedMunicipality}
                 cityLayersConfig={cityLayersConfig}
               />
             ) : (

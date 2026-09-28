@@ -6,102 +6,64 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import { Switch } from "@/components/ui/switch"
-import { useEffect, useState } from "react"
-
-const cities = [
-  { value: "São Paulo", label: "São Paulo" },
-  { value: "Rio de Janeiro", label: "Rio de Janeiro" },
-  { value: "Recife", label: "Recife" },
-  { value: "Belo Horizonte", label: "Belo Horizonte" },
-  { value: "Goiânia", label: "Goiânia" },
-  { value: "Fortaleza", label: "Fortaleza" },
-  { value: "Curitiba", label: "Curitiba" },
-  { value: "Niteroi", label: "Niterói" },
-  { value: "Santo André", label: "Santo André" },
-  { value: "Salvador", label: "Salvador" },
-  { value: "Campinas", label: "Campinas" },
-  { value: "Porto Alegre", label: "Porto Alegre" },
-]
+import { useState } from "react"
+import regionManifest from "../lib/region-manifest.json"
 
 interface CityAccordionProps {
-  selectedCity: string
-  onCityChange: (city: string) => void
+  selectedRegion: string
+  selectedMunicipality?: string
+  onSelectionChange: (regionId: string, municipalityId?: string) => void
 }
 
-export function CityAccordion({ selectedCity, onCityChange }: CityAccordionProps) {
-  const [accordionValue, setAccordionValue] = useState<string>(selectedCity ? "" : "city")
-
-  const handleCityToggle = (cityValue: string, checked: boolean) => {
-    if (checked) {
-      onCityChange(cityValue)
-      // Collapse the accordion when a city is selected
-      setAccordionValue("")
-    } else if (selectedCity === cityValue) {
-      onCityChange("")
-      // Open the accordion when deselecting
-      setAccordionValue("city")
-    }
+export function CityAccordion({ selectedRegion, selectedMunicipality, onSelectionChange }: CityAccordionProps) {
+  const [open, setOpen] = useState("")
+  const region = regionManifest.regions.find((item) => item.id === selectedRegion)
+  const municipality = region?.municipalities.find((item) => item.id === selectedMunicipality)
+  const select = (regionId: string, municipalityId?: string) => {
+    onSelectionChange(regionId, municipalityId)
+    setOpen("")
   }
 
-  // Sync accordion state when selectedCity changes externally (e.g., when switching modes)
-  useEffect(() => {
-    if (selectedCity) {
-      setAccordionValue("")
-    }
-  }, [selectedCity])
-
-  const selectedCityLabel = selectedCity 
-    ? cities.find(city => city.value === selectedCity)?.label || "Cidades"
-    : "Cidades"
-
   return (
-    <Accordion type="single" collapsible className="w-full" value={accordionValue} onValueChange={setAccordionValue}>
-      <AccordionItem value="city" className="border-none!">
+    <Accordion type="single" collapsible className="w-full" value={open} onValueChange={setOpen}>
+      <AccordionItem value="regions" className="border-none!">
         <AccordionTrigger className="text-left cursor-pointer px-4 font-semibold py-3 hover:no-underline text-base">
-          {selectedCityLabel}
+          {municipality ? `${region?.name} · ${municipality.name}` : region?.name ?? "RMs e RIDEs"}
         </AccordionTrigger>
-        {/* <div className="h-[0.5px] w-full bg-gray-300"/> */}
-        <AccordionContent className="pb-0">
-          <div className="space-y-0">
-            {cities.map((city, index) => {
-              const isSelected = selectedCity === city.value
-              
-              return (
-                <div key={`city-${city.value}`}>
-                  <div className={`px-4 gap-4 flex items-center justify-between py-3 transition-colors ${
-                    isSelected 
-                      ? 'bg-blue-50 border-l-4 border-l-blue-500' 
-                      : 'hover:bg-gray-50'
-                  }`}>
-                    <div className="flex-1 min-w-0">
-                      <label
-                        htmlFor={`city-${city.value}`}
-                        className="text-sm flex flex-row items-center gap-2 cursor-pointer text-black leading-relaxed"
-                        style={{ color: '#000000' }}
-                      >
-                        <span className={`block truncate ${isSelected ? 'font-semibold' : 'font-medium'}`} style={{ color: '#000000' }}>
-                          {city.label}
-                        </span>
-                      </label>
-                    </div>
-                    <Switch
-                      className="cursor-pointer flex-shrink-0 ml-2"
-                      id={`city-${city.value}`}
-                      checked={isSelected}
-                      onCheckedChange={(checked) => handleCityToggle(city.value, checked)}
-                    />
-                  </div>
-                  {index !== cities.length - 1 && (
-                    <div className="h-[0.5px] w-full bg-gray-300"/>
-                  )}
-                </div>
-              )
-            })}
-          </div>
+        <AccordionContent className="max-h-96 overflow-y-auto pb-0">
+          <button type="button" className="w-full px-4 py-3 text-left hover:bg-gray-50" onClick={() => onSelectionChange("")}>
+            Brasil
+          </button>
+          {regionManifest.regions.map((item) => (
+            <details key={item.id} className="border-b border-gray-200">
+              <summary className="cursor-pointer px-4 py-3 font-medium hover:bg-gray-50">
+                {item.name}
+              </summary>
+              <div className="pl-4">
+                <button
+                  type="button"
+                  className={`block w-full px-4 py-2 text-left text-sm hover:bg-gray-50 ${selectedRegion === item.id && !selectedMunicipality ? "bg-blue-50 font-semibold" : ""}`}
+                  aria-pressed={selectedRegion === item.id && !selectedMunicipality}
+                  onClick={() => select(item.id)}
+                >
+                  Toda a região
+                </button>
+                {item.municipalities.map((city) => (
+                  <button
+                    key={city.id}
+                    type="button"
+                    className={`block w-full px-4 py-2 text-left text-sm hover:bg-gray-50 ${selectedMunicipality === city.id ? "bg-blue-50 font-semibold" : ""}`}
+                    aria-pressed={selectedRegion === item.id && selectedMunicipality === city.id}
+                    onClick={() => select(item.id, city.id)}
+                  >
+                    {city.name}
+                  </button>
+                ))}
+              </div>
+            </details>
+          ))}
         </AccordionContent>
       </AccordionItem>
     </Accordion>
   )
 }
-

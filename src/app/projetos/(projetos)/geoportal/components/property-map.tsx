@@ -7,7 +7,9 @@ import "mapbox-gl/dist/mapbox-gl.css"
 import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 import { toast } from "sonner"
-import { cityLayersConfig } from "../lib/city-layers"
+import { cityLayersConfig, getAvailableLayers, type CityLayer } from "../lib/city-layers"
+import regionManifest from "../lib/region-manifest.json"
+import { getModalLayerStyle, getModalMetric, formatModalValue, type ModalMetric } from "../lib/modal-style"
 import { createStyledLayer } from "../lib/layer-styles"
 import { CityAccordion } from "./city-accordion"
 import { CityLayers } from "./city-layers"
@@ -82,36 +84,33 @@ function createDefaultLayerConfig(layerId: string, layerConfig: { layerType?: 'f
   } as mapboxgl.AnyLayer
 }
 
-const cityCoordinates: Record<string, [number, number]> = {
-  "Brasil": [-53.97005, -13.69895], // Center of Brazil
-  "São Paulo": [-46.6388, -23.5505],
-  "Rio de Janeiro": [-43.43852, -22.91464],
-  "Belo Horizonte": [-43.9388, -19.9167],
-  "Fortaleza": [-38.508, -3.777],
-  "Curitiba": [-49.293, -25.500],
-  "Niteroi": [-43.12084, -22.89277],
-  "Santo André": [-46.52735, -23.65600],
-  "Salvador": [-38.51101, -12.97162],
-  "Recife": [-34.87722, -8.05556],
-  "Porto Alegre": [-51.2177, -30.0326],
-  "Campinas": [-47.05887, -22.89959],
-  "Goiânia": [-49.333, -16.631]
+function createMapLayer(layer: CityLayer, regionId: string, municipalityId?: string): mapboxgl.AnyLayer {
+  if (!layer.sourceLayer) throw new Error(`Missing source layer for ${layer.id}`)
+
+  if (layer.metric) {
+    const region = regionManifest.regions.find((item) => item.id === regionId)
+    const municipalityCodes = municipalityId
+      ? [municipalityId]
+      : region?.municipalities.map((item) => item.id) ?? []
+    return {
+      ...getModalLayerStyle(layer.id, layer.metric),
+      filter: ['in', ['get', 'code_muni'], ['literal', municipalityCodes]],
+    } as mapboxgl.AnyLayer
+  }
+
+  const style = createStyledLayer(layer.id, layer.sourceLayer, layer.tilesetId ?? '')
+  return style
+    ? { ...style, layout: { ...style.layout, visibility: 'visible' } } as mapboxgl.AnyLayer
+    : createDefaultLayerConfig(layer.id, { layerType: layer.layerType, sourceLayer: layer.sourceLayer })
 }
 
-const cityZoomLevels: Record<string, number> = {
-  "Brasil": 3.5,
-  "São Paulo": 10.5,
-  "Rio de Janeiro": 10.5,
-  "Belo Horizonte": 11,
-  "Fortaleza": 11,
-  "Curitiba": 11,
-  "Niteroi": 12,
-  "Santo André": 12,
-  "Salvador": 11,
-  "Recife": 11.5,
-  "Porto Alegre": 11,
-  "Campinas": 11.5,
-  "Goiânia": 11
+const brazilCenter: [number, number] = [-53.97005, -13.69895]
+
+function getSelectionBounds(regionId: string, municipalityId?: string): mapboxgl.LngLatBoundsLike | undefined {
+  const region = regionManifest.regions.find((item) => item.id === regionId)
+  const bounds = region?.municipalities.find((item) => item.id === municipalityId)?.bounds ?? region?.bounds
+  if (!bounds) return undefined
+  return [[bounds[0], bounds[1]], [bounds[2], bounds[3]]]
 }
 
 export default function PropertyMap() {
@@ -125,7 +124,8 @@ export default function PropertyMap() {
   const afterMap = useRef<mapboxgl.Map | null>(null)
   const compare = useRef<MapboxCompareInstance | null>(null)
   const [zoom] = useState(10.5)
-  const [selectedCity, setSelectedCity] = useState("")
+  const [selectedRegion, setSelectedRegion] = useState("")
+  const [selectedMunicipality, setSelectedMunicipality] = useState<string | undefined>()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [selectedLayers, setSelectedLayers] = useState<string[]>([])
   const [isComparisonMode, setIsComparisonMode] = useState(false)
@@ -144,7 +144,7 @@ export default function PropertyMap() {
   const eventHandlersRef = useRef<Map<string, { mouseenter: () => void; mouseleave: () => void; mousemove: (e: mapboxgl.MapLayerMouseEvent) => void }>>(new Map())
   
   // Function to add hover handlers for a layer
-  const addHoverHandlers = (layerId: string, layerName: string, targetMap?: mapboxgl.Map) => {
+  const addHoverHandlers = (layerId: string, layerName: string, targetMap?: mapboxgl.Map, metric?: ModalMetric) => {
     const mapInstance = targetMap || map.current
     if (!mapInstance) return
 
@@ -176,6 +176,21 @@ export default function PropertyMap() {
       // Remove existing popup
       if (popupRef.current) {
         popupRef.current.remove()
+      }
+
+      if (metric) {
+        const popupContent = document.createElement('div')
+        popupContent.className = 'p-2 text-sm'
+        const areaName = document.createElement('strong')
+        areaName.textContent = String(feature.properties?.name_weighting || feature.properties?.name_muni || 'Área de ponderação')
+        const metricValue = document.createElement('p')
+        metricValue.textContent = `${getModalMetric(metric).label}: ${formatModalValue(metric, feature.properties?.[metric])}`
+        popupContent.append(areaName, metricValue)
+        popupRef.current = new mapboxgl.Popup({ closeButton: false, closeOnClick: false })
+          .setLngLat(coordinates)
+          .setDOMContent(popupContent)
+          .addTo(mapInstance)
+        return
       }
 
       // Check if there are any properties to display
@@ -350,60 +365,32 @@ export default function PropertyMap() {
     }
   }
 
-  // Helper function for recenter with pitch and bearing reset
-  const safeFlyToWithReset = (mapInstance: mapboxgl.Map, center: [number, number], zoom: number) => {
-    const executeFly = () => {
-      mapInstance.flyTo({
-        center,
-        zoom,
-        pitch: 0, // Reset to flat view
-        bearing: 0, // Reset to north-up orientation
-        duration: 2000,
-        essential: true
-      })
+  const focusMap = (mapInstance: mapboxgl.Map, regionId: string, municipalityId?: string) => {
+    const focus = () => {
+      const bounds = getSelectionBounds(regionId, municipalityId)
+      mapInstance.setPitch(0)
+      mapInstance.setBearing(0)
+      if (bounds) {
+        mapInstance.fitBounds(bounds, { padding: 50, maxZoom: 12, duration: 1000 })
+      } else {
+        mapInstance.flyTo({ center: brazilCenter, zoom: 3.5, duration: 1000 })
+      }
     }
 
-    // Check if map is loaded and style is loaded
-    if (mapInstance.loaded() && mapInstance.isStyleLoaded()) {
-      executeFly()
-    } else {
-      // Wait for the map to be ready
-      const onLoad = () => {
-        executeFly()
-        mapInstance.off('load', onLoad)
-        mapInstance.off('idle', onLoad)
-      }
-      
-      // Listen to both load and idle events
-      mapInstance.once('load', onLoad)
-      mapInstance.once('idle', onLoad)
-    }
+    if (mapInstance.loaded() && mapInstance.isStyleLoaded()) focus()
+    else mapInstance.once('load', focus)
   }
 
-  // Recenter map functionality
   const handleRecenter = () => {
-    const targetCity = selectedCity || "Brasil"
-    const center = cityCoordinates[targetCity]
-    const zoomLevel = cityZoomLevels[targetCity]
-
-    if (isComparisonMode) {
-      if (beforeMap.current) {
-        safeFlyToWithReset(beforeMap.current, center, zoomLevel)
-      }
-      if (afterMap.current) {
-        safeFlyToWithReset(afterMap.current, center, zoomLevel)
-      }
-    } else {
-      if (map.current) {
-        safeFlyToWithReset(map.current, center, zoomLevel)
-      }
-    }
+    const maps = isComparisonMode ? [beforeMap.current, afterMap.current] : [map.current]
+    maps.forEach((instance) => {
+      if (instance) focusMap(instance, selectedRegion, selectedMunicipality)
+    })
   }
 
   // Function to re-add all active layers to a map
   const reAddLayers = (mapInstance: mapboxgl.Map, layersToAdd: string[]) => {
-    const targetCity = selectedCity || "Brasil"
-    const cityLayers = cityLayersConfig[targetCity] || []
+    const cityLayers = getAvailableLayers(selectedRegion, selectedMunicipality)
 
     layersToAdd.forEach(layerId => {
       const layerConfig = cityLayers.find(l => l.id === layerId)
@@ -418,23 +405,7 @@ export default function PropertyMap() {
           }
 
           // Try to use custom style first, fallback to default
-          let layerConfigToAdd: mapboxgl.AnyLayer
-
-          const customStyle = createStyledLayer(layerId, layerConfig.sourceLayer, layerConfig.tilesetId)
-          if (customStyle) {
-            layerConfigToAdd = {
-              ...customStyle,
-              layout: {
-                ...customStyle.layout,
-                visibility: 'visible'
-              }
-            }
-          } else {
-            layerConfigToAdd = createDefaultLayerConfig(layerId, {
-              layerType: layerConfig.layerType,
-              sourceLayer: layerConfig.sourceLayer
-            })
-          }
+          const layerConfigToAdd = createMapLayer(layerConfig, selectedRegion, selectedMunicipality)
 
           // Add layer
           if (!mapInstance.getLayer(layerId)) {
@@ -442,7 +413,8 @@ export default function PropertyMap() {
           }
 
           // Re-add hover handlers
-          addHoverHandlers(layerId, layerConfig.name, mapInstance)
+          removeHoverHandlers(layerId, mapInstance)
+          addHoverHandlers(layerId, layerConfig.name, mapInstance, layerConfig.metric)
 
           // Restore opacity
           const opacity = layerOpacities[layerId] ?? 80
@@ -504,19 +476,16 @@ export default function PropertyMap() {
   useEffect(() => {
     if (!mapContainer.current || isComparisonMode) return
 
-    const initialCity = selectedCity || "Brasil"
-    const initialCenter = cityCoordinates[initialCity]
-    const initialZoom = cityZoomLevels[initialCity]
-
     const mapStyle = mapTheme === 'dark' ? "mapbox://styles/mapbox/dark-v11" : "mapbox://styles/observatorio-nacional/cmhrp434x002301s23n36fphx"
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: mapStyle,
-      center: initialCenter,
-      zoom: initialZoom,
+      center: brazilCenter,
+      zoom: 3.5,
     })
     map.current.on('load', () => {
+      if (map.current && selectedRegion) focusMap(map.current, selectedRegion, selectedMunicipality)
       setMapLoaded(true)
     })
 
@@ -538,24 +507,20 @@ export default function PropertyMap() {
     if (afterMap.current) afterMap.current.remove()
     if (compare.current) compare.current.remove()
 
-    const initialCity = selectedCity || "Brasil"
-    const initialCenter = cityCoordinates[initialCity]
-    const initialZoom = cityZoomLevels[initialCity]
-
     const mapStyle = mapTheme === 'dark' ? "mapbox://styles/mapbox/dark-v11" : "mapbox://styles/observatorio-nacional/cmhrp434x002301s23n36fphx"
 
     beforeMap.current = new mapboxgl.Map({
       container: beforeMapContainer.current,
       style: mapStyle,
-      center: initialCenter,
-      zoom: initialZoom,
+      center: brazilCenter,
+      zoom: 3.5,
     })
 
     afterMap.current = new mapboxgl.Map({
       container: afterMapContainer.current,
       style: mapStyle,
-      center: initialCenter,
-      zoom: initialZoom,
+      center: brazilCenter,
+      zoom: 3.5,
     })
 
     // Initialize comparison with dynamic import
@@ -585,6 +550,8 @@ export default function PropertyMap() {
     const onMapLoad = () => {
       mapsLoaded++
       if (mapsLoaded === 2) {
+        if (beforeMap.current && selectedRegion) focusMap(beforeMap.current, selectedRegion, selectedMunicipality)
+        if (afterMap.current && selectedRegion) focusMap(afterMap.current, selectedRegion, selectedMunicipality)
         setMapLoaded(true)
       }
     }
@@ -649,8 +616,7 @@ export default function PropertyMap() {
 
     // Add layer1 if selected
     if (selectedLayer1) {
-      const targetCity = selectedCity || "Brasil"
-      const cityLayers = cityLayersConfig[targetCity] || []
+      const cityLayers = getAvailableLayers(selectedRegion, selectedMunicipality)
       const layerConfig = cityLayers.find(l => l.id === selectedLayer1)
 
       if (layerConfig?.tilesetId && layerConfig?.sourceLayer && !beforeMap.current.getLayer(selectedLayer1)) {
@@ -661,8 +627,7 @@ export default function PropertyMap() {
 
     // Add layer2 if selected
     if (selectedLayer2) {
-      const targetCity = selectedCity || "Brasil"
-      const cityLayers = cityLayersConfig[targetCity] || []
+      const cityLayers = getAvailableLayers(selectedRegion, selectedMunicipality)
       const layerConfig = cityLayers.find(l => l.id === selectedLayer2)
 
       if (layerConfig?.tilesetId && layerConfig?.sourceLayer && !afterMap.current.getLayer(selectedLayer2)) {
@@ -679,8 +644,7 @@ export default function PropertyMap() {
 
     // Add all selected layers
     if (selectedLayers.length > 0) {
-      const targetCity = selectedCity || "Brasil"
-      const cityLayers = cityLayersConfig[targetCity] || []
+      const cityLayers = getAvailableLayers(selectedRegion, selectedMunicipality)
 
       selectedLayers.forEach(layerId => {
         const layerConfig = cityLayers.find(l => l.id === layerId)
@@ -695,28 +659,12 @@ export default function PropertyMap() {
             })
 
             // Try to use custom style first, fallback to default
-            let layerConfigToAdd: mapboxgl.AnyLayer
-
-            const customStyle = createStyledLayer(layerId, layerConfig.sourceLayer, layerConfig.tilesetId)
-            if (customStyle) {
-              layerConfigToAdd = {
-                ...customStyle,
-                layout: {
-                  ...customStyle.layout,
-                  visibility: 'visible'
-                }
-              }
-            } else {
-              layerConfigToAdd = createDefaultLayerConfig(layerId, {
-                layerType: layerConfig.layerType,
-                sourceLayer: layerConfig.sourceLayer
-              })
-            }
+            const layerConfigToAdd = createMapLayer(layerConfig, selectedRegion, selectedMunicipality)
 
             map.current!.addLayer(layerConfigToAdd)
 
             // Add hover functionality
-            addHoverHandlers(layerId, layerConfig.name, map.current!)
+            addHoverHandlers(layerId, layerConfig.name, map.current!, layerConfig.metric)
 
             // Set default opacity
             const opacity = layerOpacities[layerId] ?? 80
@@ -734,66 +682,19 @@ export default function PropertyMap() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isComparisonMode, mapLoaded])
 
-  // Helper function to safely execute flyTo when map is ready
-  const safeFlyTo = (mapInstance: mapboxgl.Map, center: [number, number], zoom: number) => {
-    const executeFly = () => {
-      mapInstance.flyTo({
-        center,
-        zoom,
-        duration: 2000,
-        essential: true
-      })
-    }
-
-    // Check if map is loaded and style is loaded
-    if (mapInstance.loaded() && mapInstance.isStyleLoaded()) {
-      executeFly()
-    } else {
-      // Wait for the map to be ready
-      const onLoad = () => {
-        executeFly()
-        mapInstance.off('load', onLoad)
-        mapInstance.off('idle', onLoad)
-      }
-      
-      // Listen to both load and idle events
-      mapInstance.once('load', onLoad)
-      mapInstance.once('idle', onLoad)
-    }
-  }
-
-  const handleCityChange = (city: string) => {
-    // Reset selected layers when changing city
+  const handleSelectionChange = (regionId: string, municipalityId?: string) => {
+    clearAllLayers()
     setSelectedLayers([])
     setSelectedLayer1(null)
     setSelectedLayer2(null)
-    // Reset layer opacities when changing city
     setLayerOpacities({})
+    setSelectedRegion(regionId)
+    setSelectedMunicipality(municipalityId)
 
-    // Clear all layers when changing city
-    clearAllLayers()
-
-    // Determine target location - Brasil if no city selected
-    const targetCity = city || "Brasil"
-    const targetCenter = cityCoordinates[targetCity]
-    const targetZoom = cityZoomLevels[targetCity]
-
-    // Fly to new location on the appropriate map(s)
-    if (isComparisonMode) {
-      if (beforeMap.current) {
-        safeFlyTo(beforeMap.current, targetCenter, targetZoom)
-      }
-      if (afterMap.current) {
-        safeFlyTo(afterMap.current, targetCenter, targetZoom)
-      }
-    } else {
-      if (map.current) {
-        safeFlyTo(map.current, targetCenter, targetZoom)
-      }
-    }
-
-    // Update state
-    setSelectedCity(city)
+    const maps = isComparisonMode ? [beforeMap.current, afterMap.current] : [map.current]
+    maps.forEach((instance) => {
+      if (instance) focusMap(instance, regionId, municipalityId)
+    })
   }
 
   const toggleMenu = () => {
@@ -837,8 +738,7 @@ export default function PropertyMap() {
   }
 
   const clearAllLayers = () => {
-    const targetCity = selectedCity || "Brasil"
-    const cityLayers = cityLayersConfig[targetCity] || []
+    const cityLayers = getAvailableLayers(selectedRegion, selectedMunicipality)
     
     // Clear single map layers
     if (map.current && mapLoaded) {
@@ -921,8 +821,7 @@ export default function PropertyMap() {
   const handleComparisonLayerChange = (layerId: string, isLayer1: boolean) => {
     if (!beforeMap.current || !afterMap.current || !mapLoaded) return
     
-    const targetCity = selectedCity || "Brasil"
-    const cityLayers = cityLayersConfig[targetCity] || []
+    const cityLayers = getAvailableLayers(selectedRegion, selectedMunicipality)
     const layerConfig = cityLayers.find(l => l.id === layerId)
     
     if (layerConfig?.tilesetId && layerConfig?.sourceLayer) {
@@ -942,32 +841,12 @@ export default function PropertyMap() {
         })
         
         // Try to use custom style first, fallback to default
-        let layerConfigToAdd: mapboxgl.AnyLayer
+        const layerConfigToAdd = createMapLayer(layerConfig, selectedRegion, selectedMunicipality)
 
-        // Always try to get custom style first
-        const customStyle = createStyledLayer(layerId, layerConfig.sourceLayer, layerConfig.tilesetId)
-        if (customStyle) {
-          layerConfigToAdd = {
-            ...customStyle,
-            layout: {
-              ...customStyle.layout,
-              visibility: 'visible'
-            }
-          }
-          console.log(`Using custom style for comparison layer: ${layerId}`)
-        } else {
-          // Fallback to default style if custom style not found
-          layerConfigToAdd = createDefaultLayerConfig(layerId, {
-            layerType: layerConfig.layerType,
-            sourceLayer: layerConfig.sourceLayer
-          })
-          console.log(`Custom style not found, using default for comparison layer: ${layerId}`)
-        }
-        
         targetMap!.addLayer(layerConfigToAdd)
         
         // Add hover functionality for this layer
-        addHoverHandlers(layerId, layerConfig.name, targetMap)
+        addHoverHandlers(layerId, layerConfig.name, targetMap, layerConfig.metric)
         
         // Set default opacity for the layer
         const defaultOpacity = 80
@@ -989,8 +868,7 @@ export default function PropertyMap() {
   const removeComparisonLayer = (layerId: string) => {
     if (!beforeMap.current || !afterMap.current || !mapLoaded) return
 
-    const targetCity = selectedCity || "Brasil"
-    const cityLayers = cityLayersConfig[targetCity] || []
+    const cityLayers = getAvailableLayers(selectedRegion, selectedMunicipality)
     const layerConfig = cityLayers.find(l => l.id === layerId)
     
     if (layerConfig?.tilesetId) {
@@ -1031,10 +909,9 @@ export default function PropertyMap() {
   const handleLayersChange = (layers: string[]) => {
     if (!map.current || !mapLoaded) return
     
-    const targetCity = selectedCity || "Brasil"
-    console.log('Handling layers change:', { previous: selectedLayers, new: layers, city: targetCity })
+    console.log('Handling layers change:', { previous: selectedLayers, new: layers, region: selectedRegion })
     
-    const cityLayers = cityLayersConfig[targetCity] || []
+    const cityLayers = getAvailableLayers(selectedRegion, selectedMunicipality)
     const previousLayers = selectedLayers
     const newLayers = layers
     
@@ -1088,32 +965,12 @@ export default function PropertyMap() {
             })
             
             // Try to use custom style first, fallback to default
-            let layerConfigToAdd: mapboxgl.AnyLayer
+            const layerConfigToAdd = createMapLayer(layerConfig, selectedRegion, selectedMunicipality)
 
-            // Always try to get custom style first
-            const customStyle = createStyledLayer(layerId, layerConfig.sourceLayer, layerConfig.tilesetId)
-            if (customStyle) {
-              layerConfigToAdd = {
-                ...customStyle,
-                layout: {
-                  ...customStyle.layout,
-                  visibility: 'visible'
-                }
-              }
-              console.log(`Using custom style for layer: ${layerId}`)
-            } else {
-              // Fallback to default style if custom style not found
-              layerConfigToAdd = createDefaultLayerConfig(layerId, {
-                layerType: layerConfig.layerType,
-                sourceLayer: layerConfig.sourceLayer
-              })
-              console.log(`Custom style not found, using default for layer: ${layerId}`)
-            }
-            
             map.current!.addLayer(layerConfigToAdd)
             
             // Add hover functionality for this layer
-            addHoverHandlers(layerId, layerConfig.name, map.current!)
+            addHoverHandlers(layerId, layerConfig.name, map.current!, layerConfig.metric)
             
             // Set default opacity for the layer
             const defaultOpacity = 80
@@ -1179,22 +1036,23 @@ export default function PropertyMap() {
       >
         <div className="p-4 border-b md:hidden">
           <button className="z-20 pb-4 flex pt-2 hover:cursor-pointer text-sm mr-2 bg-transparent p-0 flex-row items-center gap-2" onClick={() => router.back()}><ChevronLeftIcon className="w-5 h-5" /> Voltar</button>
-          <h2 className="text-lg font-semibold">Selecione a cidade</h2>
+          <h2 className="text-lg font-semibold">Selecione a região</h2>
         </div>
 
         <div className="flex flex-col h-full">
           <div className="md:px-4 md:pt-4">
           <button className="z-20 pb-4 hidden md:flex pt-2 hover:cursor-pointer text-sm mr-2 bg-transparent p-0 flex-row items-center gap-2" onClick={() => router.back()}><ChevronLeftIcon className="w-5 h-5" /> Voltar</button>
-            <h2 className="text-xl font-bold text-gray-900 hidden md:block">Selecione a cidade</h2>
+            <h2 className="text-xl font-bold text-gray-900 hidden md:block">Selecione a região</h2>
           </div>
 
           <div className="flex-1 overflow-y-auto!">
             <div className="mb-4">
-              <CityAccordion selectedCity={selectedCity} onCityChange={handleCityChange} />
+              <CityAccordion selectedRegion={selectedRegion} selectedMunicipality={selectedMunicipality} onSelectionChange={handleSelectionChange} />
             </div>
             {isComparisonMode ? (
               <CityLayersComparison
-                selectedCity={selectedCity || "Brasil"}
+                selectedCity={selectedRegion || "Brasil"}
+                selectedMunicipality={selectedMunicipality}
                 selectedLayer1={selectedLayer1}
                 selectedLayer2={selectedLayer2}
                 onLayer1Change={handleLayer1Change}
@@ -1205,7 +1063,8 @@ export default function PropertyMap() {
               />
             ) : (
               <CityLayers
-                selectedCity={selectedCity || "Brasil"}
+                selectedCity={selectedRegion || "Brasil"}
+                selectedMunicipality={selectedMunicipality}
                 selectedLayers={selectedLayers}
                 onLayersChange={handleLayersChange}
                 layerLoadingStates={layerLoadingStates}
@@ -1220,7 +1079,8 @@ export default function PropertyMap() {
        {/* legends */}
        <CollapsibleLegend
          selectedLayers={isComparisonMode ? [selectedLayer1, selectedLayer2].filter(Boolean) as string[] : selectedLayers}
-         selectedCity={selectedCity || "Brasil"}
+         selectedCity={selectedRegion || "Brasil"}
+         selectedMunicipality={selectedMunicipality}
          cityLayersConfig={cityLayersConfig}
          mapTheme={mapTheme}
          onThemeToggle={handleThemeToggle}

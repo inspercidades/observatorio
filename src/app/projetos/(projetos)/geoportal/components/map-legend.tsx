@@ -3,17 +3,21 @@
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { getLayerLegend, LegendItem } from "../lib/layer-styles"
+import { getAvailableLayers } from "../lib/city-layers"
+import { getModalLegend, type ModalMetric } from "../lib/modal-style"
 
 interface LayerLegendProps {
   layerId: string
   layerName: string
   layerType: 'fill' | 'line' | 'circle' | 'symbol'
   sourceLayer?: string
+  metric?: ModalMetric
   description?: string
 }
 
 // Get legend configuration, preferring layer-styles.ts data
-const getLegendConfig = (layerId: string, layerType: string, sourceLayer?: string): LegendItem[] => {
+const getLegendConfig = (layerId: string, layerType: string, sourceLayer?: string, metric?: ModalMetric): LegendItem[] => {
+  if (metric) return getModalLegend(metric)
   // First, try to get legend from layer-styles.ts using sourceLayer
   if (sourceLayer) {
     const autoLegend = getLayerLegend(sourceLayer)
@@ -45,8 +49,8 @@ const getLegendConfig = (layerId: string, layerType: string, sourceLayer?: strin
   ]
 }
 
-export function LayerLegend({ layerId, layerName, layerType, sourceLayer, description }: LayerLegendProps) {
-  const legendItems = getLegendConfig(layerId, layerType, sourceLayer)
+export function LayerLegend({ layerId, layerName, layerType, sourceLayer, metric, description }: LayerLegendProps) {
+  const legendItems = getLegendConfig(layerId, layerType, sourceLayer, metric)
 
   return (
     <Card className="mb-3 border-none shadow-none">
@@ -89,17 +93,19 @@ export function LayerLegend({ layerId, layerName, layerType, sourceLayer, descri
 interface MapLegendProps {
   selectedLayers: string[]
   selectedCity: string
+  selectedMunicipality?: string
   cityLayersConfig: Record<string, Array<{
     id: string
     name: string
     description?: string
     layerType?: 'fill' | 'line' | 'circle' | 'symbol'
     sourceLayer?: string
+    metric?: ModalMetric
   }>>
 }
 
-export function MapLegend({ selectedLayers, selectedCity, cityLayersConfig }: MapLegendProps) {
-  const cityLayers = cityLayersConfig[selectedCity] || []
+export function MapLegend({ selectedLayers, selectedCity, selectedMunicipality }: MapLegendProps) {
+  const cityLayers = getAvailableLayers(selectedCity, selectedMunicipality)
   const enabledLayers = cityLayers.filter(layer =>
     selectedLayers.includes(layer.id) && layer.layerType
   )
@@ -117,6 +123,7 @@ export function MapLegend({ selectedLayers, selectedCity, cityLayersConfig }: Ma
           layerName={layer.name}
           layerType={layer.layerType || 'fill'}
           sourceLayer={layer.sourceLayer}
+          metric={layer.metric}
           description={layer.description}
         />
       ))}

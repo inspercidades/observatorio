@@ -11,10 +11,13 @@ import { Switch } from "@/components/ui/switch"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { Eye, Info } from "lucide-react"
 import { useEffect, useState } from "react"
-import { cityLayersConfig } from "../lib/city-layers"
+import { getAvailableLayers } from "../lib/city-layers"
+import { toggleLayer } from "../lib/layer-selection"
+import regionManifest from "../lib/region-manifest.json"
 
 interface CityLayersProps {
   selectedCity: string
+  selectedMunicipality?: string
   selectedLayers: string[]
   onLayersChange: (layers: string[]) => void
   layerLoadingStates?: Record<string, 'loading' | 'loaded' | 'error'>
@@ -22,8 +25,10 @@ interface CityLayersProps {
   onOpacityChange?: (layerId: string, opacity: number) => void
 }
 
-export function CityLayers({ selectedCity, selectedLayers, onLayersChange, layerLoadingStates = {}, layerOpacities = {}, onOpacityChange }: CityLayersProps) {
-  const cityLayers = cityLayersConfig[selectedCity] || []
+export function CityLayers({ selectedCity, selectedMunicipality, selectedLayers, onLayersChange, layerLoadingStates = {}, layerOpacities = {}, onOpacityChange }: CityLayersProps) {
+  const cityLayers = getAvailableLayers(selectedCity, selectedMunicipality)
+  const region = regionManifest.regions.find((item) => item.id === selectedCity)
+  const activeOverlays = selectedLayers.filter((id) => cityLayers.find((layer) => layer.id === id)?.layerType !== 'fill').length
   const [localOpacities, setLocalOpacities] = useState<Record<string, number>>({})
   const [accordionValue, setAccordionValue] = useState<string>("layers")
 
@@ -37,7 +42,9 @@ export function CityLayers({ selectedCity, selectedLayers, onLayersChange, layer
 
   const handleLayerToggle = (layerId: string, checked: boolean) => {
     if (checked) {
-      onLayersChange([...selectedLayers, layerId])
+      const next = toggleLayer(selectedLayers, layerId, cityLayers)
+      if (!next.includes(layerId)) return
+      onLayersChange(next)
       // Set default opacity when layer is enabled
       const defaultOpacity = 80
       if (!(layerId in layerOpacities) && !(layerId in localOpacities)) {
@@ -45,7 +52,7 @@ export function CityLayers({ selectedCity, selectedLayers, onLayersChange, layer
         onOpacityChange?.(layerId, defaultOpacity)
       }
     } else {
-      onLayersChange(selectedLayers.filter(id => id !== layerId))
+      onLayersChange(toggleLayer(selectedLayers, layerId, cityLayers))
       // Clean up local opacity when layer is disabled
       setLocalOpacities(prev => {
         const newState = { ...prev }
@@ -89,8 +96,16 @@ export function CityLayers({ selectedCity, selectedLayers, onLayersChange, layer
               {cityLayers.map((layer, index) => {
                 const isSelected = selectedLayers.includes(layer.id)
                 
+                const category = layer.category ?? 'context'
+                const previousCategory = cityLayers[index - 1]?.category ?? 'context'
+                const municipality = region?.municipalities.find((item) => item.id === layer.municipalityId)
                 return (
                   <div key={layer.id}>
+                    {(index === 0 || category !== previousCategory) && (
+                      <h3 className="px-4 py-2 text-sm font-semibold text-gray-600">
+                        {{ modal: 'Divisão modal', commute: 'Tempo de deslocamento', context: 'Contexto' }[category]}
+                      </h3>
+                    )}
                     <div className={`px-4 gap-4 flex items-center justify-between py-3 transition-colors ${isSelected ? 'bg-gray-50 border-l-4 border-l-gray-500' : 'hover:bg-gray-50'}`}>
                       <div className="flex-1 min-w-0 flex flex-col gap-2">
                         <label
@@ -98,7 +113,7 @@ export function CityLayers({ selectedCity, selectedLayers, onLayersChange, layer
                           className="text-sm flex flex-row items-center gap-2 cursor-pointer text-black leading-relaxed"
                         >
                           <div className="flex items-center gap-2">
-                            <span className={`block truncate ${isSelected ? 'font-semibold' : 'font-medium'}`}>{layer.name}</span>
+                            <span className={`block truncate ${isSelected ? 'font-semibold' : 'font-medium'}`}>{municipality && !selectedMunicipality ? `${municipality.name} · ` : ''}{layer.name}</span>
                           </div>
                           {layer.description && (
                             <Tooltip>
@@ -144,7 +159,7 @@ export function CityLayers({ selectedCity, selectedLayers, onLayersChange, layer
                         id={`layer-${layer.id}`}
                         checked={isSelected}
                         onCheckedChange={(checked) => handleLayerToggle(layer.id, checked)}
-                        disabled={layerLoadingStates[layer.id] === 'loading'}
+                        disabled={layerLoadingStates[layer.id] === 'loading' || (!isSelected && layer.layerType !== 'fill' && activeOverlays >= 2)}
                       />
                     </div>
                     {index !== cityLayers.length - 1 && (

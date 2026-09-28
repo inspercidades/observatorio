@@ -1,3 +1,8 @@
+import regionManifest from "./region-manifest.json"
+import modalMap from "./modal-map.json"
+
+export type ModalMetric = keyof typeof modalMap.metrics
+
 export interface CityLayer {
   id: string
   name: string
@@ -5,16 +10,21 @@ export interface CityLayer {
   tilesetId?: string
   sourceLayer?: string
   layerType?: 'fill' | 'line' | 'circle' | 'symbol'
-  hasCustomStyle?: boolean // Indicates if this layer has a custom style defined in layer-styles.ts
+  hasCustomStyle?: boolean
+  category?: 'modal' | 'commute' | 'context'
+  municipalityId?: string
+  metric?: ModalMetric
+  demographicCut?: string
 }
 
 export interface CityLayersConfig {
-  [cityName: string]: CityLayer[]
+  [regionId: string]: CityLayer[]
 }
 
-export const cityLayersConfig: CityLayersConfig = {
+const contextLayers: CityLayersConfig = {
   "Brasil": [
     {
+      category: "context",
       id: "tarifa_zero",
       name: "Tarifa Zero",
       description: "Municípios com tarifa zero integral, parcial por dias específicos (domingos/feriados) ou parcial por área geográfica (linhas específicas). Dados atualizados até outubro de 2025. Total de 134 municípios com tarifa zero integral e 8 com tarifa zero parcial.",
@@ -22,12 +32,14 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "insper_tarifa_zero_municipios-dwws9i",
       layerType: "circle",
       hasCustomStyle: true
-    }
+    },
   ],
-  "Rio de Janeiro": [
+  "04801": [
     {
+      municipalityId: "3304557",
+      category: "context",
       id: "renda-rio-4ks1k8",
-      name: "Renda Média",
+      name: "Renda Média (2010)",
       description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
       tilesetId: "observatorio-nacional.3pcgkauc",
       sourceLayer: "renda_rio-4ks1k8",
@@ -35,15 +47,19 @@ export const cityLayersConfig: CityLayersConfig = {
       hasCustomStyle: true
     },
     {
+      municipalityId: "3304557",
+      category: "context",
       id: "rio_rotas_onibus",
       name: "Rotas de Ônibus",
       description: "Traçado das linhas de ônibus municipais.",
       tilesetId: "observatorio-nacional.28tgojsu",
       sourceLayer: "rio_rotas_onibus",
-      layerType: "fill",
+      layerType: "line",
       hasCustomStyle: true
     },
     {
+      municipalityId: "3304557",
+      category: "context",
       id: "heatmap-bilhetagem",
       name: "Heatmap Embarques",
       description: "Contagem de embarques em grid 500x500m (agosto/2023).",
@@ -53,6 +69,8 @@ export const cityLayersConfig: CityLayersConfig = {
       hasCustomStyle: true
     },
     {
+      municipalityId: "3304557",
+      category: "context",
       id: "populacao_rio-19sjpd",
       name: "Densidade Populacional",
       description: "Contagem da população em grid 500x500m (2022).",
@@ -60,136 +78,11 @@ export const cityLayersConfig: CityLayersConfig = {
       sourceLayer: "populacao_rio-19sjpd",
       layerType: "fill",
       hasCustomStyle: true
-    },
-  ],
-  "Recife": [
-    {
-      id: "populacao-rec-08mi0e",
-      name: "Densidade Populacional",
-      description: "Contagem da população em grid 500x500m (2022).",
-      tilesetId: "observatorio-nacional.5f7qyfuo",
-      sourceLayer: "populacao_rec-08mi0e",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    {
-      id: "renda-rec-bcpy1l",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.8kla8qks",
-      sourceLayer: "renda_rec-bcpy1l",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    {
-      id: "rec_ciclovia_ciclomapas",
-      name: "Ciclovia",
-      description: "Traçado das ciclovias municipais.",
-      tilesetId: "observatorio-nacional.a4t3w6aw",
-      sourceLayer: "rec_ciclovia_ciclomapas",
-      layerType: "line",
-      hasCustomStyle: true
-    },
-  ],
-  "Belo Horizonte": [
-    {
-      id: "populacao-a5w87s",
-      name: "Densidade Populacional",
-      description: "Contagem da população em grid 500x500m (2022).",
-      tilesetId: "observatorio-nacional.a9leemjp",
-      sourceLayer: "populacao-a5w87s",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    {
-      id: "renda-42uz5h",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.64v29dp1",
-      sourceLayer: "renda-42uz5h",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    {
-      id: "heatmap_embarques-b8mehl",
-      name: "Heatmap Embarques",
-      description: "Contagem de embarques em grid 500x500m (agosto/2023).",
-      tilesetId: "observatorio-nacional.be236ew7",
-      sourceLayer: "heatmap_embarques-b8mehl",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    {
-      id: "bhe_ciclovia",
-      name: "Ciclovia",
-      description: "Traçado das ciclovias municipais.",
-      tilesetId: "observatorio-nacional.4b3xv5u1",
-      sourceLayer: "bhe_ciclovia",
-      layerType: "line",
-      hasCustomStyle: true
-    },
-    {
-      id: "bhe_rotas_onibus", name: "Rotas de Ônibus",
-      description: "Traçado das linhas de ônibus municipais.",
-      tilesetId: "observatorio-nacional.6tx22262",
-      sourceLayer: "bhe_rotas_onibus",
-      layerType: "line",
-      hasCustomStyle: true
-    },
-  ],
-  "Goiânia": [
-    {
-      id: "populacao_goi-5r0vfu",
-      name: "Densidade Populacional",
-      description: "Contagem da população em grid 500x500m (2022).",
-      tilesetId: "observatorio-nacional.0359v92t",
-      sourceLayer: "populacao_goi-5r0vfu",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    {
-      id: "renda_goi-8q2sqk",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.0gzs6kdr",
-      sourceLayer: "renda_goi-8q2sqk",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-  ],
-  "Fortaleza": [
-    {
-      id: "frt_income_hh-26qfm4",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.d0fxoy3e",
-      sourceLayer: "frt_income_hh-26qfm4",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    {
-      id: "frt_pop-9wsvgo",
-      name: "Densidade Populacional",
-      description: "Contagem da população em grid 500x500m (2022).",
-      tilesetId: "observatorio-nacional.8p48v3df",
-      sourceLayer: "frt_pop-9wsvgo",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    {
-      id: "frt_ciclovia_ciclomapas",
-      name: "Ciclovia",
-      description: "Traçado das ciclovias municipais.",
-      tilesetId: "observatorio-nacional.6yi62vyd",
-      sourceLayer: "frt_ciclovia_ciclomapas",
-      layerType: "line",
-      hasCustomStyle: true
-    },
-  ],
-  "Niteroi": [
-    {
+    },    {
+      municipalityId: "3303302",
+      category: "context",
       id: "renda-987gzt",
-      name: "Renda Média",
+      name: "Renda Média (2010)",
       description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
       tilesetId: "observatorio-nacional.5gkcci9a",
       sourceLayer: "renda-987gzt",
@@ -197,6 +90,8 @@ export const cityLayersConfig: CityLayersConfig = {
       hasCustomStyle: true
     },
     {
+      municipalityId: "3303302",
+      category: "context",
       id: "populacao_nit-3oog1f",
       name: "Densidade Populacional",
       description: "Contagem da população em grid 500x500m (2022).",
@@ -206,6 +101,8 @@ export const cityLayersConfig: CityLayersConfig = {
       hasCustomStyle: true
     },
     {
+      municipalityId: "3303302",
+      category: "context",
       id: "heatmap-2eyldb",
       name: "Heatmap Embarques",
       description: "Contagem de embarques em grid 500x500m (agosto/2023).",
@@ -215,6 +112,8 @@ export const cityLayersConfig: CityLayersConfig = {
       hasCustomStyle: true
     },
     {
+      municipalityId: "3303302",
+      category: "context",
       id: "nit_rotas_onibus",
       name: "Rotas de Ônibus",
       description: "Traçado das linhas de ônibus municipais.",
@@ -224,8 +123,160 @@ export const cityLayersConfig: CityLayersConfig = {
       hasCustomStyle: true
     },
   ],
-  "Santo André": [
+  "03001": [
     {
+      municipalityId: "2611606",
+      category: "context",
+      id: "populacao-rec-08mi0e",
+      name: "Densidade Populacional",
+      description: "Contagem da população em grid 500x500m (2022).",
+      tilesetId: "observatorio-nacional.5f7qyfuo",
+      sourceLayer: "populacao_rec-08mi0e",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "2611606",
+      category: "context",
+      id: "renda-rec-bcpy1l",
+      name: "Renda Média (2010)",
+      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
+      tilesetId: "observatorio-nacional.8kla8qks",
+      sourceLayer: "renda_rec-bcpy1l",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "2611606",
+      category: "context",
+      id: "rec_ciclovia_ciclomapas",
+      name: "Ciclovia",
+      description: "Traçado das ciclovias municipais.",
+      tilesetId: "observatorio-nacional.a4t3w6aw",
+      sourceLayer: "rec_ciclovia_ciclomapas",
+      layerType: "line",
+      hasCustomStyle: true
+    },
+  ],
+  "04501": [
+    {
+      municipalityId: "3106200",
+      category: "context",
+      id: "populacao-a5w87s",
+      name: "Densidade Populacional",
+      description: "Contagem da população em grid 500x500m (2022).",
+      tilesetId: "observatorio-nacional.a9leemjp",
+      sourceLayer: "populacao-a5w87s",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "3106200",
+      category: "context",
+      id: "renda-42uz5h",
+      name: "Renda Média (2010)",
+      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
+      tilesetId: "observatorio-nacional.64v29dp1",
+      sourceLayer: "renda-42uz5h",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "3106200",
+      category: "context",
+      id: "heatmap_embarques-b8mehl",
+      name: "Heatmap Embarques",
+      description: "Contagem de embarques em grid 500x500m (agosto/2023).",
+      tilesetId: "observatorio-nacional.be236ew7",
+      sourceLayer: "heatmap_embarques-b8mehl",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "3106200",
+      category: "context",
+      id: "bhe_ciclovia",
+      name: "Ciclovia",
+      description: "Traçado das ciclovias municipais.",
+      tilesetId: "observatorio-nacional.4b3xv5u1",
+      sourceLayer: "bhe_ciclovia",
+      layerType: "line",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "3106200",
+      category: "context",
+      id: "bhe_rotas_onibus", name: "Rotas de Ônibus",
+      description: "Traçado das linhas de ônibus municipais.",
+      tilesetId: "observatorio-nacional.6tx22262",
+      sourceLayer: "bhe_rotas_onibus",
+      layerType: "line",
+      hasCustomStyle: true
+    },
+  ],
+  "07701": [
+    {
+      municipalityId: "5208707",
+      category: "context",
+      id: "populacao_goi-5r0vfu",
+      name: "Densidade Populacional",
+      description: "Contagem da população em grid 500x500m (2022).",
+      tilesetId: "observatorio-nacional.0359v92t",
+      sourceLayer: "populacao_goi-5r0vfu",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "5208707",
+      category: "context",
+      id: "renda_goi-8q2sqk",
+      name: "Renda Média (2010)",
+      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
+      tilesetId: "observatorio-nacional.0gzs6kdr",
+      sourceLayer: "renda_goi-8q2sqk",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+  ],
+  "01401": [
+    {
+      municipalityId: "2304400",
+      category: "context",
+      id: "frt_income_hh-26qfm4",
+      name: "Renda Média (2010)",
+      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
+      tilesetId: "observatorio-nacional.d0fxoy3e",
+      sourceLayer: "frt_income_hh-26qfm4",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "2304400",
+      category: "context",
+      id: "frt_pop-9wsvgo",
+      name: "Densidade Populacional",
+      description: "Contagem da população em grid 500x500m (2022).",
+      tilesetId: "observatorio-nacional.8p48v3df",
+      sourceLayer: "frt_pop-9wsvgo",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "2304400",
+      category: "context",
+      id: "frt_ciclovia_ciclomapas",
+      name: "Ciclovia",
+      description: "Traçado das ciclovias municipais.",
+      tilesetId: "observatorio-nacional.6yi62vyd",
+      sourceLayer: "frt_ciclovia_ciclomapas",
+      layerType: "line",
+      hasCustomStyle: true
+    },
+  ],
+  "04901": [
+    {
+      municipalityId: "3547809",
+      category: "context",
       id: "sinistros-9fw8gm",
       name: "Sinistros de trânsito",
       description: "Densidade de sinistros de trânsito em grid 250×250m (2022-24). Número total de vítimas.",
@@ -235,6 +286,8 @@ export const cityLayersConfig: CityLayersConfig = {
       hasCustomStyle: true
     },
     {
+      municipalityId: "3547809",
+      category: "context",
       id: "sad_rotas_onibus_sad",
       name: "Rotas de Ônibus",
       description: "Traçado das linhas de ônibus municipais.",
@@ -244,6 +297,8 @@ export const cityLayersConfig: CityLayersConfig = {
       hasCustomStyle: true
     },
     {
+      municipalityId: "3547809",
+      category: "context",
       id: "populacao_sad-3il930",
       name: "Densidade Populacional",
       description: "Contagem da população em grid 500x500m (2022).",
@@ -253,160 +308,19 @@ export const cityLayersConfig: CityLayersConfig = {
       hasCustomStyle: true
     },
     {
+      municipalityId: "3547809",
+      category: "context",
       id: "renda_sad-a9kjjx",
-      name: "Renda Média",
+      name: "Renda Média (2010)",
       description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
       tilesetId: "observatorio-nacional.86a15ap9",
       sourceLayer: "renda_sad-a9kjjx",
       layerType: "fill",
       hasCustomStyle: true
-    }
-  ],
-  "Salvador": [
-    {
-      id: "ssa_ciclovia",
-      name: "Ciclovia",
-      description: "Traçado das ciclovias municipais.",
-      tilesetId: "observatorio-nacional.dnhoztpu",
-      sourceLayer: "ssa_ciclovia",
-      layerType: "line",
-      hasCustomStyle: true
     },
     {
-      id: "ssa_rotas_onibus_tipo",
-      name: "Rotas de Ônibus",
-      description: "Traçado das linhas de ônibus municipais.",
-      tilesetId: "observatorio-nacional.1y9z3zyw",
-      sourceLayer: "ssa_rotas_onibus_tipo",
-      layerType: "line",
-      hasCustomStyle: true
-    },
-    {
-      id: "renda_ssa-72km6n",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.8e78qgxw",
-      sourceLayer: "renda_ssa-72km6n",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    {
-      id: "populacao_ssa-dgk2gr",
-      name: "Densidade Populacional",
-      description: "Contagem da população em grid 500x500m (2022).",
-      tilesetId: "observatorio-nacional.9zwcybiu",
-      sourceLayer: "populacao_ssa-dgk2gr",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-  ],
-  "Campinas": [
-    {
-      id: "populacao_cam-dhn9nh",
-      name: "Densidade Populacional",
-      description: "Contagem da população em grid 500x500m (2022).",
-      tilesetId: "observatorio-nacional.cv6id9vn",
-      sourceLayer: "populacao_cam-dhn9nh",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    {
-      id: "renda-2bxm7u",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.5eawzxg0",
-      sourceLayer: "renda-2bxm7u",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    {
-      id: "cam_rotas_onibus",
-      name: "Rotas de Ônibus",
-      description: "Traçado das linhas de ônibus municipais.",
-      tilesetId: "observatorio-nacional.b5gy4hyf",
-      sourceLayer: "cam_rotas_onibus",
-      layerType: "line",
-      hasCustomStyle: true
-    },
-  ],
-  "Curitiba": [
-    {
-      id: "cur_pop-ddf53z",
-      name: "Densidade Populacional",
-      description: "Contagem da população em grid 500x500m (2022).",
-      tilesetId: "observatorio-nacional.d5c4yfux",
-      sourceLayer: "cur_pop-ddf53z",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    {
-      id: "cur_income_hh-b297ww",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.dnfgnx3h",
-      sourceLayer: "cur_income_hh-b297ww",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-  ],
-  "Porto Alegre": [
-    {
-      id: "renda_poa-0cq519",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.6nhij7jq",
-      sourceLayer: "renda_poa-0cq519",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    {
-      id: "populacao_poa-6gb3pv",
-      name: "Densidade Populacional",
-      description: "Contagem da população em grid 500x500m (2022).",
-      tilesetId: "observatorio-nacional.cvh9drji",
-      sourceLayer: "populacao_poa-6gb3pv",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    {
-      id: "vitimas_poa-84wkxk",
-      name: "Vítimas de sinistros de trânsito",
-      description: "Localização de atropelamentos de pedestres e veículos envolvidos no sinistro (2023).",
-      tilesetId: "observatorio-nacional.2fbdewky",
-      sourceLayer: "vitimas_poa-84wkxk",
-      layerType: "circle",
-      hasCustomStyle: true
-    },
-    {
-      id: "sinistros_poa-8mfstv",
-      name: "Sinistros de trânsito",
-      description: "Densidade de sinistros de trânsito em grid 250×250m (2023). Percentual do total de veículos envolvidos e total de feridos e mortos.",
-      tilesetId: "observatorio-nacional.a7e3m719",
-      sourceLayer: "sinistros_poa-8mfstv",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    {
-      id: "poa_rotas_onibus",
-      name: "Rotas de Ônibus",
-      description: "Traçado das linhas de ônibus municipais.",
-      tilesetId: "observatorio-nacional.87rz20bn",
-      sourceLayer: "poa_rotas_onibus",
-      layerType: "fill",
-      hasCustomStyle: true
-    },
-    {
-      id: "poa_ciclovia_ciclomapas",
-      name: "Ciclovia",
-      description: "Traçado das ciclovias municipais.",
-      tilesetId: "observatorio-nacional.cynb7d49",
-      sourceLayer: "poa_ciclovia_ciclomapas",
-      layerType: "line",
-      hasCustomStyle: true
-    },
-  ],
-  "São Paulo": [
-    {
+      municipalityId: "3550308",
+      category: "context",
       id: "spo_spo_ciclovias",
       name: "Ciclovia",
       description: "Traçado das ciclovias municipais.",
@@ -416,6 +330,8 @@ export const cityLayersConfig: CityLayersConfig = {
       hasCustomStyle: true
     },
     {
+      municipalityId: "3550308",
+      category: "context",
       id: "spo_metro-74ojzn",
       name: "Linhas de metrô",
       description: "Linhas de metrô do município.",
@@ -425,8 +341,10 @@ export const cityLayersConfig: CityLayersConfig = {
       hasCustomStyle: true
     },
     {
+      municipalityId: "3550308",
+      category: "context",
       id: "renda_spo-ddwghj",
-      name: "Renda Média",
+      name: "Renda Média (2010)",
       description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
       tilesetId: "observatorio-nacional.4gtkl59h",
       sourceLayer: "renda_spo-ddwghj",
@@ -434,6 +352,8 @@ export const cityLayersConfig: CityLayersConfig = {
       hasCustomStyle: true
     },
     {
+      municipalityId: "3550308",
+      category: "context",
       id: "populacao_spo-94zde5",
       name: "Densidade Populacional",
       description: "Contagem da população em grid 500x500m (2022).",
@@ -443,4 +363,205 @@ export const cityLayersConfig: CityLayersConfig = {
       hasCustomStyle: true
     },
   ],
+  "04201": [
+    {
+      municipalityId: "2927408",
+      category: "context",
+      id: "ssa_ciclovia",
+      name: "Ciclovia",
+      description: "Traçado das ciclovias municipais.",
+      tilesetId: "observatorio-nacional.dnhoztpu",
+      sourceLayer: "ssa_ciclovia",
+      layerType: "line",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "2927408",
+      category: "context",
+      id: "ssa_rotas_onibus_tipo",
+      name: "Rotas de Ônibus",
+      description: "Traçado das linhas de ônibus municipais.",
+      tilesetId: "observatorio-nacional.1y9z3zyw",
+      sourceLayer: "ssa_rotas_onibus_tipo",
+      layerType: "line",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "2927408",
+      category: "context",
+      id: "renda_ssa-72km6n",
+      name: "Renda Média (2010)",
+      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
+      tilesetId: "observatorio-nacional.8e78qgxw",
+      sourceLayer: "renda_ssa-72km6n",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "2927408",
+      category: "context",
+      id: "populacao_ssa-dgk2gr",
+      name: "Densidade Populacional",
+      description: "Contagem da população em grid 500x500m (2022).",
+      tilesetId: "observatorio-nacional.9zwcybiu",
+      sourceLayer: "populacao_ssa-dgk2gr",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+  ],
+  "05101": [
+    {
+      municipalityId: "3509502",
+      category: "context",
+      id: "populacao_cam-dhn9nh",
+      name: "Densidade Populacional",
+      description: "Contagem da população em grid 500x500m (2022).",
+      tilesetId: "observatorio-nacional.cv6id9vn",
+      sourceLayer: "populacao_cam-dhn9nh",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "3509502",
+      category: "context",
+      id: "renda-2bxm7u",
+      name: "Renda Média (2010)",
+      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
+      tilesetId: "observatorio-nacional.5eawzxg0",
+      sourceLayer: "renda-2bxm7u",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "3509502",
+      category: "context",
+      id: "cam_rotas_onibus",
+      name: "Rotas de Ônibus",
+      description: "Traçado das linhas de ônibus municipais.",
+      tilesetId: "observatorio-nacional.b5gy4hyf",
+      sourceLayer: "cam_rotas_onibus",
+      layerType: "line",
+      hasCustomStyle: true
+    },
+  ],
+  "05501": [
+    {
+      municipalityId: "4106902",
+      category: "context",
+      id: "cur_pop-ddf53z",
+      name: "Densidade Populacional",
+      description: "Contagem da população em grid 500x500m (2022).",
+      tilesetId: "observatorio-nacional.d5c4yfux",
+      sourceLayer: "cur_pop-ddf53z",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "4106902",
+      category: "context",
+      id: "cur_income_hh-b297ww",
+      name: "Renda Média (2010)",
+      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
+      tilesetId: "observatorio-nacional.dnfgnx3h",
+      sourceLayer: "cur_income_hh-b297ww",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+  ],
+  "07401": [
+    {
+      municipalityId: "4314902",
+      category: "context",
+      id: "renda_poa-0cq519",
+      name: "Renda Média (2010)",
+      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
+      tilesetId: "observatorio-nacional.6nhij7jq",
+      sourceLayer: "renda_poa-0cq519",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "4314902",
+      category: "context",
+      id: "populacao_poa-6gb3pv",
+      name: "Densidade Populacional",
+      description: "Contagem da população em grid 500x500m (2022).",
+      tilesetId: "observatorio-nacional.cvh9drji",
+      sourceLayer: "populacao_poa-6gb3pv",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "4314902",
+      category: "context",
+      id: "vitimas_poa-84wkxk",
+      name: "Vítimas de sinistros de trânsito",
+      description: "Localização de atropelamentos de pedestres e veículos envolvidos no sinistro (2023).",
+      tilesetId: "observatorio-nacional.2fbdewky",
+      sourceLayer: "vitimas_poa-84wkxk",
+      layerType: "circle",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "4314902",
+      category: "context",
+      id: "sinistros_poa-8mfstv",
+      name: "Sinistros de trânsito",
+      description: "Densidade de sinistros de trânsito em grid 250×250m (2023). Percentual do total de veículos envolvidos e total de feridos e mortos.",
+      tilesetId: "observatorio-nacional.a7e3m719",
+      sourceLayer: "sinistros_poa-8mfstv",
+      layerType: "fill",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "4314902",
+      category: "context",
+      id: "poa_rotas_onibus",
+      name: "Rotas de Ônibus",
+      description: "Traçado das linhas de ônibus municipais.",
+      tilesetId: "observatorio-nacional.87rz20bn",
+      sourceLayer: "poa_rotas_onibus",
+      layerType: "line",
+      hasCustomStyle: true
+    },
+    {
+      municipalityId: "4314902",
+      category: "context",
+      id: "poa_ciclovia_ciclomapas",
+      name: "Ciclovia",
+      description: "Traçado das ciclovias municipais.",
+      tilesetId: "observatorio-nacional.cynb7d49",
+      sourceLayer: "poa_ciclovia_ciclomapas",
+      layerType: "line",
+      hasCustomStyle: true
+    },
+  ],
+}
+
+const modalMetrics = Object.entries(modalMap.metrics) as [ModalMetric, { label: string }][]
+
+export const cityLayersConfig: CityLayersConfig = {
+  ...contextLayers,
+  ...Object.fromEntries(regionManifest.regions.map((region) => [
+    region.id,
+    [
+      ...modalMetrics.map(([metric, config]): CityLayer => ({
+        id: `modal-${metric}-${region.id}`,
+        name: config.label,
+        tilesetId: "observatorio-nacional.onms_divisao_modal_2022",
+        sourceLayer: "areas",
+        layerType: "fill",
+        category: metric === "mean_minutes" || metric === "share_60plus" ? "commute" : "modal",
+        metric,
+      })),
+      ...(contextLayers[region.id] ?? []),
+    ],
+  ])),
+}
+
+export function getAvailableLayers(regionId: string, municipalityId?: string): CityLayer[] {
+  const layers = cityLayersConfig[regionId || "Brasil"] ?? []
+  return municipalityId
+    ? layers.filter((layer) => !layer.municipalityId || layer.municipalityId === municipalityId)
+    : layers
 }
