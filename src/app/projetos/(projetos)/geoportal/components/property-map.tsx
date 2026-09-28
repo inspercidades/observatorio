@@ -377,8 +377,7 @@ export default function PropertyMap() {
       }
     }
 
-    if (mapInstance.loaded() && mapInstance.isStyleLoaded()) focus()
-    else mapInstance.once('load', focus)
+    focus()
   }
 
   const handleRecenter = () => {
