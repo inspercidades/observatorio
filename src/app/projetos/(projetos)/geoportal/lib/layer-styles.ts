@@ -1501,6 +1501,41 @@ function extractLegendFromExpression(expression: unknown): LegendItem[] | null {
   return null
 }
 
+// Legend numbers follow the modal layers: pt-BR, no decimals
+const numberFormat = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 })
+
+function formatNumber(value: unknown): string {
+  return typeof value === 'number' ? numberFormat.format(value) : String(value)
+}
+
+// Readable names for category codes stored in the tilesets
+const categoryLabels: Record<string, string> = {
+  'Calcada Cp': 'Calçada compartilhada',
+  'Compartilh': 'Via compartilhada',
+  'Via Compartilhada': 'Via compartilhada',
+  'Cvia Calca': 'Ciclovia na calçada',
+  'Cvia Cante': 'Ciclovia em canteiro central',
+  'Cfaix+Z30': 'Ciclofaixa e zona 30',
+  'Cv+Z30': 'Ciclovia e zona 30',
+  'Cvia+Cfaix': 'Ciclovia e ciclofaixa',
+}
+
+function formatCategory(value: unknown): string {
+  const text = String(value).trim()
+  return categoryLabels[text] ?? text
+}
+
+// Drop repeated entries after codes are mapped to the same label
+function uniqueItems(items: LegendItem[]): LegendItem[] {
+  const seen = new Set<string>()
+  return items.filter((item) => {
+    const key = `${item.color}|${item.value}`
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
+}
+
 // Extract legend from match expression
 function extractFromMatchExpression(expression: unknown[]): LegendItem[] {
   const legendItems: LegendItem[] = []
@@ -1520,8 +1555,8 @@ function extractFromMatchExpression(expression: unknown[]): LegendItem[] {
         if (typeof output === 'string') {
           legendItems.push({
             color: output,
-            label: String(val),
-            value: String(val)
+            label: formatCategory(val),
+            value: formatCategory(val)
           })
         }
       })
@@ -1530,8 +1565,8 @@ function extractFromMatchExpression(expression: unknown[]): LegendItem[] {
       if (typeof output === 'string') {
         legendItems.push({
           color: output,
-          label: String(matchValue),
-          value: String(matchValue)
+          label: formatCategory(matchValue),
+          value: formatCategory(matchValue)
         })
       }
     }
@@ -1547,7 +1582,7 @@ function extractFromMatchExpression(expression: unknown[]): LegendItem[] {
     })
   }
   
-  return legendItems
+  return uniqueItems(legendItems)
 }
 
 // Extract legend from step expression
@@ -1560,7 +1595,7 @@ function extractFromStepExpression(expression: unknown[]): LegendItem[] {
     legendItems.push({
       color: fallback,
       label: getReadableLabel(input, null),
-      value: `< ${stops[0]}`
+      value: `< ${formatNumber(stops[0])}`
     })
   }
 
@@ -1574,7 +1609,7 @@ function extractFromStepExpression(expression: unknown[]): LegendItem[] {
       legendItems.push({
         color,
         label: getReadableLabel(input, value),
-        value: nextValue ? `${value} - ${nextValue}` : `${value}+`
+        value: nextValue ? `${formatNumber(value)}–< ${formatNumber(nextValue)}` : `≥ ${formatNumber(value)}`
       })
     }
   }
@@ -1622,8 +1657,8 @@ function extractFromCaseExpression(expression: unknown[]): LegendItem[] {
       if (Array.isArray(matchValues) && matchValues.length > 0) {
         legendItems.push({
           color,
-          label: String(matchValues[0]), // Use the first value as label
-          value: matchValues.map(String).join(', ')
+          label: formatCategory(matchValues[0]), // Use the first value as label
+          value: [...new Set(matchValues.map(formatCategory))].join(', ')
         })
       }
     }
@@ -1639,7 +1674,7 @@ function extractFromCaseExpression(expression: unknown[]): LegendItem[] {
     })
   }
 
-  return legendItems
+  return uniqueItems(legendItems)
 }
 
 // Generate readable labels based on property names

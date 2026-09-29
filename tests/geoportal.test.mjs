@@ -4,6 +4,7 @@ import test from 'node:test'
 import { getModalLayerStyle, getModalLegend, formatModalValue, getModalProperty, formatModalFeatureValue, formatProfileMetricValue, formatAreaName } from '../src/app/projetos/(projetos)/geoportal/lib/modal-style.ts'
 import { cityLayersConfig } from '../src/app/projetos/(projetos)/geoportal/lib/city-layers.ts'
 import { layerText } from '../src/app/projetos/(projetos)/geoportal/lib/layer-texts.ts'
+import { getLayerLegend } from '../src/app/projetos/(projetos)/geoportal/lib/layer-styles.ts'
 import { toggleLayer } from '../src/app/projetos/(projetos)/geoportal/lib/layer-selection.ts'
 import regionManifest from '../src/app/projetos/(projetos)/geoportal/lib/region-manifest.json' with { type: 'json' }
 import { getVisibleRegions } from '../src/app/projetos/(projetos)/geoportal/lib/region-selector.ts'
@@ -112,4 +113,28 @@ test('area names fall back to municipality and area code', () => {
   assert.equal(formatAreaName({ name_weighting: 'Boa Viagem', name_muni: 'Recife', code_weighting: '2611606005' }), 'Boa Viagem')
   assert.equal(formatAreaName({ name_weighting: null, name_muni: 'Recife', code_weighting: '2611606005' }), 'Recife · área 2611606005')
   assert.equal(formatAreaName({}), 'Área de ponderação')
+})
+
+test('local legends use pt-BR numbers and the modal range format', () => {
+  assert.deepEqual(getLayerLegend('renda-987gzt').map((item) => item.value), [
+    '< 3.400', '3.400–< 5.400', '5.400–< 8.800', '8.800–< 14.960', '14.960–< 28.550', '≥ 28.550',
+  ])
+})
+
+test('categorical legends show readable, unique labels', () => {
+  const bh = getLayerLegend('bhe_ciclovia').map((item) => item.value)
+  assert.ok(bh.includes('Calçada compartilhada'))
+  assert.ok(!bh.includes('Calcada Cp'))
+  const salvador = getLayerLegend('ssa_ciclovia').map((item) => item.value)
+  assert.equal(new Set(salvador).size, salvador.length)
+})
+
+test('layer titles are unique within a region and use sentence case', () => {
+  for (const [region, layers] of Object.entries(cityLayersConfig)) {
+    const names = layers.map((layer) => `${layer.municipalityId ?? ''}:${layer.name}`)
+    assert.equal(new Set(names).size, names.length, region)
+  }
+  const names = Object.values(cityLayersConfig).flat().map((layer) => layer.name)
+  assert.ok(names.includes('Renda domiciliar média'))
+  assert.ok(!names.some((name) => /Heatmap|\(\d{4}\)|Populacional|Ônibus/.test(name)))
 })
