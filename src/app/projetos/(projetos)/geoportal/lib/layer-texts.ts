@@ -1,11 +1,10 @@
-// Single source for layer texts: the (i) tooltip shows the summary and the
-// source; the legend shows how to read the colours. Draft wording: sources
-// marked "a confirmar" still need checking.
+// Single source for layer texts: the (i) tooltip shows the summary; the
+// legend shows how to read the colours and, when known, the source.
 
 type LayerTextEntry = {
   summary: string
   reading: string
-  source: string
+  source?: string
 }
 
 const census2022 = "IBGE, Censo Demográfico 2022 (amostra)"
@@ -43,58 +42,49 @@ const layerTexts = {
   },
   renda: {
     summary: "Renda domiciliar média em grade de 500 × 500 m.",
-    reading: "Reais de 2024; valores de 2010 corrigidos pelo IPCA.",
-    source: "IBGE, Censo Demográfico 2010",
+    reading: "Renda domiciliar média em grade de 500 × 500 m.",
+    source: "IBGE, Censo Demográfico 2010 (valores atualizados pelo IPCA para R$ de 2024)",
   },
   embarques: {
     summary: "Embarques no transporte coletivo em grade de 500 × 500 m.",
     reading: "Embarques por célula da grade em agosto de 2023.",
-    source: "dados de bilhetagem (a confirmar)",
   },
   rotas_onibus: {
     summary: "Traçado das linhas municipais de ônibus.",
     reading: "Cada linha no mapa é um itinerário.",
-    source: "a confirmar",
   },
   ciclovia: {
     summary: "Traçado da rede cicloviária municipal.",
     reading: "Cada linha no mapa é um trecho de ciclovia ou ciclofaixa.",
-    source: "a confirmar",
   },
   metro: {
     summary: "Linhas de metrô do município.",
     reading: "Cada linha no mapa é uma linha do sistema.",
-    source: "a confirmar",
   },
   sinistros_vitimas: {
     summary: "Densidade de sinistros de trânsito em grade de 250 × 250 m, de 2022 a 2024.",
     reading: "Total de vítimas por célula da grade.",
-    source: "a confirmar",
   },
   sinistros_veiculos: {
     summary: "Densidade de sinistros de trânsito em grade de 250 × 250 m, em 2023.",
     reading: "Percentual dos veículos envolvidos e total de feridos e mortos por célula.",
-    source: "a confirmar",
   },
   atropelamentos: {
     summary: "Local dos atropelamentos de pedestres em 2023, com os veículos envolvidos.",
     reading: "Cada ponto é uma ocorrência.",
-    source: "a confirmar",
   },
   tarifa_zero: {
     summary: "Municípios com tarifa zero integral ou parcial, seja em dias específicos (como domingos e feriados), seja em linhas específicas.",
-    reading: "Cada ponto é um município; a cor indica o tipo de tarifa zero.",
-    source: "levantamento atualizado até outubro de 2025 (a confirmar)",
+    reading: "Cada ponto é um município; a cor indica o tipo de tarifa zero. Dados atualizados até outubro de 2025.",
   },
 } satisfies Record<string, LayerTextEntry>
 
 export type LayerTextKey = keyof typeof layerTexts
 
 export function layerText(key: LayerTextKey): { description: string; legendNote: string } {
-  const { summary, reading, source } = layerTexts[key]
-  const sourceText = source.charAt(0).toUpperCase() + source.slice(1)
+  const { summary, reading, source }: LayerTextEntry = layerTexts[key]
   return {
-    description: `${summary} Fonte: ${sourceText}.`,
-    legendNote: `${reading} Fonte: ${sourceText}.`,
+    description: summary,
+    legendNote: source ? `${reading} Fonte: ${source}.` : reading,
   }
 }

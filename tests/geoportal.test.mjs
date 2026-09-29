@@ -81,12 +81,14 @@ test('region search finds municipalities and keeps the active RM first', () => {
 test('every layer takes its tooltip and legend note from the central texts', () => {
   const text = layerText('renda')
   assert.match(text.description, /^Renda domiciliar média/)
-  assert.match(text.description, / Fonte: [^.]+.*\.$/)
-  assert.ok(text.legendNote.length > 0)
+  assert.doesNotMatch(text.description, /Fonte:/)
+  assert.equal(text.legendNote, 'Renda domiciliar média em grade de 500 × 500 m. Fonte: IBGE, Censo Demográfico 2010 (valores atualizados pelo IPCA para R$ de 2024).')
+  assert.doesNotMatch(layerText('ciclovia').legendNote, /Fonte:/)
   for (const layers of Object.values(cityLayersConfig)) {
     for (const layer of layers) {
-      assert.match(layer.description ?? '', /Fonte: .+\.$/, layer.id)
+      assert.ok(layer.description, layer.id)
       assert.ok(layer.legendNote, layer.id)
+      assert.doesNotMatch(`${layer.description} ${layer.legendNote}`, /a confirmar/i, layer.id)
     }
   }
 })

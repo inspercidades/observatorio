@@ -8,7 +8,7 @@ The sidebar groups layers into modal shares, commute time, and local context. In
 
 - `lib/region-manifest.json` is the shared region and municipality list, including map bounds. It is derived from the ONMS Phase 3 geographic data. Grande Vitória uses mainland focused bounds because its municipality geometry includes distant Atlantic islands.
 - `lib/city-layers.ts` assigns layers to RM IDs. Existing local layers remain associated with their municipalities. The income layers are labelled as 2010 data.
-- `lib/layer-texts.ts` holds every layer's text. The (i) tooltip shows what the layer maps and its source; the legend shows how to read it. Edit wording there, not in the layer list.
+- `lib/layer-texts.ts` holds every layer's text. The (i) tooltip shows what the layer maps; the legend shows how to read it and, when set, its source. Edit wording there, not in the layer list.
 - `lib/modal-map.json` defines the five mapped metrics, their labels, class breaks, and colors. Each metric reads the `areas` source layer from `observatorio-nacional.onms_divisao_modal_2022`; `lib/modal-style.ts` builds its map style, legend, and formatted hover value. The share of other modes stays in the tileset but off the map.
 - `lib/demographic-map.json` defines the demographic groups and the minimum sample. Cells below it appear hollow, as "Amostra insuficiente".
 - `public/geoportal/region-profiles.json` feeds the "Perfil da região" dialog, which fetches it on first open. Copy it from the pipeline's `data/region-profiles.json`.
