@@ -51,7 +51,6 @@ const projetosItems = [
   },
 ]
 const menuItems = [
-  { title: "Home", href: "/" },
   { title: "Sobre", href: "/sobre" },
   { title: "Publicações", href: "/publicacoes" },
   { title: "Eventos", href: "/eventos" },
@@ -108,14 +107,6 @@ export function Header({ isBgDark = false, className }: HeaderProps) {
         {/* Desktop Navigation Menu */}
         <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList className="gap-1">
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href="/" className={pathname === "/" ? activeTextClass : inactiveTextClass}>
-                  Home
-                </Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            
             <NavigationMenuItem>
               <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                 <Link href="/sobre" className={pathname === "/sobre" ? activeTextClass : inactiveTextClass}>
@@ -212,17 +203,6 @@ export function Header({ isBgDark = false, className }: HeaderProps) {
       >
         <div className=" px-7 py-6">
           <nav className="space-y-4">
-            {/* Home */}
-            <Link
-              href="/"
-              onClick={closeMobileMenu}
-              className={`block py-3 text-lg font-medium transition-colors ${
-                pathname === "/" ? "text-black font-medium" : "text-gray-400 hover:text-black"
-              }`}
-            >
-              Home
-            </Link>
-
             {/* Sobre */}
             <Link
               href="/sobre"
@@ -269,7 +249,7 @@ export function Header({ isBgDark = false, className }: HeaderProps) {
             </div>
 
             {/* Other Menu Items */}
-            {menuItems.slice(2).map((item) => (
+            {menuItems.slice(1).map((item) => (
               <Link
                 key={item.title}
                 href={item.href}

@@ -38,26 +38,19 @@ export function Footer() {
           
           {/* Left Section - Logo and Text */}
           <div className="flex flex-col items-start gap-4">
-            <Image
-              src="/logo-preto.png"
-              alt="Observatório Nacional de Mobilidade Sustentável"
-              width={400}
-              height={80}
-              className=""
-            />
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/logo-preto.png"
+                alt="Observatório Nacional de Mobilidade Sustentável"
+                width={400}
+                height={80}
+                className=""
+              />
+            </Link>
           </div>
 
           {/* Right Section - Navigation */}
           <nav className="flex flex-col lg:flex-row gap-6 lg:gap-8">
-            <div className="flex flex-col gap-2">
-              <Link 
-                href="/" 
-                className="text-gray-600 hover:text-gray-800 transition-colors text-sm font-medium"
-              >
-                Home
-              </Link>
-            </div>
-
             <div className="flex flex-col gap-2">
               <Link 
                 href="/sobre" 
