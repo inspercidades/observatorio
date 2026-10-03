@@ -4,11 +4,6 @@ import Link from 'next/link'
 
 const projetosItems = [
   {
-    title: "Geoportal",
-    href: "/projetos/geoportal",
-    description: "Visualize dados espaciais e de mobilidade urbana em mapa interativo com camadas temáticas e ferramentas de visualização.",
-  },
-  {
     title: "Catálogo de Dados",
     href: "/projetos/catalago-de-dados",
     description: "Navegue por um catálogo interativo com dados de mobilidade de diversas cidades brasileiras.",
@@ -57,6 +52,14 @@ export function Footer() {
                 className="text-gray-600 hover:text-gray-800 transition-colors text-sm font-medium"
               >
                 Sobre
+              </Link>
+            </div>
+            <div className="flex flex-col gap-2">
+              <Link 
+                href="/projetos/geoportal" 
+                className="text-gray-600 hover:text-gray-800 transition-colors text-sm font-medium"
+              >
+                GeoPortal
               </Link>
             </div>
  {/* Dados de mobilidade dropdown */}
