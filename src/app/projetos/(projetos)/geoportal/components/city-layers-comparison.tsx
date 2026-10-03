@@ -166,6 +166,14 @@ export function CityLayersComparison({
     }
   }, [selectedLayer1, selectedLayer2])
 
+  if (!selectedCity || selectedCity === "Brasil") {
+    return (
+      <div className="px-4 py-8 text-center">
+        <p className="text-gray-500 text-md">Selecione uma cidade para exibir as camadas</p>
+      </div>
+    )
+  }
+
   if (cityLayers.length === 0) {
     return (
       <div className="px-4 py-8 text-center">
