@@ -48,8 +48,8 @@ const projetosItems = [
 const menuItems = [
   { title: "Sobre", href: "/sobre" },
   { title: "Publicações", href: "/publicacoes" },
-  { title: "Eventos", href: "/eventos" },
   { title: "Vídeos", href: "/videos" },
+  { title: "Eventos", href: "/eventos" },
   { title: "Cursos", href: "/cursos" },
 ]
 
@@ -152,16 +152,16 @@ export function Header({ isBgDark = false, className }: HeaderProps) {
 
             <NavigationMenuItem>
               <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href="/eventos" className={pathname === "/eventos" ? activeTextClass : inactiveTextClass}>
-                  Eventos
+                <Link href="/videos" className={pathname === "/videos" ? activeTextClass : inactiveTextClass}>
+                  Vídeos
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
             
             <NavigationMenuItem>
               <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href="/videos" className={pathname === "/videos" ? activeTextClass : inactiveTextClass}>
-                  Vídeos
+                <Link href="/eventos" className={pathname === "/eventos" ? activeTextClass : inactiveTextClass}>
+                  Eventos
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
