@@ -112,7 +112,7 @@ export function ProjectsSection() {
         <div className="mx-auto">
           {/* Section Title */}
           <h2 className="text-3xl md:text-4xl px-4 2xl:px-16 font-medium text-gray-900 mb-6">
-            Mobilidade em dados
+            Dados
           </h2>
 
           {/* Projects Horizontal Scroll */}

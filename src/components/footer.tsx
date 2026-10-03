@@ -64,7 +64,7 @@ export function Footer() {
             </div>
  {/* Dados de mobilidade dropdown */}
             <div className="flex flex-col gap-2">
-              <span className="text-gray-600 text-sm font-medium">Mobilidade em dados</span>
+              <span className="text-gray-600 text-sm font-medium">Dados</span>
               <div className="flex flex-col gap-1">
                 {projetosItems.map((item) => (
                   <Link

@@ -125,7 +125,7 @@ export function Header({ isBgDark = false, className }: HeaderProps) {
                 isActive={isMobilidadePage}
                 className={isMobilidadePage ? activeTextClass : inactiveTextClass}
               >
-                Mobilidade em dados
+                Dados
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[600px] gap-3 p-2 md:grid-cols-2 lg:w-[600px]">
@@ -235,7 +235,7 @@ export function Header({ isBgDark = false, className }: HeaderProps) {
                   <AccordionTrigger className={`text-lg font-medium text-black hover:no-underline py-3 ${
                     isMobilidadePage ? "text-black font-medium" : "text-gray-400 hover:text-black"
                   }`}>
-                    Mobilidade em dados
+                    Dados
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="space-y-4 pt-2">
