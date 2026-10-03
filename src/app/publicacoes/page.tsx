@@ -15,7 +15,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
 
-// Define publication types
+// Define publication types 
 interface Publication {
   id: string;
   title: string;
