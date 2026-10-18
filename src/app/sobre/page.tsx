@@ -10,7 +10,6 @@ import denis_andia from "@/app/assets/images/denis_andia.png";
 import eliana_silva from "@/app/assets/images/eliana_silva.png";
 import gabriel_fajardo from "@/app/assets/images/gabriel_fajardo.png";
 import gabriela_vasconcelos from "@/app/assets/images/gabriela_vasconcelos.png";
-import helena_carvalho_coelho from "@/app/assets/images/helena_carvalho_coelho.png";
 import heloisa_escudeiro from "@/app/assets/images/heloisa_escudeiro.png";
 import ivanice_schutz from "@/app/assets/images/ivanice_schutz.png";
 import jose_police_neto from "@/app/assets/images/jose_police_neto.png";
@@ -18,9 +17,6 @@ import juan_sebastian from "@/app/assets/images/juan_sebastian.png";
 import laryssa_kruger from "@/app/assets/images/laryssa_kruger.png";
 import lucas_tavares from "@/app/assets/images/lucas-tavares-da-silva-ferreira.png";
 import lucelio_moraes from "@/app/assets/images/lucelio_moraes.png";
-import luiz_pedro from "@/app/assets/images/luiz_pedro.png";
-import luiza_estagiaria from "@/app/assets/images/luiza_estagiaria.png";
-import maina_celidonio from "@/app/assets/images/maina_celidonio.png";
 import marcela_costa from "@/app/assets/images/marcela_costa.png";
 import mauricio_bouskela from "@/app/assets/images/mauricio_bouskela.png";
 import miguel_setas from "@/app/assets/images/miguel_setas.png";
@@ -30,6 +26,7 @@ import ricardo_balestreri from "@/app/assets/images/ricardo_balestreri.png";
 import rinaldo_gama from "@/app/assets/images/rinaldo_gama.png";
 import rodnei from "@/app/assets/images/rodnei.png";
 import sergio_avelleda from "@/app/assets/images/sergio_avelleda.png";
+import suzana_nogueira from "@/app/assets/images/suzana.webp";
 import tomas_alvim from "@/app/assets/images/tomas_alvim.png";
 import vanessa_duarte from "@/app/assets/images/vanessa_duarte.png";
 import vinicius_oike_reginatto from "@/app/assets/images/vinicius_oike_reginatto.png";
@@ -47,7 +44,7 @@ interface TeamMember {
   id: string
   name: string
   role: string
-  image: StaticImageData
+  image?: StaticImageData
   email?: string
 }
 interface DevelopmentTeamMember {
@@ -67,43 +64,15 @@ const equipeObservatorio: TeamMember[] = [
   },
   {
     id: '2',
-    name: 'Helena Coelho',
+    name: 'Suzana Nogueira',
     role: 'Coordenadora-adjunta',
-    image: helena_carvalho_coelho,
-    email: 'helenacc1@insper.edu.br'
+    image: suzana_nogueira,
+    email: 'suzanaln@insper.edu.br'
   },
   {
     id: '3',
-    name: 'Maína Campos',
-    role: 'Consultora de pesquisa',
-    image: maina_celidonio,
-    email: 'mainacc@insper.edu.br'
-  },
-  {
-    id: '4',
-    name: 'Luiza Campos',
-    role: 'Estágiaria',
-    image: luiza_estagiaria,
-    email: 'luizarc1@al.insper.edu.br'
-  },
-  {
-    id: '5',
-    name: 'Luiz Silva',
-    role: 'Pesquisador',
-    image: luiz_pedro,
-    email: 'luizpedro_5@hotmail.com'
-  },
-  {
-    id: '6',
-    name: 'Rodnei Souza',
-    role: 'Presidente do Comitê Gestor',
-    image: rodnei,
-    email: 'rodneibs@me.com'
-  },
-  {
-    id: '7',
     name: 'Vinicius Oike',
-    role: 'Dados',
+    role: 'Cientista de dados',
     image: vinicius_oike_reginatto,
     email: 'viniciusor@insper.edu.br'
   }
@@ -125,9 +94,9 @@ const conselhoGestor: TeamMember[] = [
   },
   {
     id: '3',
-    name: 'Helena Coelho',
+    name: 'Suzana Nogueira',
     role: 'Membro técnico do conselho gestor',
-    image: helena_carvalho_coelho
+    image: suzana_nogueira
   },
   {
     id: '4',
@@ -167,12 +136,6 @@ const conselhoGestor: TeamMember[] = [
   },
   {
     id: '10',
-    name: 'Maína Celidonio',
-    role: 'Comitê de pesquisa',
-    image: maina_celidonio
-  },
-  {
-    id: '11',
     name: 'Miguel Setas',
     role: 'Conselho estratégico',
     image: miguel_setas
@@ -300,7 +263,7 @@ const equipeDeDesenvolvimento: DevelopmentTeamMember[] = [
   },
   {
     id: '2',
-    name: 'Helena Coelho',
+    name: 'Suzana Nogueira',
     role: 'Coordenadora-adjunta',
   },
   {
@@ -310,30 +273,19 @@ const equipeDeDesenvolvimento: DevelopmentTeamMember[] = [
   },
   {
     id: '4',
-    name: 'Rinaldo Gama e Helena Coelho',
-    role: 'Coordenação e revisão de conteúdo'
+    name: 'Rinaldo Gama',
+    role: 'Coordenação e revisão de conteúdos'
   },
   {
     id: '5',
     name: 'Vinicius Oike',
-    role: 'Pesquisador responsável e Coordenador de Dados',
-  },
-  {
-    id: '6',
-    name: 'Caio Jacintho',
-    role: 'Designer'
+    role: 'Cientista de dados',
   },
   {
     id: '7',
     name: 'Lucas Tavares',
     role: 'Desenvolvedor',
   },
-  {
-    id: '8',
-    name: 'Renan Ferreira Rodrigues de Matos',
-    role: 'Desenvolvedor',
-  },
-
 ]
 
 export default function Sobre() {
@@ -455,13 +407,15 @@ export default function Sobre() {
             >
               {equipeObservatorio.map((member) => (
                 <SwiperSlide key={member.id} className="!w-[250px] md:!w-[350px] group relative">
-                  <div className="relative overflow-hidden h-[350px] w-[250px] md:h-[450px] md:w-[350px]">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105 rounded-none"
-                    />
+                  <div className="relative overflow-hidden h-[350px] w-[250px] md:h-[450px] md:w-[350px] bg-[#ECECEC]">
+                    {member.image && (
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105 rounded-none"
+                      />
+                    )}
                   </div>
                   <div className="mt-4 text-left">
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -515,13 +469,15 @@ export default function Sobre() {
             >
               {conselhoGestor.map((member) => (
                 <SwiperSlide key={member.id} className="!w-[250px] md:!w-[350px] group relative">
-                  <div className="relative overflow-hidden h-[350px] w-[250px] md:h-[450px] md:w-[350px]">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105 rounded-none"
-                    />
+                  <div className="relative overflow-hidden h-[350px] w-[250px] md:h-[450px] md:w-[350px] bg-[#ECECEC]">
+                    {member.image && (
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105 rounded-none"
+                      />
+                    )}
                   </div>
                   <div className="mt-4 text-left">
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -575,13 +531,15 @@ export default function Sobre() {
             >
               {equipeInsperCidades.map((member) => (
                 <SwiperSlide key={member.id} className="!w-[250px] md:!w-[350px] group relative">
-                  <div className="relative overflow-hidden h-[350px] w-[250px] md:h-[450px] md:w-[350px]">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105 rounded-none"
-                    />
+                  <div className="relative overflow-hidden h-[350px] w-[250px] md:h-[450px] md:w-[350px] bg-[#ECECEC]">
+                    {member.image && (
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105 rounded-none"
+                      />
+                    )}
                   </div>
                   <div className="mt-4 text-left">
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
