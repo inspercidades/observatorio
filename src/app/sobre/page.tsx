@@ -25,6 +25,7 @@ import renata_ruggiero from "@/app/assets/images/renata_ruggiero.png";
 import ricardo_balestreri from "@/app/assets/images/ricardo_balestreri.png";
 import rinaldo_gama from "@/app/assets/images/rinaldo_gama.png";
 import rodnei from "@/app/assets/images/rodnei.png";
+import centroDadosLogo from "@/app/assets/images/insper_logo_2.png";
 import sergio_avelleda from "@/app/assets/images/sergio_avelleda.png";
 import suzana_nogueira from "@/app/assets/images/suzana.webp";
 import tomas_alvim from "@/app/assets/images/tomas_alvim.png";
@@ -309,8 +310,8 @@ export default function Sobre() {
       <div className="px-4 2xl:px-16 pt-20">
         <div className="flex items-end justify-between mb-16">
           <div>
-            <h2 className="text-4xl font-medium leading-none">Conheça o</h2>
-            <p className="text-4xl text-gray-400 leading-none font-medium">projeto</p>
+            <h2 className="text-4xl font-medium leading-none">O Observatório</h2>
+            {/* <p className="text-4xl text-gray-400 leading-none font-medium">projeto</p> */}
           </div>
           <div className="hidden md:block h-[1.2px] flex-grow mx-16 bg-gray-300" />
           <div className="hidden md:block w-4 h-4 bg-[#2F2C2C]" />
@@ -561,7 +562,7 @@ export default function Sobre() {
         </div>
       </section>
       {/* Section 4: Equipe de Desenvolvimento */}
-      <section className="py-16 mx-auto pb-40">
+      <section className="py-16 mx-auto">
         <div className="mx-auto">
           <h2 className="lg:absolute text-xl font-medium text-gray-900 px-4 2xl:px-16 pb-6 lg:pb-0">Equipe de Desenvolvimento</h2>
           <div className="px-4 2xl:px-16 pb-4 ml-0! pl-4! md:ml-0! lg:ml-100!">
@@ -577,6 +578,20 @@ export default function Sobre() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+      <section className="pt-8 mx-auto pb-40">
+        <div className="mx-auto">
+          <h2 className="lg:absolute text-xl font-medium text-gray-900 px-4 2xl:px-16 pb-6 lg:pb-0">Apoiadores</h2>
+          <div className="px-4 2xl:px-16 ml-0! pl-4! md:ml-0! lg:ml-100!">
+            <Image
+              src={centroDadosLogo}
+              alt="Centro de Dados e IA"
+              width={235}
+              height={73}
+              className="h-12 md:h-14 w-auto"
+            />
           </div>
         </div>
       </section>
