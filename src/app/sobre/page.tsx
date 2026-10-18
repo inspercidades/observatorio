@@ -310,7 +310,7 @@ const faqs: { id: string; question: string; answer: ReactNode }[] = [
   {
     id: 'o-que-encontro',
     question: 'O que encontro aqui?',
-    answer: 'Dados e visualizações (Catálogo de Dados, Geoportal, Dashboard e tabela da PEMOB, Painel QualiÔnibus, em parceria com a WRI Brasil), além de publicações, vídeos, eventos e cursos.',
+    answer: 'Dados e visualizações (Catálogo de Dados, GeoPortal, Dashboard e tabela da PEMOB, Painel QualiÔnibus, em parceria com a WRI Brasil), além de publicações, vídeos, eventos e cursos.',
   },
   {
     id: 'pemob',
