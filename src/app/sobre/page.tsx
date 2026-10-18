@@ -1,5 +1,11 @@
 "use client"
 import { Header } from "@/components/header";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 // Import team member images
 import adriano_borges from "@/app/assets/images/adriano_borges.png";
@@ -33,7 +39,8 @@ import vanessa_duarte from "@/app/assets/images/vanessa_duarte.png";
 import vinicius_oike_reginatto from "@/app/assets/images/vinicius_oike_reginatto.png";
 
 import Image, { StaticImageData } from 'next/image';
-import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useEffect, useState, type ReactNode } from 'react';
 import { FreeMode } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -286,6 +293,51 @@ const equipeDeDesenvolvimento: DevelopmentTeamMember[] = [
     id: '7',
     name: 'Lucas Tavares',
     role: 'Desenvolvedor',
+  },
+]
+
+const faqs: { id: string; question: string; answer: ReactNode }[] = [
+  {
+    id: 'o-que-e',
+    question: 'O que é o Observatório Nacional de Mobilidade Sustentável?',
+    answer: 'Iniciativa do Centro de Estudos das Cidades do Insper, fundada em setembro de 2023, em parceria com a Motiva. O portal, lançado em janeiro de 2026, reúne a produção do Observatório para qualificar decisões de mobilidade com evidências.',
+  },
+  {
+    id: 'quem-realiza',
+    question: 'Quem realiza e quem apoia o portal?',
+    answer: 'Realização do Insper, pelo Centro de Estudos das Cidades — Laboratório Arq.Futuro, em parceria com a Motiva. O Centro de Dados e IA do Insper apoia o portal.',
+  },
+  {
+    id: 'o-que-encontro',
+    question: 'O que encontro aqui?',
+    answer: 'Dados e visualizações (Catálogo de Dados, Geoportal, Dashboard e tabela da PEMOB, Painel QualiÔnibus, em parceria com a WRI Brasil), além de publicações, vídeos, eventos e cursos.',
+  },
+  {
+    id: 'pemob',
+    question: 'O que é a PEMOB?',
+    answer: 'Pesquisa Nacional de Mobilidade Urbana do Ministério das Cidades, anual desde 2018, sobre municípios com mais de 250 mil habitantes. Os dados são declarados pelas prefeituras. O dashboard e a tabela facilitam a consulta; a base original também está no SIMU.',
+  },
+  {
+    id: 'dados-abertos',
+    question: 'Todos os dados são abertos?',
+    answer: 'Parte do conteúdo é pública, como a PEMOB. O catálogo reúne cidades parceiras, cidades com dados abertos e outros parceiros, inclusive bases compartilhadas por acordo, como o do Consórcio da Região Metropolitana do Recife. Há ainda áreas restritas, que pedem login. Cada base deve ser usada conforme a fonte e as condições indicadas nela.',
+  },
+  {
+    id: 'cursos-eventos',
+    question: 'Como acompanhar cursos e eventos?',
+    answer: (
+      <>
+        Os cursos de educação executiva estão em{' '}
+        <Link href="/cursos" className="underline underline-offset-2 hover:text-gray-900">
+          Cursos
+        </Link>
+        ; quando há turma aberta, o card leva à página do Insper. Eventos e transmissões estão em{' '}
+        <Link href="/eventos" className="underline underline-offset-2 hover:text-gray-900">
+          Eventos
+        </Link>
+        . A Rede de Cidades é um objetivo do Observatório; o contato com a equipe é pelos e-mails publicados nesta página.
+      </>
+    ),
   },
 ]
 
@@ -581,7 +633,7 @@ export default function Sobre() {
           </div>
         </div>
       </section>
-      <section className="pt-8 mx-auto pb-40">
+      <section className="pt-8 mx-auto">
         <div className="mx-auto">
           <h2 className="lg:absolute text-xl font-medium text-gray-900 px-4 2xl:px-16 pb-6 lg:pb-0">Apoiadores</h2>
           <div className="px-4 2xl:px-16 ml-0! pl-4! md:ml-0! lg:ml-100!">
@@ -592,6 +644,25 @@ export default function Sobre() {
               height={73}
               className="h-12 md:h-14 w-auto"
             />
+          </div>
+        </div>
+      </section>
+      <section className="pt-32 mx-auto pb-40">
+        <div className="mx-auto">
+          <h2 className="lg:absolute text-xl font-medium text-gray-900 px-4 2xl:px-16 pb-6 lg:pb-0">Perguntas frequentes</h2>
+          <div className="px-4 2xl:px-16 ml-0! pl-4! md:ml-0! lg:ml-100!">
+            <Accordion type="single" collapsible className="border-t border-gray-200">
+              {faqs.map((item) => (
+                <AccordionItem key={item.id} value={item.id} className="border-gray-200">
+                  <AccordionTrigger className="py-6 text-base font-medium text-gray-900 hover:no-underline">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-6 text-sm text-gray-700 leading-relaxed">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </div>
       </section>
