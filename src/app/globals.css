@@ -18,6 +18,7 @@
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-2: var(--background-2);
   --color-foreground: var(--foreground);
   --font-sans: Plus Jakarta Sans, ui-sans-serif, system-ui, sans-serif;
   --font-mono: Plus Jakarta Sans, ui-monospace, SFMono-Regular, monospace;
@@ -59,6 +60,7 @@
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
+  --background-2: #ffffff;
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);

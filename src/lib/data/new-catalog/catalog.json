@@ -1,0 +1,942 @@
+[
+  {
+    "id": "sinistros-sao-paulo",
+    "title": "Sinistros de trânsito – São Paulo",
+    "description": "Sinistros de trânsito em São Paulo de 2022 a 2025, compatibilizados a partir do InfoSiga. Traz os registros individuais e uma versão agregada por trecho de via.",
+    "theme": "Segurança Viária",
+    "subject": "Sinistros de trânsito",
+    "formats": ["Tabela", "Georreferenciado"],
+    "region": "São Paulo",
+    "cities": ["São Paulo"],
+    "source": "INFOSIGA SP",
+    "sourceLink": "https://dadosabertos.sp.gov.br/painel",
+    "keywords": ["Sinistros", "Mobilidade Urbana", "Série histórica", "Infraestrutura viária"],
+    "period": "2022–2025",
+    "updatedAt": "2026-08-13",
+    "tags": ["Segurança Viária", "São Paulo", "Sinistros de trânsito"],
+    "dataset_info": [
+      {
+        "dataset_title": "Sinistros de Trânsito – São Paulo [2022-2025]",
+        "dataset_description": "Sinistros de trânsito em São Paulo no período de 2022 a 2025. Dados compatibilizados do InfoSiga.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/IRGJPX",
+        "dataset_period": "2022–2025",
+        "dataset_format": "Tabela"
+      },
+      {
+        "dataset_title": "Sinistros de Trânsito Agregados por Via – São Paulo [2022-2025]",
+        "dataset_description": "Localização de trechos com sinistros de trânsito entre 2022 e 2025. Sinistros individuais foram agregados em trechos de vias usando fuzzy matching e análise de distância.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/XA5PFG",
+        "dataset_period": "2022–2025",
+        "dataset_format": "Georreferenciado"
+      }
+    ]
+  },
+  {
+    "id": "faixa-azul-sao-paulo",
+    "title": "Faixa Azul para motociclistas – São Paulo",
+    "description": "Localização dos trechos com faixas de trânsito dedicadas a motociclistas (Faixa Azul) implementadas em São Paulo no período de 2022 a 2025.",
+    "theme": "Segurança Viária",
+    "subject": "Infraestrutura viária",
+    "formats": ["Georreferenciado"],
+    "region": "São Paulo",
+    "cities": ["São Paulo"],
+    "source": "Prefeitura de São Paulo",
+    "sourceLink": "https://dadosabertos.sp.gov.br/painel",
+    "keywords": ["Mobilidade Urbana", "Motocicleta", "Faixa Azul", "Políticas de Mobilidade", "Infraestrutura viária"],
+    "period": "2022–2025",
+    "updatedAt": "2026-07-30",
+    "tags": ["Segurança Viária", "São Paulo", "Infraestrutura viária"],
+    "dataset_info": [
+      {
+        "dataset_title": "Trechos com Faixas Dedicadas a Motociclistas (Faixa Azul) – São Paulo [2022-2025]",
+        "dataset_description": "Localização dos trechos com faixas de trânsito dedicadas a motociclistas (Faixa Azul) implementadas em São Paulo no período de 2022 a 2025.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/A4AC1I",
+        "dataset_period": "2022–2025",
+        "dataset_format": "Georreferenciado"
+      }
+    ]
+  },
+  {
+    "id": "motiva-trem-metro",
+    "title": "Embarques nas estações de trem e metrô da Motiva",
+    "description": "Embarques por estação nos sistemas de trem, metrô e VLT operados pela Motiva: Metrô Bahia, ViaQuatro, ViaMobilidade (Linhas 5, 8 e 9) e VLT Carioca. Traz séries por hora, por dia e médias mensais, além do cadastro de linhas e estações.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Trem e metrô",
+    "formats": ["Tabela"],
+    "region": "Salvador, São Paulo e Rio de Janeiro",
+    "cities": ["Salvador", "São Paulo", "Rio de Janeiro"],
+    "source": "Motiva",
+    "sourceLink": "https://www.motiva.com.br",
+    "keywords": ["Transporte público", "Demanda de passageiros", "Sistemas metroferroviários", "Metrô", "VLT", "Série histórica", "Integração modal", "Infraestrutura viária"],
+    "period": "2012–2025",
+    "updatedAt": "2026-07-30",
+    "tags": ["Transporte Público Coletivo", "Salvador, São Paulo e Rio de Janeiro", "Trem e metrô"],
+    "dataset_info": [
+      {
+        "dataset_title": "Embarques a cada hora nas estações Motiva [2012-2025]",
+        "dataset_description": "Embarques diários por hora do dia e estação de trem/metrô dos sistemas operados pela Motiva. Dados incluem Metrô Bahia, ViaQuatro e VLT Carioca.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/9MZGJL",
+        "dataset_period": "2012–2025",
+        "dataset_format": "Tabela"
+      },
+      {
+        "dataset_title": "Embarques diários nas estações Motiva [2012-2025]",
+        "dataset_description": "Total de embarques diários por estação de trem/metrô dos sistemas operados pela Motiva. Dados incluem Metrô Bahia, ViaQuatro, ViaMobilidade (Linhas 5, 8 e 9) e VLT Carioca.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/UTGQ0I",
+        "dataset_period": "2012–2025",
+        "dataset_format": "Tabela"
+      },
+      {
+        "dataset_title": "Médias mensais de embarques diários nas estações Motiva [2012-2025]",
+        "dataset_description": "Média de embarques diários por mês e tipo do dia (dia útil, sábado e domingo) dos sistemas operados pela Motiva. Dados incluem Metrô Bahia, ViaQuatro, ViaMobilidade (Linhas 5, 8 e 9) e VLT Carioca.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/BPYHFB",
+        "dataset_period": "2012–2025",
+        "dataset_format": "Tabela"
+      },
+      {
+        "dataset_title": "Embarques mensais por modo de integração – Metrô Bahia [2022-2025]",
+        "dataset_description": "Embarques mensais por modo de integração do Metrô Bahia.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/UOKFMF",
+        "dataset_period": "2022–2025",
+        "dataset_format": "Tabela"
+      },
+      {
+        "dataset_title": "Linhas e Estações Metroferroviárias (Motiva) [2025]",
+        "dataset_description": "Tabela de linhas e estações de trem/metrô dos sistemas operados pela Motiva. Dados incluem Metrô Bahia, ViaQuatro, ViaMobilidade (Linhas 5, 8 e 9) e VLT Carioca.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/YWXLQS",
+        "dataset_period": "2025",
+        "dataset_format": "Tabela"
+      }
+    ]
+  },
+  {
+    "id": "pemob-brasil",
+    "title": "Pesquisa Nacional de Mobilidade Urbana (PEMOB)",
+    "description": "Respostas dos municípios brasileiros à Pesquisa Nacional de Mobilidade Urbana (PEMOB), do Ministério das Cidades, de 2019 a 2024. Cobre infraestrutura, frota, demanda, tarifas e políticas de mobilidade. Inclui a base anual e uma versão harmonizada para comparar municípios ao longo do tempo.",
+    "theme": "Transversal",
+    "subject": "Pesquisas de mobilidade",
+    "formats": ["Tabela"],
+    "region": "Brasil",
+    "cities": ["Brasil"],
+    "source": "Ministério das Cidades / SEMOB",
+    "keywords": ["Mobilidade Urbana", "Gestão de Transportes", "Transporte público", "Políticas de Mobilidade", "Série histórica"],
+    "period": "2019–2024",
+    "updatedAt": "2026-07-30",
+    "tags": ["Transversal", "Brasil", "Pesquisas de mobilidade"],
+    "dataset_info": [
+      {
+        "dataset_title": "Pesquisa Nacional de Mobilidade Urbana (PEMOB) [2019-2024]",
+        "dataset_description": "Questionário de mobilidade urbana preenchido por gestores de transporte público em cidades brasileiras com mais de 100 mil habitantes, de 2019 a 2024. Inclui dados sobre infraestrutura, frota, demanda, tarifas e políticas de mobilidade, em bases anuais e em uma base harmonizada para análises longitudinais.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/5XUNNW",
+        "dataset_period": "2019–2024",
+        "dataset_format": "Tabela"
+      }
+    ]
+  },
+  {
+    "id": "bilhetagem-belo-horizonte",
+    "title": "Embarques nos ônibus – Belo Horizonte",
+    "description": "Registros de embarques no sistema de transporte público por ônibus de Belo Horizonte.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Bilhetagem e demanda",
+    "formats": ["Tabela"],
+    "region": "Belo Horizonte",
+    "cities": ["Belo Horizonte"],
+    "source": "Prefeitura de Belo Horizonte / BHTrans",
+    "sourceLink": "https://dados.pbh.gov.br",
+    "keywords": ["Bilhetagem eletrônica", "Ônibus", "Embarques"],
+    "updatedAt": "2025-11-09",
+    "tags": ["Transporte Público Coletivo", "Belo Horizonte", "Bilhetagem e demanda"],
+    "dataset_info": [
+      {
+        "dataset_title": "Embarques nos Ônibus – Belo Horizonte",
+        "dataset_description": "Registros de embarques no sistema de transporte público por ônibus de Belo Horizonte.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/OGHOQL",
+        "dataset_format": "Tabela"
+      }
+    ]
+  },
+  {
+    "id": "ciclovias-belo-horizonte",
+    "title": "Rede cicloviária – Belo Horizonte",
+    "description": "Shapefile da rede cicloviária do município de Belo Horizonte.",
+    "theme": "Mobilidade por Bicicleta",
+    "subject": "Infraestrutura cicloviária",
+    "formats": ["Georreferenciado"],
+    "region": "Belo Horizonte",
+    "cities": ["Belo Horizonte"],
+    "source": "Prefeitura de Belo Horizonte",
+    "sourceLink": "https://dados.pbh.gov.br",
+    "keywords": ["Ciclovia", "Mobilidade ativa", "Infraestrutura viária"],
+    "period": "2003–2025",
+    "updatedAt": "2025-11-09",
+    "tags": ["Mobilidade por Bicicleta", "Belo Horizonte", "Infraestrutura cicloviária"],
+    "dataset_info": [
+      {
+        "dataset_title": "Rede de Ciclovias – Belo Horizonte",
+        "dataset_description": "Shapefile da rede cicloviária do município de Belo Horizonte.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/94R2N1",
+        "dataset_period": "2003–2025",
+        "dataset_format": "Georreferenciado"
+      }
+    ]
+  },
+  {
+    "id": "gtfs-belo-horizonte",
+    "title": "GTFS dos ônibus – Belo Horizonte",
+    "description": "Dados de oferta de transporte público de Belo Horizonte em formato GTFS: linhas, paradas, frequências e shapes.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Linhas e horários",
+    "formats": ["GTFS"],
+    "region": "Belo Horizonte",
+    "cities": ["Belo Horizonte"],
+    "source": "Prefeitura de Belo Horizonte / BHTrans",
+    "sourceLink": "https://dados.pbh.gov.br",
+    "keywords": ["GTFS", "Ônibus", "Frequência de ônibus", "Infraestrutura viária"],
+    "updatedAt": "2025-11-09",
+    "tags": ["Transporte Público Coletivo", "Belo Horizonte", "Linhas e horários"],
+    "dataset_info": [
+      {
+        "dataset_title": "GTFS – Belo Horizonte",
+        "dataset_description": "Dados de oferta de transporte público de Belo Horizonte em formato GTFS: linhas, paradas, frequências e shapes.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/CU6GVN",
+        "dataset_format": "GTFS"
+      }
+    ]
+  },
+  {
+    "id": "gtfs-fortaleza",
+    "title": "GTFS dos ônibus – Fortaleza",
+    "description": "Dados de oferta de transporte público de Fortaleza em formato GTFS: linhas, paradas, frequências e shapes.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Linhas e horários",
+    "formats": ["GTFS"],
+    "region": "Fortaleza",
+    "cities": ["Fortaleza"],
+    "source": "Prefeitura de Fortaleza / ETUFOR",
+    "sourceLink": "https://dados.fortaleza.ce.gov.br",
+    "keywords": ["GTFS", "Ônibus", "Frequência de ônibus", "Infraestrutura viária"],
+    "updatedAt": "2025-11-09",
+    "tags": ["Transporte Público Coletivo", "Fortaleza", "Linhas e horários"],
+    "dataset_info": [
+      {
+        "dataset_title": "GTFS – Fortaleza",
+        "dataset_description": "Dados de oferta de transporte público de Fortaleza em formato GTFS: linhas, paradas, frequências e shapes.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/7KGNSK",
+        "dataset_format": "GTFS"
+      }
+    ]
+  },
+  {
+    "id": "gtfs-sao-paulo",
+    "title": "GTFS dos ônibus – São Paulo",
+    "description": "Dados de oferta de transporte público da cidade de São Paulo em formato GTFS: linhas, paradas, frequências e shapes.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Linhas e horários",
+    "formats": ["GTFS"],
+    "region": "São Paulo",
+    "cities": ["São Paulo"],
+    "source": "Prefeitura de São Paulo / SPTrans",
+    "sourceLink": "https://dadosabertos.sp.gov.br/painel",
+    "keywords": ["GTFS", "Ônibus", "Frequência de ônibus", "Infraestrutura viária"],
+    "updatedAt": "2025-11-09",
+    "tags": ["Transporte Público Coletivo", "São Paulo", "Linhas e horários"],
+    "dataset_info": [
+      {
+        "dataset_title": "GTFS – São Paulo",
+        "dataset_description": "Dados de oferta de transporte público da cidade de São Paulo em formato GTFS: linhas, paradas, frequências e shapes.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/FGCOQC",
+        "dataset_format": "GTFS"
+      }
+    ]
+  },
+  {
+    "id": "linhas-santo-andre",
+    "title": "Linhas de ônibus – Santo André",
+    "description": "Traçado e características das linhas de ônibus municipais de Santo André e das linhas intermunicipais que atendem a cidade.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Linhas e horários",
+    "formats": ["Georreferenciado"],
+    "region": "Santo André",
+    "cities": ["Santo André"],
+    "source": "Prefeitura de Santo André",
+    "sourceLink": "https://siga.santoandre.sp.gov.br",
+    "keywords": ["Ônibus", "Infraestrutura viária", "Rotas"],
+    "period": "2025",
+    "updatedAt": "2025-11-09",
+    "tags": ["Transporte Público Coletivo", "Santo André", "Linhas e horários"],
+    "dataset_info": [
+      {
+        "dataset_title": "Linhas de Ônibus Municipais – Santo André",
+        "dataset_description": "Traçado e características das linhas de ônibus municipais de Santo André.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/IJTSMF",
+        "dataset_format": "Georreferenciado"
+      },
+      {
+        "dataset_title": "Linhas de Ônibus Intermunicipais – Santo André",
+        "dataset_description": "Traçado e características das linhas de ônibus intermunicipais que atendem Santo André.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/JMH7SC",
+        "dataset_period": "2025",
+        "dataset_format": "Georreferenciado"
+      }
+    ]
+  },
+  {
+    "id": "operacao-santo-andre",
+    "title": "Operação do sistema de ônibus – Santo André",
+    "description": "Indicadores operacionais e frota do sistema de ônibus de Santo André.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Operação e frota",
+    "formats": ["Tabela"],
+    "region": "Santo André",
+    "cities": ["Santo André"],
+    "source": "Prefeitura de Santo André",
+    "sourceLink": "https://siga.santoandre.sp.gov.br",
+    "keywords": ["Ônibus", "Frota", "Transporte público", "Qualidade do serviço"],
+    "period": "2025",
+    "updatedAt": "2025-11-09",
+    "tags": ["Transporte Público Coletivo", "Santo André", "Operação e frota"],
+    "dataset_info": [
+      {
+        "dataset_title": "Frota de Ônibus – Santo André",
+        "dataset_description": "Dados sobre a frota de ônibus do sistema de transporte público de Santo André.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/113HCC",
+        "dataset_period": "2025",
+        "dataset_format": "Tabela"
+      },
+      {
+        "dataset_title": "Dados Operacionais do Transporte Público – Santo André",
+        "dataset_description": "Indicadores operacionais do sistema de transporte público de Santo André.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/GWNEFP",
+        "dataset_period": "2025",
+        "dataset_format": "Tabela"
+      }
+    ]
+  },
+  {
+    "id": "origem-destino-belo-horizonte",
+    "title": "Matriz origem-destino – Belo Horizonte",
+    "description": "Dados de origem e destino de viagens na Região Metropolitana de Belo Horizonte.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Pesquisas de mobilidade",
+    "formats": ["Tabela"],
+    "region": "Belo Horizonte",
+    "cities": ["Belo Horizonte"],
+    "source": "Prefeitura de Belo Horizonte",
+    "sourceLink": "https://dados.pbh.gov.br",
+    "keywords": ["Mobilidade Urbana", "Pesquisa OD", "Tempo de viagem"],
+    "updatedAt": "2025-11-09",
+    "tags": ["Transporte Público Coletivo", "Belo Horizonte", "Pesquisas de mobilidade"],
+    "dataset_info": [
+      {
+        "dataset_title": "Matriz Origem-Destino – Belo Horizonte",
+        "dataset_description": "Dados de origem e destino de viagens na Região Metropolitana de Belo Horizonte.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/J3PATK",
+        "dataset_format": "Tabela"
+      }
+    ]
+  },
+  {
+    "id": "passageiros-santo-andre",
+    "title": "Passageiros de ônibus – Santo André",
+    "description": "Total de passageiros transportados pelo sistema de ônibus de Santo André.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Bilhetagem e demanda",
+    "formats": ["Tabela"],
+    "region": "Santo André",
+    "cities": ["Santo André"],
+    "source": "Prefeitura de Santo André",
+    "sourceLink": "https://siga.santoandre.sp.gov.br",
+    "keywords": ["Ônibus", "Demanda de passageiros", "Série histórica"],
+    "period": "2025",
+    "updatedAt": "2025-11-09",
+    "tags": ["Transporte Público Coletivo", "Santo André", "Bilhetagem e demanda"],
+    "dataset_info": [
+      {
+        "dataset_title": "Passageiros de Ônibus – Santo André",
+        "dataset_description": "Total de passageiros transportados pelo sistema de ônibus de Santo André.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/M4QTJK",
+        "dataset_period": "2025",
+        "dataset_format": "Tabela"
+      }
+    ]
+  },
+  {
+    "id": "sinistros-santo-andre",
+    "title": "Sinistros de trânsito – Santo André",
+    "description": "Registros de sinistros de trânsito ocorridos em Santo André.",
+    "theme": "Segurança Viária",
+    "subject": "Sinistros de trânsito",
+    "formats": ["Georreferenciado"],
+    "region": "Santo André",
+    "cities": ["Santo André"],
+    "source": "Prefeitura de Santo André",
+    "sourceLink": "https://siga.santoandre.sp.gov.br",
+    "keywords": ["Sinistros", "Série histórica"],
+    "period": "1998–2025",
+    "updatedAt": "2025-11-09",
+    "tags": ["Segurança Viária", "Santo André", "Sinistros de trânsito"],
+    "dataset_info": [
+      {
+        "dataset_title": "Sinistros de Trânsito – Santo André",
+        "dataset_description": "Registros de sinistros de trânsito ocorridos em Santo André.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/TCQBPW",
+        "dataset_period": "1998–2025",
+        "dataset_format": "Georreferenciado"
+      }
+    ]
+  },
+  {
+    "id": "velocidade-belo-horizonte",
+    "title": "Velocidade nos corredores de ônibus – Belo Horizonte",
+    "description": "Dados de velocidade média dos ônibus nos corredores de transporte público de Belo Horizonte.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Operação e frota",
+    "formats": ["Georreferenciado"],
+    "region": "Belo Horizonte",
+    "cities": ["Belo Horizonte"],
+    "source": "Prefeitura de Belo Horizonte / BHTrans",
+    "sourceLink": "https://dados.pbh.gov.br",
+    "keywords": ["Ônibus", "Velocidade", "Corredores", "Qualidade do serviço"],
+    "updatedAt": "2025-11-09",
+    "tags": ["Transporte Público Coletivo", "Belo Horizonte", "Operação e frota"],
+    "dataset_info": [
+      {
+        "dataset_title": "Velocidade nos Corredores de Ônibus – Belo Horizonte",
+        "dataset_description": "Dados de velocidade média dos ônibus nos corredores de transporte público de Belo Horizonte.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/RCFPYA",
+        "dataset_format": "Georreferenciado"
+      }
+    ]
+  },
+  {
+    "id": "bilhetagem-salvador",
+    "title": "Bilhetagem eletrônica – Salvador",
+    "description": "Embarques nos ônibus de Salvador registrados pela bilhetagem eletrônica, incluindo os dados do sistema de clearing.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Bilhetagem e demanda",
+    "formats": ["Tabela"],
+    "region": "Salvador",
+    "cities": ["Salvador"],
+    "source": "Prefeitura de Salvador / SETIN",
+    "sourceLink": "https://salvador.ba.gov.br",
+    "keywords": ["Bilhetagem eletrônica", "Ônibus", "Embarques", "Série histórica"],
+    "period": "2025",
+    "updatedAt": "2025-10-30",
+    "tags": ["Transporte Público Coletivo", "Salvador", "Bilhetagem e demanda"],
+    "dataset_info": [
+      {
+        "dataset_title": "Bilhetagem Eletrônica (Clearing) – Salvador",
+        "dataset_description": "Registros de embarques no transporte público de Salvador via sistema de clearing de bilhetagem eletrônica.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/RUA5LW",
+        "dataset_period": "2025",
+        "dataset_format": "Tabela"
+      },
+      {
+        "dataset_title": "Bilhetagem Eletrônica – Salvador",
+        "dataset_description": "Registros de embarques no transporte público de Salvador via bilhetagem eletrônica.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/QIKHOC",
+        "dataset_period": "2025",
+        "dataset_format": "Tabela"
+      }
+    ]
+  },
+  {
+    "id": "ciclovias-salvador",
+    "title": "Rede cicloviária – Salvador",
+    "description": "Shapefile da rede cicloviária do município de Salvador.",
+    "theme": "Mobilidade por Bicicleta",
+    "subject": "Infraestrutura cicloviária",
+    "formats": ["Georreferenciado"],
+    "region": "Salvador",
+    "cities": ["Salvador"],
+    "source": "Prefeitura de Salvador",
+    "sourceLink": "https://salvador.ba.gov.br",
+    "keywords": ["Ciclovia", "Mobilidade ativa", "Infraestrutura viária"],
+    "period": "2025",
+    "updatedAt": "2025-10-30",
+    "tags": ["Mobilidade por Bicicleta", "Salvador", "Infraestrutura cicloviária"],
+    "dataset_info": [
+      {
+        "dataset_title": "Rede de Ciclovias – Salvador",
+        "dataset_description": "Shapefile da rede cicloviária do município de Salvador.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/DUWZYR",
+        "dataset_period": "2025",
+        "dataset_format": "Georreferenciado"
+      }
+    ]
+  },
+  {
+    "id": "gps-salvador",
+    "title": "GPS dos ônibus – Salvador",
+    "description": "Dados de rastreamento GPS de ônibus embarcados no sistema de transporte público de Salvador.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "GPS embarcado",
+    "formats": ["Tabela"],
+    "region": "Salvador",
+    "cities": ["Salvador"],
+    "source": "Prefeitura de Salvador / SETIN",
+    "sourceLink": "https://salvador.ba.gov.br",
+    "keywords": ["GPS", "Ônibus"],
+    "period": "2025",
+    "updatedAt": "2025-10-30",
+    "tags": ["Transporte Público Coletivo", "Salvador", "GPS embarcado"],
+    "dataset_info": [
+      {
+        "dataset_title": "GPS Embarcados – Salvador",
+        "dataset_description": "Dados de rastreamento GPS de ônibus embarcados no sistema de transporte público de Salvador.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/K3BXZR",
+        "dataset_period": "2025",
+        "dataset_format": "Tabela"
+      }
+    ]
+  },
+  {
+    "id": "gtfs-salvador",
+    "title": "GTFS dos ônibus – Salvador",
+    "description": "Dados de oferta de transporte público de Salvador em formato GTFS: linhas, paradas, frequências e shapes.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Linhas e horários",
+    "formats": ["GTFS"],
+    "region": "Salvador",
+    "cities": ["Salvador"],
+    "source": "Prefeitura de Salvador / SETIN",
+    "sourceLink": "https://salvador.ba.gov.br",
+    "keywords": ["GTFS", "Ônibus", "Frequência de ônibus", "Infraestrutura viária"],
+    "updatedAt": "2025-10-30",
+    "tags": ["Transporte Público Coletivo", "Salvador", "Linhas e horários"],
+    "dataset_info": [
+      {
+        "dataset_title": "GTFS – Salvador",
+        "dataset_description": "Dados de oferta de transporte público de Salvador em formato GTFS: linhas, paradas, frequências e shapes.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/UKB7LC",
+        "dataset_format": "GTFS"
+      }
+    ]
+  },
+  {
+    "id": "pontos-onibus-belo-horizonte",
+    "title": "Pontos de ônibus – Belo Horizonte",
+    "description": "Localização dos pontos de parada de ônibus do sistema de transporte público de Belo Horizonte.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Infraestrutura de transporte",
+    "formats": ["Georreferenciado"],
+    "region": "Belo Horizonte",
+    "cities": ["Belo Horizonte"],
+    "source": "Prefeitura de Belo Horizonte / BHTrans",
+    "sourceLink": "https://dados.pbh.gov.br",
+    "keywords": ["Ônibus", "Infraestrutura viária", "Paradas"],
+    "updatedAt": "2025-10-30",
+    "tags": ["Transporte Público Coletivo", "Belo Horizonte", "Infraestrutura de transporte"],
+    "dataset_info": [
+      {
+        "dataset_title": "Pontos de Ônibus – Belo Horizonte",
+        "dataset_description": "Localização dos pontos de parada de ônibus do sistema de transporte público de Belo Horizonte.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/76DLGS",
+        "dataset_format": "Georreferenciado"
+      }
+    ]
+  },
+  {
+    "id": "bilhetagem-niteroi",
+    "title": "Passageiros por linha de ônibus – Niterói",
+    "description": "Passageiros transportados por linha de ônibus em Niterói, com totais diários e mensais.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Bilhetagem e demanda",
+    "formats": ["Tabela"],
+    "region": "Niterói",
+    "cities": ["Niterói"],
+    "source": "Prefeitura de Niterói / NITTRANS",
+    "sourceLink": "https://mobnit.niteroi.rj.gov.br",
+    "keywords": ["Ônibus", "Demanda de passageiros", "Série histórica"],
+    "updatedAt": "2025-09-16",
+    "tags": ["Transporte Público Coletivo", "Niterói", "Bilhetagem e demanda"],
+    "dataset_info": [
+      {
+        "dataset_title": "Passageiros Diários por Linha de Ônibus – Niterói",
+        "dataset_description": "Total de passageiros transportados por dia desagregado por linha de ônibus em Niterói.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/YO5BBM",
+        "dataset_format": "Tabela"
+      },
+      {
+        "dataset_title": "Passageiros Mensais por Linha de Ônibus – Niterói",
+        "dataset_description": "Total de passageiros transportados por mês desagregado por linha de ônibus em Niterói.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/RXFEDU",
+        "dataset_format": "Tabela"
+      }
+    ]
+  },
+  {
+    "id": "frota-porto-alegre",
+    "title": "Frota do transporte coletivo – Porto Alegre",
+    "description": "Dados sobre a frota de transporte público coletivo em Porto Alegre.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Operação e frota",
+    "formats": ["Tabela"],
+    "region": "Porto Alegre",
+    "cities": ["Porto Alegre"],
+    "source": "Prefeitura de Porto Alegre / EPTC",
+    "sourceLink": "https://dadosabertos.poa.br",
+    "keywords": ["Ônibus", "Frota", "Transporte público"],
+    "updatedAt": "2025-09-16",
+    "tags": ["Transporte Público Coletivo", "Porto Alegre", "Operação e frota"],
+    "dataset_info": [
+      {
+        "dataset_title": "Frota de Transporte Público – Porto Alegre",
+        "dataset_description": "Dados sobre a frota de transporte público coletivo em Porto Alegre.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/V1EAV8",
+        "dataset_format": "Tabela"
+      }
+    ]
+  },
+  {
+    "id": "horarios-porto-alegre",
+    "title": "Tabela horária dos ônibus – Porto Alegre",
+    "description": "Tabelas horárias do sistema de ônibus de Porto Alegre.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Linhas e horários",
+    "formats": ["Tabela"],
+    "region": "Porto Alegre",
+    "cities": ["Porto Alegre"],
+    "source": "Prefeitura de Porto Alegre / EPTC",
+    "sourceLink": "https://dadosabertos.poa.br",
+    "keywords": ["Ônibus", "Frequência de ônibus", "GTFS"],
+    "updatedAt": "2025-09-16",
+    "tags": ["Transporte Público Coletivo", "Porto Alegre", "Linhas e horários"],
+    "dataset_info": [
+      {
+        "dataset_title": "Tabela Horária de Ônibus – Porto Alegre",
+        "dataset_description": "Tabelas horárias do sistema de ônibus de Porto Alegre.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/JTWHQ7",
+        "dataset_format": "Tabela"
+      }
+    ]
+  },
+  {
+    "id": "sinalizacao-porto-alegre",
+    "title": "Sinalização viária – Porto Alegre",
+    "description": "Localização e características da sinalização viária em Porto Alegre.",
+    "theme": "Segurança Viária",
+    "subject": "Infraestrutura viária",
+    "formats": ["Georreferenciado"],
+    "region": "Porto Alegre",
+    "cities": ["Porto Alegre"],
+    "source": "Prefeitura de Porto Alegre / EPTC",
+    "sourceLink": "https://dadosabertos.poa.br",
+    "keywords": ["Infraestrutura viária", "Mobilidade Urbana"],
+    "period": "2025",
+    "updatedAt": "2025-09-16",
+    "tags": ["Segurança Viária", "Porto Alegre", "Infraestrutura viária"],
+    "dataset_info": [
+      {
+        "dataset_title": "Sinalização Viária – Porto Alegre",
+        "dataset_description": "Localização e características da sinalização viária em Porto Alegre.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/BY0FPB",
+        "dataset_period": "2025",
+        "dataset_format": "Georreferenciado"
+      }
+    ]
+  },
+  {
+    "id": "sinistros-porto-alegre",
+    "title": "Sinistros de trânsito – Porto Alegre",
+    "description": "Sinistros de trânsito georreferenciados em Porto Alegre e dados sobre as vítimas, com tipo de vítima e localização.",
+    "theme": "Segurança Viária",
+    "subject": "Sinistros de trânsito",
+    "formats": ["Georreferenciado"],
+    "region": "Porto Alegre",
+    "cities": ["Porto Alegre"],
+    "source": "Prefeitura de Porto Alegre / EPTC",
+    "sourceLink": "https://dadosabertos.poa.br",
+    "keywords": ["Sinistros", "Pedestre", "Série histórica"],
+    "period": "2020–2025",
+    "updatedAt": "2025-09-16",
+    "tags": ["Segurança Viária", "Porto Alegre", "Sinistros de trânsito"],
+    "dataset_info": [
+      {
+        "dataset_title": "Vítimas de Sinistros de Trânsito – Porto Alegre",
+        "dataset_description": "Dados sobre vítimas de sinistros de trânsito em Porto Alegre, incluindo tipo de vítima e localização.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/4KKAGG",
+        "dataset_period": "2020–2025",
+        "dataset_format": "Georreferenciado"
+      },
+      {
+        "dataset_title": "Sinistros de Trânsito – Porto Alegre",
+        "dataset_description": "Registros georreferenciados de sinistros de trânsito em Porto Alegre.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/HDUNXP",
+        "dataset_period": "2020–2025",
+        "dataset_format": "Georreferenciado"
+      }
+    ]
+  },
+  {
+    "id": "bilhetagem-campinas",
+    "title": "Bilhetagem eletrônica – Campinas",
+    "description": "Registros de embarques via bilhetagem eletrônica no transporte público de Campinas.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Bilhetagem e demanda",
+    "formats": ["Tabela"],
+    "region": "Campinas",
+    "cities": ["Campinas"],
+    "source": "Prefeitura de Campinas / EMDEC",
+    "sourceLink": "https://campinas.sp.gov.br",
+    "keywords": ["Bilhetagem eletrônica", "Ônibus", "Embarques"],
+    "period": "2024–2025",
+    "updatedAt": "2025-09-15",
+    "tags": ["Transporte Público Coletivo", "Campinas", "Bilhetagem e demanda"],
+    "dataset_info": [
+      {
+        "dataset_title": "Bilhetagem Eletrônica – Campinas",
+        "dataset_description": "Registros de embarques via bilhetagem eletrônica no transporte público de Campinas.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/MW22QF",
+        "dataset_period": "2024–2025",
+        "dataset_format": "Tabela"
+      }
+    ]
+  },
+  {
+    "id": "bilhetagem-recife",
+    "title": "Passageiros de ônibus – Região Metropolitana do Recife",
+    "description": "Passageiros transportados pelo sistema de ônibus da Região Metropolitana do Recife, em totais absolutos e em passageiros equivalentes. Os dados vêm do acordo com o Grande Recife Consórcio de Transporte, que atende Recife e os municípios de Abreu e Lima, Araçoiaba, Cabo de Santo Agostinho, Camaragibe, Igarassu, Ilha de Itamaracá, Ipojuca, Itapissuma, Jaboatão dos Guararapes, Moreno, Olinda, Paulista e São Lourenço da Mata.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Bilhetagem e demanda",
+    "formats": ["Tabela"],
+    "region": "Recife (RM)",
+    "cities": ["Recife (RM)"],
+    "source": "Grande Recife Consórcio de Transporte",
+    "sourceLink": "http://dados.recife.pe.gov.br/",
+    "keywords": ["Transporte público", "Demanda de passageiros", "Série histórica"],
+    "period": "2024–2025",
+    "updatedAt": "2025-09-15",
+    "tags": ["Transporte Público Coletivo", "Recife (RM)", "Bilhetagem e demanda"],
+    "dataset_info": [
+      {
+        "dataset_title": "Passageiros Transportados – Recife",
+        "dataset_description": "Total de passageiros transportados pelo sistema de transporte público de Recife.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/JEYM0J",
+        "dataset_period": "2024–2025",
+        "dataset_format": "Tabela"
+      },
+      {
+        "dataset_title": "Passageiros Equivalentes – Recife",
+        "dataset_description": "Total de passageiros equivalentes transportados pelo sistema de transporte público de Recife.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/OLSIZD",
+        "dataset_period": "2024–2025",
+        "dataset_format": "Tabela"
+      }
+    ]
+  },
+  {
+    "id": "bilhetagem-rio-de-janeiro",
+    "title": "Bilhetagem eletrônica – Rio de Janeiro",
+    "description": "Embarques nos ônibus do Rio de Janeiro registrados pela bilhetagem eletrônica. Reúne as séries históricas dos sistemas Riocard e Jaé e uma base com os registros de embarque.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Bilhetagem e demanda",
+    "formats": ["Tabela"],
+    "region": "Rio de Janeiro",
+    "cities": ["Rio de Janeiro"],
+    "source": "Prefeitura do Rio de Janeiro / SMTR",
+    "sourceLink": "https://www.data.rio",
+    "keywords": ["Bilhetagem eletrônica", "Ônibus", "Embarques", "Série histórica", "Integração modal"],
+    "period": "2023–2025",
+    "updatedAt": "2025-09-15",
+    "tags": ["Transporte Público Coletivo", "Rio de Janeiro", "Bilhetagem e demanda"],
+    "dataset_info": [
+      {
+        "dataset_title": "Embarques Riocard (Histórico) – Rio de Janeiro",
+        "dataset_description": "Série histórica de embarques registrados pelo sistema de bilhetagem Riocard no Rio de Janeiro.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/AYFJ8M",
+        "dataset_format": "Tabela"
+      },
+      {
+        "dataset_title": "Embarques Jaé (Histórico) – Rio de Janeiro",
+        "dataset_description": "Série histórica de embarques registrados pelo sistema de bilhetagem Jaé no Rio de Janeiro.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/POEDQC",
+        "dataset_period": "2023–2025",
+        "dataset_format": "Tabela"
+      },
+      {
+        "dataset_title": "Bilhetagem Eletrônica – Rio de Janeiro",
+        "dataset_description": "Registros de embarques no transporte público do Rio de Janeiro via bilhetagem eletrônica.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/TIT5CC",
+        "dataset_period": "2024",
+        "dataset_format": "Tabela"
+      }
+    ]
+  },
+  {
+    "id": "gps-rio-de-janeiro",
+    "title": "GPS dos ônibus – Rio de Janeiro",
+    "description": "Dados de rastreamento GPS de ônibus embarcados no sistema de transporte público do Rio de Janeiro.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "GPS embarcado",
+    "formats": ["Tabela"],
+    "region": "Rio de Janeiro",
+    "cities": ["Rio de Janeiro"],
+    "source": "Prefeitura do Rio de Janeiro / SMTR",
+    "sourceLink": "https://www.data.rio",
+    "keywords": ["GPS", "Ônibus", "Tempo de viagem"],
+    "updatedAt": "2025-09-15",
+    "tags": ["Transporte Público Coletivo", "Rio de Janeiro", "GPS embarcado"],
+    "dataset_info": [
+      {
+        "dataset_title": "GPS Embarcados – Rio de Janeiro",
+        "dataset_description": "Dados de rastreamento GPS de ônibus embarcados no sistema de transporte público do Rio de Janeiro.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/WEFWVW",
+        "dataset_format": "Tabela"
+      }
+    ]
+  },
+  {
+    "id": "gtfs-rio-de-janeiro",
+    "title": "GTFS dos ônibus – Rio de Janeiro",
+    "description": "Dados de oferta de transporte público do Rio de Janeiro em formato GTFS: linhas, paradas, frequências e shapes.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Linhas e horários",
+    "formats": ["GTFS"],
+    "region": "Rio de Janeiro",
+    "cities": ["Rio de Janeiro"],
+    "source": "Prefeitura do Rio de Janeiro / SMTR",
+    "sourceLink": "https://www.data.rio",
+    "keywords": ["GTFS", "Ônibus", "Frequência de ônibus", "Infraestrutura viária"],
+    "period": "2025",
+    "updatedAt": "2025-09-15",
+    "tags": ["Transporte Público Coletivo", "Rio de Janeiro", "Linhas e horários"],
+    "dataset_info": [
+      {
+        "dataset_title": "GTFS – Rio de Janeiro",
+        "dataset_description": "Dados de oferta de transporte público do Rio de Janeiro em formato GTFS: linhas, paradas, frequências e shapes.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/PFFEHU",
+        "dataset_period": "2025",
+        "dataset_format": "GTFS"
+      }
+    ]
+  },
+  {
+    "id": "operacao-niteroi",
+    "title": "Operação do sistema de ônibus – Niterói",
+    "description": "Indicadores de operação do sistema de ônibus de Niterói: passageiros transportados por dia, passageiros por veículo, quilometragem percorrida, total de viagens e frota em operação.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Operação e frota",
+    "formats": ["Tabela"],
+    "region": "Niterói",
+    "cities": ["Niterói"],
+    "source": "Prefeitura de Niterói / NITTRANS",
+    "sourceLink": "https://mobnit.niteroi.rj.gov.br",
+    "keywords": ["Ônibus", "Demanda de passageiros", "Série histórica", "Qualidade do serviço", "Frota"],
+    "period": "2025",
+    "updatedAt": "2025-09-15",
+    "tags": ["Transporte Público Coletivo", "Niterói", "Operação e frota"],
+    "dataset_info": [
+      {
+        "dataset_title": "Passageiros Diários Ônibus (Agregado) – Niterói",
+        "dataset_description": "Total diário de passageiros transportados pelo sistema de ônibus de Niterói (dado agregado).",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/ZI0M7G",
+        "dataset_format": "Tabela"
+      },
+      {
+        "dataset_title": "Quilometragem dos Ônibus – Niterói",
+        "dataset_description": "Quilometragem percorrida pelos ônibus no sistema de transporte público de Niterói.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/6YKYF9",
+        "dataset_period": "2025",
+        "dataset_format": "Tabela"
+      },
+      {
+        "dataset_title": "Frota de Ônibus – Niterói",
+        "dataset_description": "Dados sobre a frota de ônibus em operação no sistema de transporte público de Niterói.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/ZAASMD",
+        "dataset_period": "2025",
+        "dataset_format": "Tabela"
+      },
+      {
+        "dataset_title": "Passageiros por Veículo – Niterói",
+        "dataset_description": "Número de passageiros por veículo no sistema de transporte público de Niterói.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/71FU6Y",
+        "dataset_format": "Tabela"
+      },
+      {
+        "dataset_title": "Total de Viagens de Ônibus – Niterói",
+        "dataset_description": "Total de viagens realizadas pelo sistema de ônibus de Niterói.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/JKZNN3",
+        "dataset_format": "Tabela"
+      }
+    ]
+  },
+  {
+    "id": "operacao-recife",
+    "title": "Operação do sistema de ônibus – Região Metropolitana do Recife",
+    "description": "Indicadores operacionais do sistema de ônibus da Região Metropolitana do Recife e cadastro das empresas concessionárias. Os dados vêm do acordo com o Grande Recife Consórcio de Transporte, que atende Recife e os municípios de Abreu e Lima, Araçoiaba, Cabo de Santo Agostinho, Camaragibe, Igarassu, Ilha de Itamaracá, Ipojuca, Itapissuma, Jaboatão dos Guararapes, Moreno, Olinda, Paulista e São Lourenço da Mata.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Operação e frota",
+    "formats": ["Tabela"],
+    "region": "Recife (RM)",
+    "cities": ["Recife (RM)"],
+    "source": "Grande Recife Consórcio de Transporte",
+    "sourceLink": "http://dados.recife.pe.gov.br/",
+    "keywords": ["Transporte público", "Qualidade do serviço", "Gestão de Transportes"],
+    "period": "2024–2025",
+    "updatedAt": "2025-09-15",
+    "tags": ["Transporte Público Coletivo", "Recife (RM)", "Operação e frota"],
+    "dataset_info": [
+      {
+        "dataset_title": "Dados Operacionais do Transporte Público – Recife",
+        "dataset_description": "Indicadores operacionais do sistema de transporte público de Recife.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/XYYBKU",
+        "dataset_period": "2024–2025",
+        "dataset_format": "Tabela"
+      },
+      {
+        "dataset_title": "Empresas Concessionárias de Ônibus – Recife",
+        "dataset_description": "Cadastro das empresas concessionárias do sistema de ônibus de Recife.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/TLFP8L",
+        "dataset_format": "Tabela"
+      }
+    ]
+  },
+  {
+    "id": "passageiros-campinas",
+    "title": "Passageiros por dia – Campinas",
+    "description": "Total de passageiros transportados por dia no sistema de transporte público de Campinas.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Operação e frota",
+    "formats": ["Tabela"],
+    "region": "Campinas",
+    "cities": ["Campinas"],
+    "source": "Prefeitura de Campinas / EMDEC",
+    "sourceLink": "https://campinas.sp.gov.br",
+    "keywords": ["Transporte público", "Demanda de passageiros", "Série histórica"],
+    "updatedAt": "2025-09-15",
+    "tags": ["Transporte Público Coletivo", "Campinas", "Operação e frota"],
+    "dataset_info": [
+      {
+        "dataset_title": "Passageiros por Dia – Campinas",
+        "dataset_description": "Total de passageiros transportados por dia no sistema de transporte público de Campinas.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/GBFWQI",
+        "dataset_format": "Tabela"
+      }
+    ]
+  },
+  {
+    "id": "rotas-niteroi",
+    "title": "Rotas de ônibus – Niterói",
+    "description": "Traçado das rotas de ônibus do sistema de transporte público de Niterói.",
+    "theme": "Transporte Público Coletivo",
+    "subject": "Linhas e horários",
+    "formats": ["Georreferenciado"],
+    "region": "Niterói",
+    "cities": ["Niterói"],
+    "source": "Prefeitura de Niterói / NITTRANS",
+    "sourceLink": "https://mobnit.niteroi.rj.gov.br",
+    "keywords": ["Ônibus", "Infraestrutura viária", "Rotas"],
+    "updatedAt": "2025-08-04",
+    "tags": ["Transporte Público Coletivo", "Niterói", "Linhas e horários"],
+    "dataset_info": [
+      {
+        "dataset_title": "Rotas de Ônibus – Niterói",
+        "dataset_description": "Traçado das rotas de ônibus do sistema de transporte público de Niterói.",
+        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/YA4P5P",
+        "dataset_format": "Georreferenciado"
+      }
+    ]
+  }
+]

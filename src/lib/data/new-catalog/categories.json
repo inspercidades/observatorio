@@ -1,0 +1,6 @@
+{
+  "themes": ["Transporte Público Coletivo", "Mobilidade por Bicicleta", "Segurança Viária", "Transversal"],
+  "cities": ["Belo Horizonte", "Campinas", "Fortaleza", "Niterói", "Porto Alegre", "Recife (RM)", "Rio de Janeiro", "Salvador", "Santo André", "São Paulo", "Brasil"],
+  "subjects": ["Pesquisas de mobilidade", "Trem e metrô", "Linhas e horários", "Bilhetagem e demanda", "Operação e frota", "GPS embarcado", "Infraestrutura de transporte", "Infraestrutura cicloviária", "Infraestrutura viária", "Sinistros de trânsito"],
+  "formats": ["Tabela", "Georreferenciado", "GTFS"]
+}
