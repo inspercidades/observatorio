@@ -21,6 +21,7 @@ import ivanice_schutz from "@/app/assets/images/ivanice_schutz.png";
 import jose_police_neto from "@/app/assets/images/jose_police_neto.png";
 import juan_sebastian from "@/app/assets/images/juan_sebastian.png";
 import laryssa_kruger from "@/app/assets/images/laryssa_kruger.png";
+import lucas_bravo_rosin from "@/app/assets/images/lucas_bravo_rosin.webp";
 import lucas_tavares from "@/app/assets/images/lucas-tavares-da-silva-ferreira.png";
 import lucelio_moraes from "@/app/assets/images/lucelio_moraes.png";
 import marcela_costa from "@/app/assets/images/marcela_costa.png";
@@ -36,7 +37,7 @@ import sergio_avelleda from "@/app/assets/images/sergio_avelleda.png";
 import suzana_nogueira from "@/app/assets/images/suzana.webp";
 import tomas_alvim from "@/app/assets/images/tomas_alvim.png";
 import vanessa_duarte from "@/app/assets/images/vanessa_duarte.png";
-import vinicius_oike_reginatto from "@/app/assets/images/vinicius_oike_reginatto.png";
+import vinicius_oike from "@/app/assets/images/vinicius_oike.webp";
 
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
@@ -61,6 +62,33 @@ interface DevelopmentTeamMember {
   role: string
 }
 
+// Foto do membro; sem foto, mostra as iniciais sobre o fundo cinza
+function MemberPhoto({ name, image }: { name: string; image?: StaticImageData }) {
+  if (image) {
+    return (
+      <Image
+        src={image}
+        alt={name}
+        fill
+        className="object-cover transition-transform duration-300 group-hover:scale-105 rounded-none"
+      />
+    )
+  }
+
+  const parts = name.trim().split(/\s+/)
+  const initials = (parts[0][0] + (parts.length > 1 ? parts[parts.length - 1][0] : '')).toUpperCase()
+
+  return (
+    <div
+      role="img"
+      aria-label={name}
+      className="absolute inset-0 flex items-center justify-center text-6xl md:text-7xl font-semibold text-gray-400 select-none"
+    >
+      {initials}
+    </div>
+  )
+}
+
 // Equipe Observatório
 const equipeObservatorio: TeamMember[] = [
   {
@@ -80,9 +108,22 @@ const equipeObservatorio: TeamMember[] = [
   {
     id: '3',
     name: 'Vinicius Oike',
-    role: 'Cientista de dados',
-    image: vinicius_oike_reginatto,
+    role: 'Coordenador de dados',
+    image: vinicius_oike,
     email: 'viniciusor@insper.edu.br'
+  },
+  {
+    id: '4',
+    name: 'Lucas Bravo Rosin',
+    role: 'Especialista em mobilidade urbana',
+    image: lucas_bravo_rosin,
+    email: 'lucasbr5@insper.edu.br'
+  },
+  {
+    id: '5',
+    name: 'Philipe Dias',
+    role: 'Cientista de dados',
+    email: 'philipeld@al.insper.edu.br'
   }
 ]
 
@@ -461,14 +502,7 @@ export default function Sobre() {
               {equipeObservatorio.map((member) => (
                 <SwiperSlide key={member.id} className="!w-[250px] md:!w-[350px] group relative">
                   <div className="relative overflow-hidden h-[350px] w-[250px] md:h-[450px] md:w-[350px] bg-[#ECECEC]">
-                    {member.image && (
-                      <Image
-                        src={member.image}
-                        alt={member.name}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105 rounded-none"
-                      />
-                    )}
+                    <MemberPhoto name={member.name} image={member.image} />
                   </div>
                   <div className="mt-4 text-left">
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -523,14 +557,7 @@ export default function Sobre() {
               {conselhoGestor.map((member) => (
                 <SwiperSlide key={member.id} className="!w-[250px] md:!w-[350px] group relative">
                   <div className="relative overflow-hidden h-[350px] w-[250px] md:h-[450px] md:w-[350px] bg-[#ECECEC]">
-                    {member.image && (
-                      <Image
-                        src={member.image}
-                        alt={member.name}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105 rounded-none"
-                      />
-                    )}
+                    <MemberPhoto name={member.name} image={member.image} />
                   </div>
                   <div className="mt-4 text-left">
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -585,14 +612,7 @@ export default function Sobre() {
               {equipeInsperCidades.map((member) => (
                 <SwiperSlide key={member.id} className="!w-[250px] md:!w-[350px] group relative">
                   <div className="relative overflow-hidden h-[350px] w-[250px] md:h-[450px] md:w-[350px] bg-[#ECECEC]">
-                    {member.image && (
-                      <Image
-                        src={member.image}
-                        alt={member.name}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105 rounded-none"
-                      />
-                    )}
+                    <MemberPhoto name={member.name} image={member.image} />
                   </div>
                   <div className="mt-4 text-left">
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
