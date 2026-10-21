@@ -75,7 +75,7 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
       </button>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto rounded-none">
           <DialogHeader>
             <DialogTitle className="text-xl font-semibold text-foreground">
               {item.title}
@@ -219,7 +219,7 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
                         </div>
                         <Button
                           onClick={() => handleDatasetAccess(dataset.dataset_link)}
-                          className="bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer shrink-0"
+                          className="rounded-none bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer shrink-0"
                           size="sm"
                         >
                           Acessar

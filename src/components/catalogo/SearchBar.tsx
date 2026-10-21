@@ -32,7 +32,7 @@ export function SearchBar({
         placeholder={placeholder}
         value={searchTerm}
         onChange={(e) => handleSearch(e.target.value)}
-        className="pl-6 bg-background-2 border-none rounded-none h-12 text-foreground placeholder:text-foreground/50"
+        className="pl-6 bg-background-2 border-none rounded-none shadow-none h-12 text-foreground placeholder:text-foreground/50"
       />
       <Search className="absolute right-6 top-1/2 transform -translate-y-1/2 text-foreground h-4 w-4" />
     </div>

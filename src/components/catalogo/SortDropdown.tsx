@@ -24,7 +24,7 @@ export function SortDropdown({ onSortChange, currentSort }: SortDropdownProps) {
     <Button
       variant="default"
       onClick={handleToggle}
-      className="flex items-center gap-2 h-12 bg-background-2 text-foreground hover:bg-background-2 hover:cursor-pointer"
+      className="flex items-center gap-2 h-12 rounded-none bg-background-2 text-foreground hover:bg-background-2 hover:cursor-pointer"
     >
       {currentOption?.label ?? "Mais recentes"}
       <ArrowUpDown className="h-4 w-4" />
