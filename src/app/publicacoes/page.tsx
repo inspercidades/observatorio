@@ -15,7 +15,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
 
-// Define publication types
+// Define publication types  
 interface Publication {
   id: string;
   title: string;
@@ -44,7 +44,7 @@ const publications: Publication[] = [
     description: "Este Guia foi elaborado pelo Núcleo de Mobilidade Urbana do Centro de Estudos das Cidades – Laboratório Arq.Futuro do Insper, com apoio e cooperação técnica do Itaú Unibanco.",
     image: publicacao1,
     alt: "Guia de Eletromobilidade",
-    tipo: "livros",
+    tipo: "relatorios",
     link: "https://repositorio-api.insper.edu.br/server/api/core/bitstreams/72e76cf4-e9b7-4a57-a9c5-2441c178db7c/content"
   },
   {
@@ -53,7 +53,7 @@ const publications: Publication[] = [
     description: "O Guia de Mobilidade Humana tem o propósito de fornecer orientação prática a partir de referências relevantes baseadas em dados e evidências, experiências de gestão no setor da mobilidade e na literatura disponível.",
     image: publicacao2,
     alt: "Guia de Mobilidade Humana",
-    tipo: "livros",
+    tipo: "relatorios",
     link: "https://repositorio.insper.edu.br/entities/publication/f0dcb9c3-8d56-4cf5-8149-a0c93cadd739"
   },
   {
@@ -62,16 +62,16 @@ const publications: Publication[] = [
     description: "Documento para apoiar a elaboração de programas de governo com foco em mobilidade urbana sustentável para as eleições municipais de 2024.",
     image: publicacao3,
     alt: "Mobilidade Humana",
-    tipo: "livros",
+    tipo: "relatorios",
     link: "https://repositorio-api.insper.edu.br/server/api/core/bitstreams/74ba137c-45f8-4f98-b20e-9462e8dbb76a/content"
   },
   {
     id: "4",
-    title: "Coalizão dos Transportes",
-    description: "Como tornar o setor de transporte um contribuidor ativo para a redução das emissões brasileiras.",
+    title: "Coalizão dos Transportes (Completo)",
+    description: "Estudo Completo — Coalizão dos transportes: como tornar o setor de transportes um contribuidor ativo para a redução das emissões brasileiras.",
     image: publicacao4,
-    alt: "Coalizão dos Transportes",
-    tipo: "livros",
+    alt: "Coalizão dos Transportes (Completo)",
+    tipo: "relatorios",
     link: "https://cdn.cnt.org.br/diretorioVirtual/23c3a08d-9fd6-4d8d-ba5c-3e935eed10fa.pdf"
   },
   {
@@ -83,30 +83,23 @@ const publications: Publication[] = [
     tipo: "policy_paper",
     link: "https://repositorio.insper.edu.br/entities/publication/36ec3e70-30bd-4c24-92bb-515e18f233be"
   },
-
-  {
-    id: "7",
-    title: "Estudo Completo — Coalizão dos transportes: como tornar o setor de transportes um contribuidor ativo para a redução das emissões brasileiras.",
-    image: publicacao4,
-    alt: "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo",
-    tipo: "livros",
-    link: "https://insper-my.sharepoint.com/shared?listurl=https%3A%2F%2Finsper%2Dmy%2Esharepoint%2Ecom%2Fpersonal%2Flaboratorioarqfuturo%5Finsper%5Fedu%5Fbr%2FDocuments&id=%2Fpersonal%2Flaboratorioarqfuturo%5Finsper%5Fedu%5Fbr%2FDocuments%2F4%2E%20N%C3%BAcleos%20%2D%20Laborat%C3%B3rio%20Arq%2E%20Futuro%20de%20Cidades%2FN%C3%BAcleo%20Mobilidade%20Urbana%2F400%2E087%20%2D%20Observat%C3%B3rio%20CCR%20de%20Mobilidade%20Urbana%2FSite%20%2D%20Portal%20Observat%C3%B3rio%2FImagens%2FPublica%C3%A7%C3%B5es%2FEstudo%2DCompleto%2DCoalizao%2Ddos%2DTransportes%2D1%2D1%2Epdf&parent=%2Fpersonal%2Flaboratorioarqfuturo%5Finsper%5Fedu%5Fbr%2FDocuments%2F4%2E%20N%C3%BAcleos%20%2D%20Laborat%C3%B3rio%20Arq%2E%20Futuro%20de%20Cidades%2FN%C3%BAcleo%20Mobilidade%20Urbana%2F400%2E087%20%2D%20Observat%C3%B3rio%20CCR%20de%20Mobilidade%20Urbana%2FSite%20%2D%20Portal%20Observat%C3%B3rio%2FImagens%2FPublica%C3%A7%C3%B5es&shareLink=1&ga=1"
-  },
   {
     id: "8",
-    title: "Relatório Síntese — Coalizão dos transportes: como tornar o setor de transportes um contribuidor ativo para a redução das emissões brasileiras",
+    title: "Coalizão dos Transportes (Síntese)",
+    description: "Relatório Síntese — Coalizão dos transportes: como tornar o setor de transportes um contribuidor ativo para a redução das emissões brasileiras",
     image: publi_princ_conc,
-    alt: "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo",
-    tipo: "livros",
-    link: "https://insper-my.sharepoint.com/personal/laboratorioarqfuturo_insper_edu_br/Documents/4. Núcleos - Laboratório Arq. Futuro de Cidades/Núcleo Mobilidade Urbana/400.087 - Observatório CCR de Mobilidade Urbana/Site - Portal Observatório/../../../../../../../:b:/g/personal/laboratorioarqfuturo_insper_edu_br/EbQUkLDHw9BKsRjutjw0kfABvgvfNXh3QfvGciMOU2ULbQ?e=rB6tWf"
+    alt: "Coalizão dos Transportes (Síntese)",
+    tipo: "relatorios",
+    link: "https://insper-my.sharepoint.com/:b:/g/personal/laboratorioarqfuturo_insper_edu_br/EbQUkLDHw9BKsRjutjw0kfABvgvfNXh3QfvGciMOU2ULbQ?e=rB6tWf"
   },
   {
     id: "9",
     title: "Economia Azul e Cidades",
+    description: "A Economia Azul, ou Economia do Mar, engloba atividades produtivas sustentáveis ligadas a corpos d’água com grande potencial de impacto em países como o Brasil. Com uma abordagem multidisciplinar, a obra reúne textos de especialistas e oferece um roteiro prático para a criação de planos estratégicos.",
     image: economia_azul,
-    alt: "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo",
+    alt: "Economia Azul e Cidades",
     tipo: "livros",
-    link: "https://www.insper.edu.br/pt/conteudos/cidades/livro-sobre-economia-azul-baseado-em-curso-de-formacao-executiva-do-insper-sera-lancado-em-seminario-no-rio-de-janeiro"
+    link: "https://bei.com.br/livro/economia-azul-e-cidades/309"
   },
 ];
 

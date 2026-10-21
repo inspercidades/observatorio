@@ -1,137 +1,212 @@
-import aula1 from "@/app/assets/images/aula1.png";
-import aula2 from "@/app/assets/images/aula2.png";
-import aula3 from "@/app/assets/images/aula3.png";
-import aula4 from "@/app/assets/images/aula4.png";
-import insperCidades1 from "@/app/assets/images/insper_cidades_1.png";
-import insperCidades2 from "@/app/assets/images/insper_cidades_2.png";
-import insperCidades3 from "@/app/assets/images/insper_cidades_3.png";
-import insperCidades4 from "@/app/assets/images/insper_cidades_4.png";
-import insperCidades5 from "@/app/assets/images/insper_cidades_5.png";
-import insperCidades6 from "@/app/assets/images/insper_cidades_6.png";
-import insperCidades7 from "@/app/assets/images/insper_cidades_7.png";
-import insperCidades8 from "@/app/assets/images/insper_cidades_8.png";
-import insperCidades9 from "@/app/assets/images/insper_cidades_9.png";
-import { Header } from "@/components/header";
-import Image, { StaticImageData } from "next/image";
+import { Header } from "@/components/header"
+import { VideoCard } from "@/components/video-card"
 
 interface VideoData {
-  id: number;
-  image: StaticImageData;
-  title: string;
-  date: string;
-  format?: string;
-  href?: string;
+  id: number
+  youtubeId: string
+  title: string
+  date: string
+  format: string
+  href: string
 }
-
-const videosData: VideoData[] = [
-  {
-    id: 1,
-    image: aula1,
-    title: "Transporte Público - Rodrigo Tortoriello",
-    date: "2025",
-    format: "Aula",
-    href: "https://www.youtube.com/watch?v=THjcpBcWXVc&list=PLw0ygoHfe_jMnF_9uHlZTxwOpOpl1Mfvb&index=17&t=37s&ab_channel=Insper"
-  },
-  {
-    id: 2,
-    image: aula2,
-    title: "Mobilidade Ativa - Helena Carvalho Coelho",
-    date: "2025",
-    format: "Aula",
-    href: "https://www.youtube.com/watch?v=xJjdg5mv4LA&list=PLw0ygoHfe_jMnF_9uHlZTxwOpOpl1Mfvb&index=18&t=48s&ab_channel=Insper"
-  },
-  {
-    id: 3,
-    image: aula3,
-    title: "Economia do transporte - Flávio Chévis",
-    date: "2025",
-    format: "Aula",
-    href: "https://www.youtube.com/watch?v=r-KXgkDMwMs&list=PLw0ygoHfe_jMnF_9uHlZTxwOpOpl1Mfvb&index=19&t=248s&ab_channel=Insper"
-  },
-  {
-    id: 4,
-    image: aula4,
-    title: "Logística urbana - Fernando Picasso",
-    date: "2025",
-    format: "Aula",
-    href: "https://www.youtube.com/watch?v=rCcztslulJY&list=PLw0ygoHfe_jMnF_9uHlZTxwOpOpl1Mfvb&index=20&t=2953s&ab_channel=Insper"
-  }
-];
 
 const serieVideosData: VideoData[] = [
   {
     id: 1,
-    image: insperCidades1,
+    youtubeId: "4EUVQCj2NZ8",
     title: "Teaser",
-    date: "2025",
+    date: "26/09/2025",
     format: "Série Insper Cidades na Mobilidade",
-    href: "https://www.youtube.com/watch?v=4EUVQCj2NZ8"
+    href: "https://www.youtube.com/watch?v=4EUVQCj2NZ8&list=PLw0ygoHfe_jNvLKVkH9sLstXyfChNwx_r&index=13",
   },
   {
     id: 2,
-    image: insperCidades2,
+    youtubeId: "TG8uj64SAKo",
     title: "Urbanismo Social",
-    date: "2025",
+    date: "26/09/2025",
     format: "Série Insper Cidades na Mobilidade",
-    href: "https://www.youtube.com/watch?v=TG8uj64SAKo&t=40s"
+    href: "https://www.youtube.com/watch?v=TG8uj64SAKo&list=PLw0ygoHfe_jNvLKVkH9sLstXyfChNwx_r&index=10",
   },
   {
     id: 3,
-    image: insperCidades3,
+    youtubeId: "9qGoebNb2pg",
     title: "COP 30",
-    date: "2025",
+    date: "10/10/2025",
     format: "Série Insper Cidades na Mobilidade",
-    href: "https://youtu.be/9qGoebNb2pg?si=CXELtFSLvU_JdsxQ"
+    href: "https://www.youtube.com/watch?v=9qGoebNb2pg&list=PLw0ygoHfe_jNvLKVkH9sLstXyfChNwx_r&index=9",
   },
   {
     id: 4,
-    image: insperCidades4,
+    youtubeId: "4g8QVsR3bvY",
     title: "Dados",
-    date: "2025",
+    date: "24/10/2025",
     format: "Série Insper Cidades na Mobilidade",
-    href: "https://youtu.be/4g8QVsR3bvY?si=S965nt8FFcu1xLbO"
+    href: "https://www.youtube.com/watch?v=4g8QVsR3bvY&list=PLw0ygoHfe_jNvLKVkH9sLstXyfChNwx_r&index=8",
   },
   {
     id: 5,
-    image: insperCidades5,
+    youtubeId: "KjxxS5nkrpg",
     title: "Financiamento do Transporte Público",
-    date: "2025",
+    date: "30/10/2025",
     format: "Série Insper Cidades na Mobilidade",
-    href: "https://youtu.be/KjxxS5nkrpg?si=X8fLif8FC9DwQzVU"
+    href: "https://www.youtube.com/watch?v=KjxxS5nkrpg&list=PLw0ygoHfe_jNvLKVkH9sLstXyfChNwx_r&index=7",
   },
   {
     id: 6,
-    image: insperCidades6,
+    youtubeId: "TegcEnZHIMc",
     title: "Mobilidade Ativa",
-    date: "2025",
+    date: "07/11/2025",
     format: "Série Insper Cidades na Mobilidade",
-    href: "https://youtu.be/TegcEnZHIMc?si=tg4VHx7xM-NGtsaU"
+    href: "https://www.youtube.com/watch?v=TegcEnZHIMc&list=PLw0ygoHfe_jNvLKVkH9sLstXyfChNwx_r&index=6",
   },
   {
     id: 7,
-    image: insperCidades7,
+    youtubeId: "0IC1-STZE9k",
     title: "Saúde",
-    date: "2025",
+    date: "14/11/2025",
     format: "Série Insper Cidades na Mobilidade",
-    href: "https://youtu.be/0IC1-STZE9k?si=EgQ74Mq8LTU4XQfg"
+    href: "https://www.youtube.com/watch?v=0IC1-STZE9k&list=PLw0ygoHfe_jNvLKVkH9sLstXyfChNwx_r&index=5",
   },
   {
     id: 8,
-    image: insperCidades8,
+    youtubeId: "F45qQPCDtJk",
     title: "Metropolização",
-    date: "2025",
+    date: "18/11/2025",
     format: "Série Insper Cidades na Mobilidade",
-    href: "https://youtu.be/F45qQPCDtJk?si=glrQRdcrV9ezS6Sz"
+    href: "https://www.youtube.com/watch?v=F45qQPCDtJk&list=PLw0ygoHfe_jNvLKVkH9sLstXyfChNwx_r&index=4",
   },
   {
     id: 9,
-    image: insperCidades9,
+    youtubeId: "eXuZqX-LdTc",
     title: "Mulheres e Territórios",
-    date: "2025",
+    date: "25/11/2025",
     format: "Série Insper Cidades na Mobilidade",
-    href: "https://youtu.be/eXuZqX-LdTc?si=w1sgMeXpSGitCnY9"
-  }
-];
+    href: "https://www.youtube.com/watch?v=eXuZqX-LdTc&list=PLw0ygoHfe_jNvLKVkH9sLstXyfChNwx_r&index=3",
+  },
+  {
+    id: 10,
+    youtubeId: "ZgZToOsXgs8",
+    title: "Habitação",
+    date: "09/12/2025",
+    format: "Série Insper Cidades na Mobilidade",
+    href: "https://www.youtube.com/watch?v=ZgZToOsXgs8&list=PLw0ygoHfe_jNvLKVkH9sLstXyfChNwx_r&index=2",
+  },
+  {
+    id: 11,
+    youtubeId: "1lDxZaarXUQ",
+    title: "Segurança Viária",
+    date: "17/12/2025",
+    format: "Série Insper Cidades na Mobilidade",
+    href: "https://www.youtube.com/watch?v=1lDxZaarXUQ&list=PLw0ygoHfe_jNvLKVkH9sLstXyfChNwx_r&index=1",
+  },
+]
+
+const videosData: VideoData[] = [
+  {
+    id: 1,
+    youtubeId: "THjcpBcWXVc",
+    title: "Transporte público com Rodrigo Tortoriello",
+    date: "07/08/2024",
+    format: "Aula",
+    href: "https://www.youtube.com/watch?v=THjcpBcWXVc&list=PLw0ygoHfe_jMnF_9uHlZTxwOpOpl1Mfvb&index=15",
+  },
+  {
+    id: 2,
+    youtubeId: "xJjdg5mv4LA",
+    title: "Explorando a mobilidade ativa com Helena Coelho",
+    date: "07/08/2024",
+    format: "Aula",
+    href: "https://www.youtube.com/watch?v=xJjdg5mv4LA&list=PLw0ygoHfe_jMnF_9uHlZTxwOpOpl1Mfvb&index=16",
+  },
+  {
+    id: 3,
+    youtubeId: "r-KXgkDMwMs",
+    title: "Economia de transportes com Flávio Chevis",
+    date: "07/08/2024",
+    format: "Aula",
+    href: "https://www.youtube.com/watch?v=r-KXgkDMwMs&list=PLw0ygoHfe_jMnF_9uHlZTxwOpOpl1Mfvb&index=17",
+  },
+  {
+    id: 4,
+    youtubeId: "rCcztslulJY",
+    title: "Logística urbana com Fernando Picasso",
+    date: "07/08/2024",
+    format: "Aula",
+    href: "https://www.youtube.com/watch?v=rCcztslulJY&list=PLw0ygoHfe_jMnF_9uHlZTxwOpOpl1Mfvb&index=18",
+  },
+]
+
+const webinarsData: VideoData[] = [
+  {
+    id: 1,
+    youtubeId: "7K_IlBFW6e4",
+    title: "Mobilidade Humana: reflexões para uma mobilidade segura, sustentável e inclusiva",
+    date: "29/02/2024",
+    format: "Webinário",
+    href: "https://www.youtube.com/watch?v=7K_IlBFW6e4&list=PLw0ygoHfe_jMnF_9uHlZTxwOpOpl1Mfvb&index=7",
+  },
+  {
+    id: 2,
+    youtubeId: "z0glTzGCCBA",
+    title: "Segurança viária: como reduzir mortes e feridos",
+    date: "08/05/2024",
+    format: "Webinário",
+    href: "https://www.youtube.com/watch?v=z0glTzGCCBA&list=PLw0ygoHfe_jMnF_9uHlZTxwOpOpl1Mfvb&index=8",
+  },
+  {
+    id: 3,
+    youtubeId: "Tw_h9wtDW4Q",
+    title: "Descarbonização: a transição da mobilidade para além dos carros elétricos",
+    date: "15/05/2024",
+    format: "Webinário",
+    href: "https://www.youtube.com/watch?v=Tw_h9wtDW4Q&list=PLw0ygoHfe_jMnF_9uHlZTxwOpOpl1Mfvb&index=9",
+  },
+  {
+    id: 4,
+    youtubeId: "GGbVzxv-dc0",
+    title: "Como fomentar uma melhor governança para as integrações física, tarifárias e operacionais da mobilidade urbana?",
+    date: "22/05/2024",
+    format: "Webinário",
+    href: "https://www.youtube.com/watch?v=GGbVzxv-dc0&list=PLw0ygoHfe_jMnF_9uHlZTxwOpOpl1Mfvb&index=10",
+  },
+]
+
+interface VideoSectionProps {
+  title: string
+  subtitle?: string
+  videos: VideoData[]
+  className?: string
+}
+
+function VideoSection({ title, subtitle, videos, className }: VideoSectionProps) {
+  return (
+    <div className={className}>
+      <div className="flex items-end justify-between mb-16">
+        <div>
+          <h2 className="text-4xl font-medium leading-none">{title}</h2>
+          {subtitle ? (
+            <p className="text-4xl text-gray-400 leading-none font-medium">{subtitle}</p>
+          ) : null}
+        </div>
+        <div className="hidden md:block h-[1.2px] flex-grow mx-16 bg-gray-300" />
+        <div className="hidden md:block w-4 h-4 bg-[#C2181A]" />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {videos.map((video) => (
+          <VideoCard
+            key={video.id}
+            youtubeId={video.youtubeId}
+            title={video.title}
+            date={video.date}
+            format={video.format}
+            href={video.href}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default function Videos() {
   return (
@@ -139,85 +214,23 @@ export default function Videos() {
       <Header className="bg-[#f9f9f6]" />
 
       <div className="px-4 2xl:px-16 py-20 pb-30">
-        {/* Seção SÉRIE: INSPER CIDADES NA MOBILIDADE */}
-        <div>
-          {/* Título e linha com quadrado */}
-          <div className="flex items-end justify-between mb-16">
-            <div>
-              <h2 className="text-4xl font-medium leading-none">
-                Série: Insper Cidades
-              </h2>
-              <p className="text-4xl text-gray-400 leading-none font-medium">na Mobilidade</p>
-            </div>
-            <div className="hidden md:block h-[1.2px] flex-grow mx-16 bg-gray-300" />
-            <div className="hidden md:block w-4 h-4 bg-[#C2181A]" />
-          </div>
-
-          {/* Grid responsivo com tamanhos fixos */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {serieVideosData.map((video) => (
-              <a
-                key={video.id}
-                href={video.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col items-start text-left group cursor-pointer"
-              >
-                <div className="relative overflow-hidden w-full aspect-[7/4]">
-                  <Image
-                    src={video.image}
-                    alt={video.title}
-                    fill
-                    className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                </div>
-                <h3 className="mt-4 text-sm font-medium line-clamp-2">{video.title}</h3>
-                <p className="text-xs text-gray-600 mt-2">{video.date} • {video.format}</p>
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* Título e linha com quadrado */}
-        <div className="mt-32">
-          <div className="flex items-end justify-between mb-16">
-            <div>
-              <h2 className="text-4xl font-medium leading-none">
-                Vídeos aulas
-              </h2>
-              <p className="text-4xl text-gray-400 leading-none font-medium">Assíncronas</p>
-            </div>
-            <div className="hidden md:block h-[1.2px] flex-grow mx-16 bg-gray-300" />
-            <div className="hidden md:block w-4 h-4 bg-[#C2181A]" />
-          </div>
-
-          {/* Grid responsivo com tamanhos fixos */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {videosData.map((video) => (
-              <a
-                key={video.id}
-                href={video.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col items-start text-left group cursor-pointer"
-              >
-                <div className="relative overflow-hidden w-full aspect-[7/4]">
-                  <Image
-                    src={video.image}
-                    alt={video.title}
-                    fill
-                    className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                </div>
-                <h3 className="mt-4 text-sm font-medium line-clamp-2">{video.title}</h3>
-                <p className="text-xs text-gray-600 mt-2">{video.date} • {video.format}</p>
-              </a>
-            ))}
-          </div>
-        </div>
+        <VideoSection
+          title="Série: Insper Cidades"
+          subtitle="na Mobilidade"
+          videos={serieVideosData}
+        />
+        <VideoSection
+          className="mt-32"
+          title="Vídeos aulas"
+          subtitle="Assíncronas"
+          videos={videosData}
+        />
+        <VideoSection
+          className="mt-32"
+          title="Webinários"
+          videos={webinarsData}
+        />
       </div>
     </div>
-  );
+  )
 }

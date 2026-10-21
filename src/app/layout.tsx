@@ -1,9 +1,9 @@
-import ClarityInit from "@/components/clarity-init";
 import { ConditionalFooter } from "@/components/conditional-footer";
+import { CookieConsent } from "@/components/cookie-consent";
 import { Toaster } from "@/components/ui/sonner";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({
@@ -24,17 +24,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={inter.className}>
-      <head>
-        <GoogleAnalytics
-          gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ""}
-          debugMode={process.env.NODE_ENV === "development"}
-        />
-        <ClarityInit />
-      </head>
       <body className="antialiased">
+        <Script id="ga-consent-default" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = window.gtag || function gtag(){window.dataLayer.push(arguments);};
+            window.gtag('consent', 'default', {
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied',
+              analytics_storage: 'denied'
+            });
+          `}
+        </Script>
         <main className="">{children}</main>
         <Toaster />
         <ConditionalFooter />
+        <CookieConsent />
       </body>
     </html>
   );

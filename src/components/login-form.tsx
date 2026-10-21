@@ -91,9 +91,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
             <form onSubmit={handleLogin} className="p-8 md:p-12">
               <div className="flex flex-col gap-6">
                 <div className="flex flex-col items-center gap-2 text-center">
-                  <h1 className="text-2xl font-bold">Acesso restrito</h1>
+                  <h1 className="text-2xl font-bold">Painel QualiÔnibus</h1>
                   <p className="text-sm text-muted-foreground text-balance">
-                    Informe suas credenciais para continuar
+                  Acesso exclusivo para equipes das cidades participantes do programa QualiÔnibus.
                   </p>
                 </div>
 
@@ -231,7 +231,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
               className="object-contain"
             />
             <p className="text-white/80 text-sm text-left leading-relaxed max-w-xs">
-              Painel Qualionibus - Sistema de monitoramento e análise de dados de transporte público
+            Painel de monitoramento e análise de dados de ônibus das cidades participantes do QualiÔnibus.<br/><br/> O Relatório de Indicadores QualiÔnibus 2026 é aberto ao público e está disponível <a href="/2026_relatorio_qualionibus.pdf" target="_blank" rel="noopener noreferrer" className="text-white hover:text-white/80 transition-colors underline! font-bold!">aqui</a>.
             </p>
           </div>
         </CardContent>
