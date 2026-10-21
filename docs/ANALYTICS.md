@@ -4,25 +4,28 @@ O Observatório utiliza duas ferramentas de analytics em paralelo: **Google Anal
 
 ---
 
-## Google Analytics 4
+Google Analytics 4 e Microsoft Clarity só carregam depois que a pessoa clica em **Aceitar** no banner de cookies. A escolha fica no cookie `cookie-consent` (`granted` ou `denied`), por 12 meses.
 
-Integrado via pacote oficial `@next/third-parties/google` com o componente `<GoogleAnalytics>`.
+- Sem escolha, ou com **Recusar**, nenhum script de `googletagmanager.com` ou `clarity.ms` é inserido.
+- O layout define o Consent Mode do GA4 com `analytics_storage: 'denied'` antes de qualquer tag. O update para `granted` acontece só no aceite.
+- O Clarity é iniciado em [`src/components/analytics-scripts.tsx`](../src/components/analytics-scripts.tsx) e recebe `consentV2` com publicidade negada e analytics autorizado.
+- O banner e a releitura da escolha ficam em [`src/components/cookie-consent.tsx`](../src/components/cookie-consent.tsx). A política está em `/privacidade`.
 
-- Coleta pageviews, eventos e métricas de engajamento
-- Suporta `debugMode` habilitado automaticamente em desenvolvimento
-- O script é injetado no `<head>` do layout raiz (sem nonce — a CSP do Observatório usa `'unsafe-inline'`)
+O cookie de sessão `AuthToken` não depende desse banner.
 
-**Variável de ambiente:**
+**Variável de ambiente do GA4:**
 
 ```env
 NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
 ```
 
+Em desenvolvimento, `debug_mode` fica ativo no `gtag('config')`.
+
 ---
 
 ## Microsoft Clarity
 
-Integrado via pacote `@microsoft/clarity` com um componente client dedicado (`ClarityInit`).
+Integrado via pacote `@microsoft/clarity`, somente após o consentimento.
 
 ### O que o Clarity coleta
 
@@ -32,70 +35,17 @@ Integrado via pacote `@microsoft/clarity` com um componente client dedicado (`Cl
 
 ### Como funciona a integração
 
-O Clarity é inicializado exclusivamente no cliente (browser), nunca no servidor:
-
 ```
-layout.tsx (Server Component)
-└── <head>
-    └── <ClarityInit />  ← Client Component
-            │
-            └── useEffect(() => Clarity.init(id))
-                    │
-                    └── injeta <script src="https://www.clarity.ms/tag/{id}">
+layout.tsx
+└── <CookieConsent />
+        │
+        └── cookie-consent=granted
+                └── <AnalyticsScripts />
+                        ├── gtag consent update + script do GA4
+                        └── Clarity.init(id) + consentV2
 ```
 
-**Por que um componente separado?**
-
-O `RootLayout` é um Server Component — adicionar `"use client"` nele quebraria o SSR de toda a aplicação. O `ClarityInit` isola a inicialização client-side sem impactar o layout raiz.
-
-### Arquivo do componente
-
-`src/components/clarity-init.tsx`
-
-```tsx
-"use client";
-
-import Clarity from "@microsoft/clarity";
-import { useEffect } from "react";
-
-export default function ClarityInit() {
-  useEffect(() => {
-    const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
-    if (clarityId) {
-      Clarity.init(clarityId);
-    }
-  }, []);
-
-  return null;
-}
-```
-
-- Só inicializa se `NEXT_PUBLIC_CLARITY_ID` estiver definido — sem erros silenciosos em ambientes sem a variável configurada
-- Executa uma única vez na montagem do componente (`[]`)
-
-### Uso no layout
-
-`src/app/layout.tsx`
-
-```tsx
-import ClarityInit from "@/components/clarity-init";
-import { GoogleAnalytics } from "@next/third-parties/google";
-
-export default function RootLayout({ children }) {
-  return (
-    <html>
-      <head>
-        <GoogleAnalytics
-          gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ""}
-          debugMode={process.env.NODE_ENV === "development"}
-        />
-        <ClarityInit />
-      </head>
-      <body>...</body>
-    </html>
-  );
-}
-```
+O `RootLayout` continua Server Component. A inicialização fica isolada no client.
 
 ---
 
@@ -169,8 +119,8 @@ NEXT_PUBLIC_CLARITY_ID=<id-producao>
 ### No browser (DevTools)
 
 1. Abra o DevTools → aba **Network**
-2. Filtre por `clarity.ms` ou `google-analytics` / `googletagmanager`
-3. Você verá requisições confirmando que os dados estão sendo enviados
+2. Antes de aceitar os cookies, não deve haver requisição para `clarity.ms`, `google-analytics` ou `googletagmanager`
+3. Depois de **Aceitar**, filtre por esses domínios para confirmar o envio
 
 ### No painel do Clarity
 
