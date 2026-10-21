@@ -46,7 +46,7 @@ export interface CatalogFilters {
   sortBy?: "newest" | "oldest";
 }
 
-function searchItems(items: CatalogItem[], searchTerm: string): CatalogItem[] {
+export function searchItems(items: CatalogItem[], searchTerm: string): CatalogItem[] {
   if (!searchTerm.trim()) return items;
 
   const term = searchTerm.toLowerCase();
@@ -58,7 +58,7 @@ function searchItems(items: CatalogItem[], searchTerm: string): CatalogItem[] {
   );
 }
 
-function filterItems(
+export function filterItems(
   items: CatalogItem[],
   filters: CatalogFilters,
 ): CatalogItem[] {
@@ -97,7 +97,7 @@ function filterItems(
   });
 }
 
-function sortItems(
+export function sortItems(
   items: CatalogItem[],
   sortBy: string,
 ): CatalogItem[] {
