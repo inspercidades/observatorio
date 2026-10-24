@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -44,9 +43,11 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
           {item.title}
         </h3>
 
-        <p className="text-muted-foreground text-sm mb-4 line-clamp-3 flex-1">
-          {item.description}
-        </p>
+        <div className="mb-4 flex-1">
+          <p className="text-muted-foreground text-sm line-clamp-3">
+            {item.description}
+          </p>
+        </div>
 
         {/* Tags: theme + city/region + subject */}
         <div className="flex flex-col gap-2">
@@ -75,14 +76,14 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
       </button>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto rounded-none">
+        <DialogContent
+          className="max-w-3xl max-h-[90vh] overflow-y-auto rounded-none px-6 py-10! gap-2"
+          aria-describedby={undefined}
+        >
           <DialogHeader>
             <DialogTitle className="text-xl font-semibold text-foreground">
               {item.title}
             </DialogTitle>
-            <DialogDescription className="text-muted-foreground">
-              {item.theme} • {item.region}
-            </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-6 mt-4">
