@@ -41,6 +41,27 @@ describe("searchItems", () => {
     );
   });
 
+  it("encontra sem acento no título e na descrição", () => {
+    const result = searchItems(mockItems, "transito");
+    expect(result.map((item) => item.id)).toContain("sinistros-sao-paulo");
+    expect(searchItems(mockItems, "sao paulo").map((item) => item.id)).toContain(
+      "sinistros-sao-paulo",
+    );
+  });
+
+  it("encontra niteroi sem acento pelo nome da cidade", () => {
+    const items = [
+      {
+        ...mockItems[0],
+        id: "niteroi",
+        title: "Passageiros – Niterói",
+        region: "Niterói",
+        cities: ["Niterói"],
+      },
+    ];
+    expect(searchItems(items, "niteroi")).toHaveLength(1);
+  });
+
   it("retorna array vazio quando nenhum item bate", () => {
     expect(searchItems(mockItems, "xyzzy-inexistente")).toHaveLength(0);
   });
@@ -70,17 +91,17 @@ describe("filterItems", () => {
     expect(filterItems(mockItems, { theme: "Saúde" })).toHaveLength(0);
   });
 
-  // Cidade – usa .some() porque cards podem ter múltiplas cidades
-  it("filtra por cidade com match em cidade única", () => {
-    const result = filterItems(mockItems, { city: "Fortaleza" });
+  // Região – usa .some() em cities[] porque cards podem ter múltiplas cidades
+  it("filtra por região com match em cidade única", () => {
+    const result = filterItems(mockItems, { region: "Fortaleza" });
     expect(result).toHaveLength(1);
     expect(result[0].id).toBe("gtfs-fortaleza");
   });
 
-  it("filtra por cidade e encontra card multi-cidade (motiva)", () => {
-    const resultSalvador = filterItems(mockItems, { city: "Salvador" });
-    const resultSP = filterItems(mockItems, { city: "São Paulo" });
-    const resultRJ = filterItems(mockItems, { city: "Rio de Janeiro" });
+  it("filtra por região e encontra card multi-cidade (motiva)", () => {
+    const resultSalvador = filterItems(mockItems, { region: "Salvador" });
+    const resultSP = filterItems(mockItems, { region: "São Paulo" });
+    const resultRJ = filterItems(mockItems, { region: "Rio de Janeiro" });
 
     // motiva-trem-metro tem cities: ["Salvador", "São Paulo", "Rio de Janeiro"]
     // sinistros-sao-paulo tem cities: ["São Paulo"]
@@ -94,8 +115,8 @@ describe("filterItems", () => {
     expect(resultSalvador.find((i) => i.id === "sinistros-sao-paulo")).toBeUndefined();
   });
 
-  it("retorna vazio quando nenhum card tem a cidade", () => {
-    expect(filterItems(mockItems, { city: "Manaus" })).toHaveLength(0);
+  it("retorna vazio quando nenhum card tem a região", () => {
+    expect(filterItems(mockItems, { region: "Manaus" })).toHaveLength(0);
   });
 
   // Assunto
@@ -135,7 +156,7 @@ describe("filterItems", () => {
     // Só sinistros-sao-paulo é Segurança Viária E São Paulo
     const result = filterItems(mockItems, {
       theme: "Segurança Viária",
-      city: "São Paulo",
+      region: "São Paulo",
     });
     expect(result).toHaveLength(1);
     expect(result[0].id).toBe("sinistros-sao-paulo");
@@ -144,7 +165,7 @@ describe("filterItems", () => {
   it("retorna vazio quando filtros combinados não batem em nenhum card", () => {
     const result = filterItems(mockItems, {
       theme: "Mobilidade por Bicicleta",
-      city: "São Paulo",
+      region: "São Paulo",
     });
     expect(result).toHaveLength(0);
   });
@@ -153,35 +174,19 @@ describe("filterItems", () => {
 // ─── sortItems ────────────────────────────────────────────────────────────────
 
 describe("sortItems", () => {
-  it("ordena do mais recente para o mais antigo (newest)", () => {
-    const sorted = sortItems(mockItems, "newest");
-    const dates = sorted.map((i) => new Date(i.updatedAt).getTime());
-    for (let i = 1; i < dates.length; i++) {
-      expect(dates[i - 1]).toBeGreaterThanOrEqual(dates[i]);
-    }
-  });
-
-  it("ordena do mais antigo para o mais recente (oldest)", () => {
-    const sorted = sortItems(mockItems, "oldest");
-    const dates = sorted.map((i) => new Date(i.updatedAt).getTime());
-    for (let i = 1; i < dates.length; i++) {
-      expect(dates[i - 1]).toBeLessThanOrEqual(dates[i]);
-    }
-  });
-
-  it("newest coloca sinistros-sao-paulo (2026-08-13) em primeiro", () => {
-    const sorted = sortItems(mockItems, "newest");
-    expect(sorted[0].id).toBe("sinistros-sao-paulo");
-  });
-
-  it("oldest coloca gtfs-fortaleza (2025-09-15) em primeiro", () => {
-    const sorted = sortItems(mockItems, "oldest");
-    expect(sorted[0].id).toBe("gtfs-fortaleza");
+  it("ordena os títulos em ordem alfabética (pt-BR)", () => {
+    const sorted = sortItems(mockItems);
+    expect(sorted.map((item) => item.id)).toEqual([
+      "motiva-trem-metro",
+      "gtfs-fortaleza",
+      "ciclovias-belo-horizonte",
+      "sinistros-sao-paulo",
+    ]);
   });
 
   it("não muta o array original", () => {
     const original = [...mockItems];
-    sortItems(mockItems, "newest");
+    sortItems(mockItems);
     expect(mockItems.map((i) => i.id)).toEqual(original.map((i) => i.id));
   });
 });

@@ -5,22 +5,22 @@ import Link from 'next/link'
 const projetosItems = [
   {
     title: "Catálogo de Dados",
-    href: "/projetos/catalago-de-dados",
+    href: "/dados/catalogo-de-dados",
     description: "Navegue por um catálogo interativo com dados de mobilidade de diversas cidades brasileiras.",
   },
   {
     title: "Dashboard PEMOB",
-    href: "/projetos/dashboard",
+    href: "/dados/pemob-dashboard",
     description: "Visualize dados espaciais e de mobilidade urbana em mapa interativo com camadas temáticas e ferramentas de visualização.",
   },
   {
     title: "Dados PEMOB",
-    href: "/projetos/tabela",
+    href: "/dados/pemob-tabela",
     description: "Explore indicadores de mobilidade de diferentes cidades brasileiras em uma tabela interativa.",
   },
   {
     title: "Painel QualiÔnibus",
-    href: "/projetos/dashboard-wri-brasil",
+    href: "/dados/wri-dashboard",
     description: "Parceria ONMS & WRI Brasil - Dashboard dos dados do QualiÔnibus.",
   },
 ]
@@ -56,7 +56,7 @@ export function Footer() {
             </div>
             <div className="flex flex-col gap-2">
               <Link 
-                href="/projetos/geoportal" 
+                href="/dados/geoportal" 
                 className="text-gray-600 hover:text-gray-800 transition-colors text-sm font-medium"
               >
                 GeoPortal

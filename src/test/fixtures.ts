@@ -102,7 +102,7 @@ export const mockItems: CatalogItem[] = [
 ];
 
 export const mockCategories: CatalogCategories = {
-  themes: ["Transporte Público Coletivo", "Mobilidade por Bicicleta", "Segurança Viária", "Transversal"],
+  themes: ["Transporte Público Coletivo", "Mobilidade por Bicicleta", "Segurança Viária", "Transversal", "Logística Urbana Sustentável", "Mobilidade a Pé"],
   cities: ["Belo Horizonte", "Fortaleza", "Rio de Janeiro", "Salvador", "São Paulo"],
   subjects: ["Trem e metrô", "Linhas e horários", "Infraestrutura cicloviária", "Sinistros de trânsito"],
   formats: ["Tabela", "Georreferenciado", "GTFS"],

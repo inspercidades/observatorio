@@ -45,7 +45,7 @@ const slides: SlideData[] = [
     imageSrc: "/images/sustainable-city.jpg",
     title: "Criar uma ampla base de dados de mobilidade urbana e conectar cidades",
     subtitle: "Construir caminhos para a democratização e acesso aos dados de mobilidade urbana",
-    link: "/projetos/catalago-de-dados"
+    link: "/dados/catalogo-de-dados"
   },
   {
     id: 4,

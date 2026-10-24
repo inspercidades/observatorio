@@ -27,7 +27,7 @@ export function FiltersSidebar({ selectedFilter, onFilterChange }: FiltersSideba
         <div className="space-y-0 pb-3 p-4">
           <h2 className="text-xl font-bold text-gray-900">Explore dados da Pesquisa Nacional de Mobilidade Urbana</h2>
           <div className="pb-2 text-sm text-gray-600">Pesquisa realizada pelo Mininstério das Cidades - {" "}
-            <Link href="/projetos/pemob/saiba-mais" className="hover:text-primary hover:underline font-semibold">
+            <Link href="/dados/pemob-dashboard/saiba-mais" className="hover:text-primary hover:underline font-semibold">
               saiba mais 
              </Link>
           </div>

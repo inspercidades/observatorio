@@ -1,6 +1,9 @@
 import "@testing-library/jest-dom";
 import { vi } from "vitest";
 
+// cmdk scrolls the highlighted item into view
+Element.prototype.scrollIntoView = vi.fn();
+
 // Radix UI components require ResizeObserver
 global.ResizeObserver = vi.fn().mockImplementation(() => ({
   observe: vi.fn(),

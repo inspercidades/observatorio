@@ -6,16 +6,16 @@ import { Switch } from "@/components/ui/switch"
 import { Search } from "lucide-react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import React from "react"
-import { DataTable } from "../dashboard/components/data-table"
-import { FiltersSidebar } from "../dashboard/components/filters-sidebar"
-import { useDashboardData } from "../dashboard/hooks/use-dashboard-data"
-import { getAvailableVariables, getPEMOBDataByYear, getVariableCityFillPercentage } from "../dashboard/lib/pemob-data"
+import { DataTable } from "../pemob-dashboard/components/data-table"
+import { FiltersSidebar } from "../pemob-dashboard/components/filters-sidebar"
+import { useDashboardData } from "../pemob-dashboard/hooks/use-dashboard-data"
+import { getAvailableVariables, getPEMOBDataByYear, getVariableCityFillPercentage } from "../pemob-dashboard/lib/pemob-data"
 import {
   buildTableSearchParams,
   parseTableUrlState,
   tableSearchParamsEqual,
   type TableUrlState,
-} from "../dashboard/lib/table-url-state"
+} from "../pemob-dashboard/lib/table-url-state"
 
 export default function DashboardContent() {
   const router = useRouter()

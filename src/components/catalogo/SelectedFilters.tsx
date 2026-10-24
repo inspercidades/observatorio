@@ -25,8 +25,8 @@ export function SelectedFilters({
     if (filters.theme) {
       active.push({ type: "theme", value: filters.theme, label: filters.theme });
     }
-    if (filters.city) {
-      active.push({ type: "city", value: filters.city, label: filters.city });
+    if (filters.region) {
+      active.push({ type: "region", value: filters.region, label: filters.region });
     }
     if (filters.subject) {
       active.push({ type: "subject", value: filters.subject, label: filters.subject });

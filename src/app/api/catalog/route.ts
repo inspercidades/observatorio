@@ -40,22 +40,32 @@ export interface CatalogCategories {
 export interface CatalogFilters {
   search?: string;
   theme?: string;
-  city?: string;
+  region?: string;
   subject?: string;
   format?: string;
-  sortBy?: "newest" | "oldest";
+}
+
+/** Busca sem acento: "transito" encontra "trânsito", "niteroi" encontra "Niterói". */
+export function fold(value: string): string {
+  return value.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
 }
 
 export function searchItems(items: CatalogItem[], searchTerm: string): CatalogItem[] {
   if (!searchTerm.trim()) return items;
 
-  const term = searchTerm.toLowerCase();
-  return items.filter(
-    (item) =>
-      item.title.toLowerCase().includes(term) ||
-      item.description.toLowerCase().includes(term) ||
-      item.keywords.some((kw) => kw.toLowerCase().includes(term)),
-  );
+  const term = fold(searchTerm);
+  return items.filter((item) => {
+    const haystack = [
+      item.title,
+      item.description,
+      item.region,
+      item.theme,
+      item.subject,
+      ...item.keywords,
+      ...item.cities,
+    ];
+    return haystack.some((value) => fold(value).includes(term));
+  });
 }
 
 export function filterItems(
@@ -69,11 +79,12 @@ export function filterItems(
     )
       return false;
 
-    // city filter uses .some() because cards can belong to multiple cities
+    // Region options are the city list. Match cities[] so a multi-city
+    // card still appears when any of its cities is selected.
     if (
-      filters.city &&
+      filters.region &&
       !item.cities.some(
-        (c) => c.toLowerCase() === filters.city!.toLowerCase(),
+        (c) => c.toLowerCase() === filters.region!.toLowerCase(),
       )
     )
       return false;
@@ -97,17 +108,10 @@ export function filterItems(
   });
 }
 
-export function sortItems(
-  items: CatalogItem[],
-  sortBy: string,
-): CatalogItem[] {
-  return [...items].sort((a, b) => {
-    const dateA = new Date(a.updatedAt);
-    const dateB = new Date(b.updatedAt);
-    return sortBy === "newest"
-      ? dateB.getTime() - dateA.getTime()
-      : dateA.getTime() - dateB.getTime();
-  });
+export function sortItems(items: CatalogItem[]): CatalogItem[] {
+  return [...items].sort((a, b) =>
+    a.title.localeCompare(b.title, "pt-BR", { sensitivity: "base" }),
+  );
 }
 
 export async function GET(request: NextRequest) {
@@ -117,10 +121,9 @@ export async function GET(request: NextRequest) {
     const filters: CatalogFilters = {
       search: searchParams.get("search") || undefined,
       theme: searchParams.get("theme") || undefined,
-      city: searchParams.get("city") || undefined,
+      region: searchParams.get("region") || undefined,
       subject: searchParams.get("subject") || undefined,
       format: searchParams.get("format") || undefined,
-      sortBy: (searchParams.get("sortBy") as "newest" | "oldest") || "newest",
     };
 
     let filtered = catalogData as CatalogItem[];
@@ -130,7 +133,7 @@ export async function GET(request: NextRequest) {
     }
 
     filtered = filterItems(filtered, filters);
-    filtered = sortItems(filtered, filters.sortBy || "newest");
+    filtered = sortItems(filtered);
 
     return NextResponse.json({
       data: filtered,

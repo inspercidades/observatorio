@@ -27,7 +27,7 @@ describe("SelectedFilters", () => {
       <SelectedFilters
         filters={{
           theme: "Mobilidade por Bicicleta",
-          city: "Belo Horizonte",
+          region: "Belo Horizonte",
           subject: "Infraestrutura cicloviária",
           format: "Georreferenciado",
         }}
@@ -64,7 +64,7 @@ describe("SelectedFilters", () => {
     const user = userEvent.setup();
     render(
       <SelectedFilters
-        filters={{ city: "São Paulo" }}
+        filters={{ region: "São Paulo" }}
         onRemoveFilter={vi.fn()}
         onClearAll={onClearAll}
       />,

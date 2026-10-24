@@ -10,7 +10,7 @@ export default async function AdminWriEmailsPage() {
   const tokens = await getTokens(await cookies(), FIREBASE_AUTH_CONFIG)
 
   if (!tokens) {
-    redirect("/sign-in?callbackUrl=/projetos/admin/wri-emails")
+    redirect("/sign-in?callbackUrl=/dados/admin/wri-emails")
   }
 
   const email =
@@ -19,7 +19,7 @@ export default async function AdminWriEmailsPage() {
       : null
 
   if (!isAdminEmail(email)) {
-    redirect("/projetos/dashboard-wri-brasil")
+    redirect("/dados/wri-dashboard")
   }
 
   return (

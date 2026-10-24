@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { CatalogFilters as FiltersType, CatalogCategories } from "@/app/api/catalog/route";
+import { Combobox } from "@/components/combo-box";
 import { Checkbox } from "@/components/ui/checkbox";
 
 interface CatalogFiltersProps {
@@ -40,7 +41,7 @@ export function CatalogFilters({
   }, [initialFilters]);
 
   const handleFilterChange = (
-    type: "theme" | "city" | "subject" | "format",
+    type: "theme" | "subject" | "format",
     value: string,
   ) => {
     const newFilters = { ...filters };
@@ -50,14 +51,19 @@ export function CatalogFilters({
     onFiltersChange(newFilters);
   };
 
+  const handleRegionChange = (value: string) => {
+    const newFilters = { ...filters, region: value || undefined };
+    setFilters(newFilters);
+    onFiltersChange(newFilters);
+  };
+
   const groups: {
-    key: "theme" | "city" | "subject" | "format";
+    key: "theme" | "subject" | "format";
     label: string;
     options: string[];
   }[] = [
     { key: "theme", label: "Tema", options: filterOptions.themes },
-    { key: "city", label: "Cidade", options: filterOptions.cities },
-    { key: "subject", label: "Assunto", options: filterOptions.subjects },
+    { key: "subject", label: "Categoria", options: filterOptions.subjects },
     { key: "format", label: "Formato", options: filterOptions.formats },
   ];
 
@@ -67,8 +73,8 @@ export function CatalogFilters({
         <h2 className="text-lg font-semibold">Filtros</h2>
       </div>
 
-      {groups.map((group, idx) => (
-        <div key={group.key} className={idx < groups.length - 1 ? "mb-6" : ""}>
+      {groups.map((group) => (
+        <div key={group.key} className={group.key === "format" ? "" : "mb-6"}>
           <h3 className="text-sm font-medium text-muted-foreground mb-3">
             {group.label}
           </h3>
@@ -90,6 +96,29 @@ export function CatalogFilters({
               </div>
             ))}
           </div>
+          {group.key === "theme" && (
+            <div className="mt-6">
+              <label
+                htmlFor="filtro-regiao"
+                className="text-sm font-medium text-muted-foreground mb-3 block"
+              >
+                Região
+              </label>
+              <Combobox
+                id="filtro-regiao"
+                value={filters.region || "Todas"}
+                onValueChange={(value) => handleRegionChange(value === "Todas" ? "" : value)}
+                placeholder="Todas"
+                searchPlaceholder="Buscar região..."
+                emptyMessage="Nenhuma região encontrada."
+                className="h-12 rounded-none border border-input shadow-none"
+                options={[
+                  { value: "Todas", label: "Todas" },
+                  ...filterOptions.cities.map((city) => ({ value: city, label: city })),
+                ]}
+              />
+            </div>
+          )}
         </div>
       ))}
     </div>

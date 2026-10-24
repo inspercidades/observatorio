@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { CatalogFilters } from "@/components/catalogo/CatalogFilters";
@@ -10,11 +10,11 @@ describe("CatalogFilters", () => {
     filterOptions: mockCategories,
   };
 
-  it("renderiza os 4 grupos de filtros", () => {
+  it("renderiza os grupos de filtros", () => {
     render(<CatalogFilters {...defaultProps} />);
     expect(screen.getByText("Tema")).toBeInTheDocument();
-    expect(screen.getByText("Cidade")).toBeInTheDocument();
-    expect(screen.getByText("Assunto")).toBeInTheDocument();
+    expect(screen.getByText("Região")).toBeInTheDocument();
+    expect(screen.getByText("Categoria")).toBeInTheDocument();
     expect(screen.getByText("Formato")).toBeInTheDocument();
   });
 
@@ -25,10 +25,14 @@ describe("CatalogFilters", () => {
     }
   });
 
-  it("renderiza todas as cidades", () => {
+  it("renderiza todas as regiões no menu", async () => {
+    const user = userEvent.setup();
     render(<CatalogFilters {...defaultProps} />);
+
+    await user.click(screen.getByRole("combobox", { name: /região/i }));
+
     for (const city of mockCategories.cities) {
-      expect(screen.getByLabelText(city)).toBeInTheDocument();
+      expect(screen.getByRole("option", { name: city })).toBeInTheDocument();
     }
   });
 
@@ -76,7 +80,7 @@ describe("CatalogFilters", () => {
     );
   });
 
-  it("marcar uma cidade chama onFiltersChange com { city: valor }", async () => {
+  it("escolher uma região chama onFiltersChange com { region: valor }", async () => {
     const onFiltersChange = vi.fn();
     const user = userEvent.setup();
     render(
@@ -86,10 +90,11 @@ describe("CatalogFilters", () => {
       />,
     );
 
-    await user.click(screen.getByLabelText("Fortaleza"));
+    await user.click(screen.getByRole("combobox", { name: /região/i }));
+    await user.click(screen.getByRole("option", { name: "Fortaleza" }));
 
     expect(onFiltersChange).toHaveBeenCalledWith(
-      expect.objectContaining({ city: "Fortaleza" }),
+      expect.objectContaining({ region: "Fortaleza" }),
     );
   });
 
@@ -102,7 +107,7 @@ describe("CatalogFilters", () => {
     rerender(
       <CatalogFilters
         {...defaultProps}
-        initialFilters={{ theme: undefined, city: undefined }}
+        initialFilters={{ theme: undefined, region: undefined }}
       />,
     );
 

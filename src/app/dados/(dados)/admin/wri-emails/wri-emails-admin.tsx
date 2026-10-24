@@ -160,7 +160,7 @@ export function WriEmailsAdmin() {
         <div>
           <p className="text-sm text-muted-foreground">
             <Link
-              href="/projetos/dashboard-wri-brasil"
+              href="/dados/wri-dashboard"
               className="underline-offset-4 hover:underline"
             >
               Dashboard WRI

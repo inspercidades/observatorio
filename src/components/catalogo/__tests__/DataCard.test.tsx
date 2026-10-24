@@ -26,29 +26,35 @@ describe("DataCard – card fechado", () => {
     expect(screen.getByText("Segurança Viária")).toBeInTheDocument();
   });
 
-  it("renderiza a tag de cidade (card com uma cidade)", () => {
+  it("não mostra tag de cidade nem de formato", () => {
     render(<DataCard item={item} />);
-    expect(screen.getByText("São Paulo")).toBeInTheDocument();
+    expect(screen.queryByText("São Paulo")).not.toBeInTheDocument();
+    expect(screen.queryByText("Tabela")).not.toBeInTheDocument();
+    expect(screen.queryByText("Georreferenciado")).not.toBeInTheDocument();
   });
 
-  it("renderiza a região composta (card multi-cidade) em vez da cidade individual", () => {
+  it("não mostra a região composta no card", () => {
     render(<DataCard item={multiCityItem} />);
-    // cities.length > 1 → exibe region (a string composta)
     expect(
-      screen.getByText("Salvador, São Paulo e Rio de Janeiro"),
-    ).toBeInTheDocument();
+      screen.queryByText("Salvador, São Paulo e Rio de Janeiro"),
+    ).not.toBeInTheDocument();
   });
 
-  it("renderiza a tag de assunto", () => {
+  it("renderiza a tag de categoria", () => {
     render(<DataCard item={item} />);
     expect(screen.getByText("Sinistros de trânsito")).toBeInTheDocument();
   });
 
-  it("renderiza os badges de formato", () => {
+  it("mostra período e formatos no rodapé", () => {
     render(<DataCard item={item} />);
-    // item tem formats: ["Tabela", "Georreferenciado"]
-    expect(screen.getByText("Tabela")).toBeInTheDocument();
-    expect(screen.getByText("Georreferenciado")).toBeInTheDocument();
+    expect(
+      screen.getByText("2022–2025 · Tabela, Georreferenciado"),
+    ).toBeInTheDocument();
+  });
+
+  it("limita a descrição a 3 linhas", () => {
+    render(<DataCard item={item} />);
+    expect(screen.getByText(item.description)).toHaveClass("line-clamp-3");
   });
 
   it("modal não está visível antes de clicar no card", () => {
@@ -107,6 +113,10 @@ describe("DataCard – modal aberto", () => {
     const user = userEvent.setup();
     render(<DataCard item={item} />);
     await user.click(screen.getByRole("button"));
+
+    expect(screen.getByRole("dialog")).toHaveTextContent("Fonte original dos dados");
+    expect(screen.getByRole("dialog")).toHaveTextContent("Categoria");
+    expect(screen.queryByText("Segurança Viária • São Paulo")).not.toBeInTheDocument();
 
     const link = screen.getByRole("link", { name: /INFOSIGA SP/i });
     expect(link).toHaveAttribute("href", item.sourceLink);

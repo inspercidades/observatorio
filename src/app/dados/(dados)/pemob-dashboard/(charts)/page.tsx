@@ -88,7 +88,7 @@ export default function ChartsPage() {
             <div className="pb-2 text-sm lg:text-base px-2 text-gray-600">Pesquisa realizada pelo Mininstério das Cidades
           </div>
            </div>
-            <Link href="/projetos/pemob/saiba-mais">
+            <Link href="/dados/pemob-dashboard/saiba-mais">
               <Button variant="secondary" className="px-6 w-full sm:w-auto hover:bg-primary hover:text-primary-foreground cursor-pointer">Saiba mais</Button>
             </Link>
           </div>

@@ -29,14 +29,14 @@ const projects: Project[] = [
     title: 'Painel QualiÔnibus',
     description: 'Parceria ONMS & WRI Brasil - Dashboard dos dados do QualiÔnibus.',
     image: wriDashboard,
-    href: '/projetos/dashboard-wri-brasil'
+    href: '/dados/wri-dashboard'
   },
   {
     id: 'geoportal',
     title: 'GeoPortal',
     description: 'Visualize dados espaciais e de mobilidade urbana em mapa interativo com camadas temáticas e ferramentas de visualização.',
     image: geoportal,
-    href: '/projetos/geoportal'
+    href: '/dados/geoportal'
   },
 
     {
@@ -44,21 +44,21 @@ const projects: Project[] = [
     title: 'Catálogo de Dados',
     description: 'Acesse dados exclusivos de mobilidade urbana das principais cidades do Brasil. Inclui dados de bilhetagem de ônibus, GPS e GTFS.',
     image: catalogo,
-    href: '/projetos/catalago-de-dados'
+    href: '/dados/catalogo-de-dados'
   },
   {
     id: 'dashboard',
     title: 'Dashboard PEMOB',
     description: 'Compare indicadores de mobilidade e transporte usando dados Pesquisa de Mobilidade Urbana do Ministério das Cidades.',
     image: dashboard,
-    href: '/projetos/dashboard'
+    href: '/dados/pemob-dashboard'
   },
   {
     id: 'tabela',
     title: 'Dados PEMOB',
     description: 'Acesse os dados mais recentes da Pesquisa Nacional de Mobilidade Urbana do Ministério das Cidades em tabela interativa.',
     image: tabela,
-    href: '/projetos/tabela'
+    href: '/dados/pemob-tabela'
   }
 ]
 

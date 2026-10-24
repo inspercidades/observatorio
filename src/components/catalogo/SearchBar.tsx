@@ -1,7 +1,7 @@
 "use client";
 
 import { Search } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 
 interface SearchBarProps {
@@ -16,6 +16,10 @@ export function SearchBar({
   initialValue = "",
 }: SearchBarProps) {
   const [searchTerm, setSearchTerm] = useState(initialValue);
+
+  useEffect(() => {
+    setSearchTerm(initialValue);
+  }, [initialValue]);
 
   const handleSearch = useCallback(
     (value: string) => {

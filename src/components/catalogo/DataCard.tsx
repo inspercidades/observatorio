@@ -49,30 +49,24 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
           </p>
         </div>
 
-        {/* Tags: theme + city/region + subject */}
-        <div className="flex flex-col gap-2">
-          <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 mb-4">
+          {item.theme && (
             <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-foreground/6 text-foreground">
               {item.theme}
             </span>
-            <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-foreground/6 text-foreground">
-              {item.cities.length === 1 ? item.cities[0] : item.region}
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-2">
+          )}
+          {item.subject && (
             <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-foreground/6 text-foreground">
               {item.subject}
             </span>
-            {item.formats.map((fmt) => (
-              <span
-                key={fmt}
-                className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-foreground/6 text-foreground"
-              >
-                {fmt}
-              </span>
-            ))}
-          </div>
+          )}
         </div>
+
+        {(item.period || item.formats.length > 0) && (
+          <p className="text-xs text-muted-foreground">
+            {[item.period, item.formats.join(", ")].filter(Boolean).join(" · ")}
+          </p>
+        )}
       </button>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
@@ -139,7 +133,7 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
               {item.subject && (
                 <div>
                   <h4 className="text-sm font-medium text-foreground mb-1">
-                    Assunto
+                    Categoria
                   </h4>
                   <p className="text-sm text-muted-foreground">{item.subject}</p>
                 </div>
@@ -168,7 +162,7 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
             {item.source && (
               <div>
                 <h4 className="text-sm font-medium text-foreground mb-2">
-                  Fonte
+                  Fonte original dos dados
                 </h4>
                 {item.sourceLink ? (
                   <a

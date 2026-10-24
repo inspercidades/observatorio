@@ -13,7 +13,6 @@ import { CatalogFilters } from "./CatalogFilters";
 import { DataCard } from "./DataCard";
 import { SearchBar } from "./SearchBar";
 import { SelectedFilters } from "./SelectedFilters";
-import { SortDropdown } from "./SortDropdown";
 
 interface CatalogResponse {
   data: CatalogItem[];
@@ -30,7 +29,6 @@ export function CatalogPage() {
   const [loading, setLoading] = useState(true);
   const [initialLoading, setInitialLoading] = useState(true);
   const [filters, setFilters] = useState<FiltersType>({
-    sortBy: "newest",
     search: initialQuery || undefined,
   });
   const [filterOptions, setFilterOptions] = useState<CatalogCategories>({
@@ -48,10 +46,9 @@ export function CatalogPage() {
       const params = new URLSearchParams();
       if (currentFilters.search) params.append("search", currentFilters.search);
       if (currentFilters.theme) params.append("theme", currentFilters.theme);
-      if (currentFilters.city) params.append("city", currentFilters.city);
+      if (currentFilters.region) params.append("region", currentFilters.region);
       if (currentFilters.subject) params.append("subject", currentFilters.subject);
       if (currentFilters.format) params.append("format", currentFilters.format);
-      if (currentFilters.sortBy) params.append("sortBy", currentFilters.sortBy);
 
       const response = await fetch(`/api/catalog?${params.toString()}`);
       const result: CatalogResponse = await response.json();
@@ -96,18 +93,16 @@ export function CatalogPage() {
   };
 
   const handleClearAllFilters = () => {
-    setFilters({ sortBy: "newest" });
-  };
-
-  const handleSortChange = (sortBy: "newest" | "oldest") => {
-    setFilters((prev) => ({ ...prev, sortBy }));
+    setFilters({});
+    setSearchTerm("");
   };
 
   if (initialLoading) {
     return (
       <div className="min-h-screen pb-16">
-        <div className="mx-auto px-4 md:px-8 lg:px-12 py-8">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="mx-auto px-4 md:px-8 lg:px-12 py-8">
+        <div className="h-8 bg-background-2 w-64 mb-8 animate-pulse" />
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Sidebar skeleton */}
             <div className="lg:col-span-1">
               <div className="mb-6">
@@ -135,9 +130,8 @@ export function CatalogPage() {
 
             {/* Content skeleton */}
             <div className="lg:col-span-3">
-              <div className="flex items-center justify-between mb-6">
+              <div className="mb-6">
                 <div className="h-10 bg-background-2 w-24 animate-pulse" />
-                <div className="h-12 bg-background-2 w-40 animate-pulse" />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -154,11 +148,14 @@ export function CatalogPage() {
   return (
     <div className="min-h-screen pb-32">
       <div className="mx-auto px-4 md:px-8 lg:px-12 py-8">
+        <h1 className="text-2xl font-semibold text-foreground mb-8">
+          Catálogo de Dados
+        </h1>
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Sidebar: search + filters */}
           <div className="lg:col-span-1">
             <div className="mb-6">
-              <SearchBar onSearch={handleSearch} initialValue={initialQuery} />
+              <SearchBar onSearch={handleSearch} initialValue={searchTerm} />
             </div>
             <CatalogFilters
               onFiltersChange={handleFiltersChange}
@@ -169,19 +166,12 @@ export function CatalogPage() {
 
           {/* Main content */}
           <div className="lg:col-span-3">
-            {/* Top bar */}
-            <div className="flex items-center justify-between mb-6">
+            <div className="mb-6">
               <SelectedFilters
                 filters={filters}
                 onRemoveFilter={handleRemoveFilter}
                 onClearAll={handleClearAllFilters}
               />
-              <div className="ml-auto">
-                <SortDropdown
-                  onSortChange={handleSortChange}
-                  currentSort={filters.sortBy ?? "newest"}
-                />
-              </div>
             </div>
 
             {/* Results count */}
