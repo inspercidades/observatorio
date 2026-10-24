@@ -116,7 +116,7 @@ export const cityLayersConfig: CityLayersConfig = {
       id: "bhe_ciclovia",
       name: "Ciclovia",
       description: "Traçado das ciclovias municipais.",
-      tilesetId: "observatorio-nacional.4b3xv5u1",
+      tilesetId: "observatorio-nacional.bhe_ciclovia_29f49d9c7ce0",
       sourceLayer: "bhe_ciclovia",
       layerType: "line",
       hasCustomStyle: true
