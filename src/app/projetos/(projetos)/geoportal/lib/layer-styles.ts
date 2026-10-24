@@ -1387,38 +1387,6 @@ export const layerStyles: Record<string, LayerStyle> = {
     "source-layer": "poa_ciclovia_ciclomapas"
     },
    // ================== END PORTO ALEGRE ==================
-   // ================== START BRASIL ==================
-   "insper_tarifa_zero_municipios-dwws9i":
-   {
-     "id": "insper-tarifa-zero-municipios-dwws9i",
-    "type": "circle",
-    "paint": {
-      "circle-radius": 8,
-      "circle-color": [
-        "match",
-        [
-          "get",
-          "Tipo de Tarifa Zero"
-        ],
-        [
-          "Integral"
-        ],
-        "#2166ac",
-        [
-          "Parcial"
-        ],
-        "#80cdc1",
-        [
-          "Revogado"
-        ],
-        "#b2182b",
-        "#000000"
-      ]
-    },
-    "source": "composite",
-    "source-layer": "insper_tarifa_zero_municipios-dwws9i"
-   }
-   // ================== END BRASIL ==================
 }
 
 // Helper function to get layer style by source layer name

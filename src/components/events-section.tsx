@@ -83,12 +83,14 @@ export function EventsSection() {
                       >
                         {/* Event Card */}
                         <div className="relative overflow-hidden h-[350px] w-[250px] md:h-[450px] md:w-[350px]">
-                          <Image
-                            src={event.image}
-                            alt={event.title}
-                            fill
-                            className="object-cover transition-transform duration-300 group-hover:scale-105"
-                          />
+                          {event.image ? (
+                            <Image
+                              src={event.image}
+                              alt={event.title}
+                              fill
+                              className="object-cover transition-transform duration-300 group-hover:scale-105"
+                            />
+                          ) : null}
                         </div>
                       </a>
                     ) : (
@@ -98,24 +100,28 @@ export function EventsSection() {
                       >
                         {/* Event Card */}
                         <div className="relative overflow-hidden h-[350px] w-[250px] md:h-[450px] md:w-[350px]">
-                          <Image
-                            src={event.image}
-                            alt={event.title}
-                            fill
-                            className="object-cover transition-transform duration-300 group-hover:scale-105"
-                          />
+                          {event.image ? (
+                            <Image
+                              src={event.image}
+                              alt={event.title}
+                              fill
+                              className="object-cover transition-transform duration-300 group-hover:scale-105"
+                            />
+                          ) : null}
                         </div>
                       </Link>
                     )
                   ) : (
                     /* Event Card without link */
                     <div className="relative overflow-hidden h-[350px] w-[250px] md:h-[450px] md:w-[350px]">
-                      <Image
-                        src={event.image}
-                        alt={event.title}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
+                      {event.image ? (
+                        <Image
+                          src={event.image}
+                          alt={event.title}
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                      ) : null}
                     </div>
                   )}
 

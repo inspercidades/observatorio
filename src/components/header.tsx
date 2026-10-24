@@ -24,11 +24,6 @@ import {
 
 const projetosItems = [
   {
-    title: "Geoportal",
-    href: "/projetos/geoportal",
-    description: "Visualize dados espaciais e de mobilidade urbana em mapa interativo com camadas temáticas e ferramentas de visualização.",
-  },
-    {
     title: "Catálogo de Dados",
     href: "/projetos/catalago-de-dados",
     description: "Navegue por um catálogo interativo com dados de mobilidade de diversas cidades brasileiras.",
@@ -51,11 +46,10 @@ const projetosItems = [
   },
 ]
 const menuItems = [
-  { title: "Home", href: "/" },
   { title: "Sobre", href: "/sobre" },
   { title: "Publicações", href: "/publicacoes" },
-  { title: "Eventos", href: "/eventos" },
   { title: "Vídeos", href: "/videos" },
+  { title: "Eventos", href: "/eventos" },
   { title: "Cursos", href: "/cursos" },
 ]
 
@@ -82,6 +76,7 @@ export function Header({ isBgDark = false, className }: HeaderProps) {
 
   // Check if current path contains "geoportal"
   const isGeoportalPage = pathname.includes("geoportal");
+  const isMobilidadePage = pathname.startsWith("/projetos/") && !isGeoportalPage;
   
   return (
     <header className={`z-50 w-full ${className} ${isMobileMenuOpen ? 'bg-white' : isGeoportalPage ? 'bg-none!' : isBgDark ? 'bg-gradient-to-b from-[#242424] to-[#242424]/0' : ''}`}>
@@ -110,14 +105,6 @@ export function Header({ isBgDark = false, className }: HeaderProps) {
           <NavigationMenuList className="gap-1">
             <NavigationMenuItem>
               <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href="/" className={pathname === "/" ? activeTextClass : inactiveTextClass}>
-                  Home
-                </Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                 <Link href="/sobre" className={pathname === "/sobre" ? activeTextClass : inactiveTextClass}>
                   Sobre
                 </Link>
@@ -125,12 +112,20 @@ export function Header({ isBgDark = false, className }: HeaderProps) {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
+              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                <Link href="/projetos/geoportal" className={isGeoportalPage ? activeTextClass : inactiveTextClass}>
+                  GeoPortal
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
               <NavigationMenuTrigger 
                 isBgDark={isBgDark}
-                isActive={pathname.startsWith("/projetos/")}
-                className={pathname.startsWith("/projetos/") ? activeTextClass : inactiveTextClass}
+                isActive={isMobilidadePage}
+                className={isMobilidadePage ? activeTextClass : inactiveTextClass}
               >
-                Mobilidade em dados
+                Dados
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[600px] gap-3 p-2 md:grid-cols-2 lg:w-[600px]">
@@ -157,16 +152,16 @@ export function Header({ isBgDark = false, className }: HeaderProps) {
 
             <NavigationMenuItem>
               <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href="/eventos" className={pathname === "/eventos" ? activeTextClass : inactiveTextClass}>
-                  Eventos
+                <Link href="/videos" className={pathname === "/videos" ? activeTextClass : inactiveTextClass}>
+                  Vídeos
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
             
             <NavigationMenuItem>
               <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href="/videos" className={pathname === "/videos" ? activeTextClass : inactiveTextClass}>
-                  Vídeos
+                <Link href="/eventos" className={pathname === "/eventos" ? activeTextClass : inactiveTextClass}>
+                  Eventos
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
@@ -212,17 +207,6 @@ export function Header({ isBgDark = false, className }: HeaderProps) {
       >
         <div className=" px-7 py-6">
           <nav className="space-y-4">
-            {/* Home */}
-            <Link
-              href="/"
-              onClick={closeMobileMenu}
-              className={`block py-3 text-lg font-medium transition-colors ${
-                pathname === "/" ? "text-black font-medium" : "text-gray-400 hover:text-black"
-              }`}
-            >
-              Home
-            </Link>
-
             {/* Sobre */}
             <Link
               href="/sobre"
@@ -234,14 +218,24 @@ export function Header({ isBgDark = false, className }: HeaderProps) {
               Sobre
             </Link>
 
+            <Link
+              href="/projetos/geoportal"
+              onClick={closeMobileMenu}
+              className={`block py-3 text-lg font-medium transition-colors ${
+                isGeoportalPage ? "text-black font-medium" : "text-gray-400 hover:text-black"
+              }`}
+            >
+              GeoPortal
+            </Link>
+
             {/* Projetos Section with Accordion */}
             <div className="">
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="projetos" className="border-none">
                   <AccordionTrigger className={`text-lg font-medium text-black hover:no-underline py-3 ${
-                    pathname.startsWith("/projetos/") ? "text-black font-medium" : "text-gray-400 hover:text-black"
+                    isMobilidadePage ? "text-black font-medium" : "text-gray-400 hover:text-black"
                   }`}>
-                    Mobilidade em dados
+                    Dados
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="space-y-4 pt-2">
@@ -269,7 +263,7 @@ export function Header({ isBgDark = false, className }: HeaderProps) {
             </div>
 
             {/* Other Menu Items */}
-            {menuItems.slice(2).map((item) => (
+            {menuItems.slice(1).map((item) => (
               <Link
                 key={item.title}
                 href={item.href}
