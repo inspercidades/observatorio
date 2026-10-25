@@ -42,7 +42,13 @@ describe("DataCard – card fechado", () => {
 
   it("renderiza a tag de categoria", () => {
     render(<DataCard item={item} />);
-    expect(screen.getByText("Sinistros de trânsito")).toBeInTheDocument();
+    expect(screen.getByText(item.category)).toBeInTheDocument();
+  });
+
+  it("mostra a abrangência fora das tags", () => {
+    render(<DataCard item={item} />);
+    expect(screen.getByText("Municipal")).toBeInTheDocument();
+    expect(screen.getByText(item.category).closest("span")).toBeInTheDocument();
   });
 
   it("mostra período e formatos no rodapé", () => {
@@ -116,11 +122,21 @@ describe("DataCard – modal aberto", () => {
 
     expect(screen.getByRole("dialog")).toHaveTextContent("Fonte original dos dados");
     expect(screen.getByRole("dialog")).toHaveTextContent("Categoria");
+    expect(screen.getByRole("dialog")).toHaveTextContent("Abrangência Geográfica");
+    expect(screen.getByRole("dialog")).toHaveTextContent("Região");
+    expect(screen.getByRole("dialog")).toHaveTextContent("São Paulo");
     expect(screen.queryByText("Segurança Viária • São Paulo")).not.toBeInTheDocument();
 
     const link = screen.getByRole("link", { name: /INFOSIGA SP/i });
     expect(link).toHaveAttribute("href", item.sourceLink);
     expect(link).toHaveAttribute("target", "_blank");
+  });
+
+  it("modal preserva a região composta do card multi-cidade", async () => {
+    const user = userEvent.setup();
+    render(<DataCard item={multiCityItem} />);
+    await user.click(screen.getByRole("button"));
+    expect(screen.getByRole("dialog")).toHaveTextContent(multiCityItem.region);
   });
 
   it("modal exibe o título e o botão Acessar para cada dataset", async () => {

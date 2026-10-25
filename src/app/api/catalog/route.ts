@@ -3,15 +3,15 @@ import { NextResponse } from "next/server";
 import catalogData from "@/lib/data/new-catalog/catalog.json";
 import categoriesData from "@/lib/data/new-catalog/categories.json";
 
-// Revalida o cache a cada 10 minutos
-export const revalidate = 600;
+export const dynamic = "force-dynamic";
 
 export interface CatalogItem {
   id: string;
   title: string;
   description: string;
   theme: string;
-  subject: string;
+  geographicScope: string;
+  category: string;
   formats: string[];
   region: string;
   cities: string[];
@@ -32,16 +32,18 @@ export interface CatalogItem {
 
 export interface CatalogCategories {
   themes: string[];
+  geographicScopes: string[];
   cities: string[];
-  subjects: string[];
+  categories: string[];
   formats: string[];
 }
 
 export interface CatalogFilters {
   search?: string;
   theme?: string;
+  geographicScope?: string;
   region?: string;
-  subject?: string;
+  category?: string;
   format?: string;
 }
 
@@ -60,7 +62,8 @@ export function searchItems(items: CatalogItem[], searchTerm: string): CatalogIt
       item.description,
       item.region,
       item.theme,
-      item.subject,
+      item.geographicScope,
+      item.category,
       ...item.keywords,
       ...item.cities,
     ];
@@ -79,6 +82,12 @@ export function filterItems(
     )
       return false;
 
+    if (
+      filters.geographicScope &&
+      item.geographicScope.toLowerCase() !== filters.geographicScope.toLowerCase()
+    )
+      return false;
+
     // Region options are the city list. Match cities[] so a multi-city
     // card still appears when any of its cities is selected.
     if (
@@ -90,8 +99,8 @@ export function filterItems(
       return false;
 
     if (
-      filters.subject &&
-      item.subject.toLowerCase() !== filters.subject.toLowerCase()
+      filters.category &&
+      item.category.toLowerCase() !== filters.category.toLowerCase()
     )
       return false;
 
@@ -121,8 +130,9 @@ export async function GET(request: NextRequest) {
     const filters: CatalogFilters = {
       search: searchParams.get("search") || undefined,
       theme: searchParams.get("theme") || undefined,
+      geographicScope: searchParams.get("geographicScope") || undefined,
       region: searchParams.get("region") || undefined,
-      subject: searchParams.get("subject") || undefined,
+      category: searchParams.get("category") || undefined,
       format: searchParams.get("format") || undefined,
     };
 

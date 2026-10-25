@@ -1,10 +1,14 @@
 import { describe, expect, it } from "vitest";
+import { NextRequest } from "next/server";
 import {
+  GET,
   filterItems,
   searchItems,
   sortItems,
 } from "@/app/api/catalog/route";
 import { mockItems } from "@/test/fixtures";
+import catalogData from "@/lib/data/new-catalog/catalog.json";
+import categoriesData from "@/lib/data/new-catalog/categories.json";
 
 // ─── searchItems ─────────────────────────────────────────────────────────────
 
@@ -119,11 +123,26 @@ describe("filterItems", () => {
     expect(filterItems(mockItems, { region: "Manaus" })).toHaveLength(0);
   });
 
-  // Assunto
-  it("filtra por assunto com match exato", () => {
-    const result = filterItems(mockItems, { subject: "Trem e metrô" });
+  // Categoria e abrangência
+  it("filtra por categoria com match exato", () => {
+    const result = filterItems(mockItems, { category: "Demanda" });
     expect(result).toHaveLength(1);
     expect(result[0].id).toBe("motiva-trem-metro");
+  });
+
+  it("filtra por abrangência geográfica", () => {
+    expect(filterItems(mockItems, { geographicScope: "Metropolitana" }).map((item) => item.id))
+      .toEqual(["motiva-trem-metro"]);
+    expect(filterItems(mockItems, { geographicScope: "Federal" })).toEqual([]);
+  });
+
+  it("combina tema, categoria, abrangência e região", () => {
+    expect(filterItems(mockItems, {
+      theme: "Transporte Público Coletivo",
+      category: "Demanda",
+      geographicScope: "Metropolitana",
+      region: "Salvador",
+    }).map((item) => item.id)).toEqual(["motiva-trem-metro"]);
   });
 
   // Formato – usa .some() porque cards podem ter múltiplos formatos
@@ -168,6 +187,39 @@ describe("filterItems", () => {
       region: "São Paulo",
     });
     expect(result).toHaveLength(0);
+  });
+});
+
+describe("dados publicados", () => {
+  it("contém 34 cards classificados uma vez e o vocabulário completo", () => {
+    expect(catalogData).toHaveLength(34);
+    expect(new Set(catalogData.map((item) => item.id)).size).toBe(34);
+    expect(categoriesData.geographicScopes).toEqual(["Municipal", "Metropolitana", "Estadual", "Federal"]);
+    expect(categoriesData.categories).toHaveLength(22);
+    expect(categoriesData.themes).toContain("Mobilidade a Pé");
+    expect(categoriesData.themes).toContain("Logística Urbana Sustentável");
+    for (const item of catalogData) {
+      expect(item.category).toBeTruthy();
+      expect(categoriesData.categories).toContain(item.category);
+      expect(categoriesData.geographicScopes).toContain(item.geographicScope);
+      expect(item.tags).toEqual([item.theme, item.category]);
+    }
+    const pemob = catalogData.find((item) => item.id === "pemob-brasil");
+    expect(pemob?.category).toBe("Governança e gestão");
+    expect(pemob?.geographicScope).toBe("Federal");
+  });
+
+  it("a API aceita categoria e abrangência e retorna o novo vocabulário", async () => {
+    const request = new NextRequest(
+      "http://localhost/api/catalog?category=Governan%C3%A7a%20e%20gest%C3%A3o&geographicScope=Federal",
+    );
+    const response = await GET(request);
+    const body = await response.json();
+    expect(response.status).toBe(200);
+    expect(body.data.map((item: { id: string }) => item.id)).toEqual(["pemob-brasil"]);
+    expect(body.filters.categories).toHaveLength(22);
+    expect(body.filters.geographicScopes).toHaveLength(4);
+    expect(body.filters.subjects).toBeUndefined();
   });
 });
 

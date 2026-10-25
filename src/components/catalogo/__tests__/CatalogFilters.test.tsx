@@ -13,6 +13,7 @@ describe("CatalogFilters", () => {
   it("renderiza os grupos de filtros", () => {
     render(<CatalogFilters {...defaultProps} />);
     expect(screen.getByText("Tema")).toBeInTheDocument();
+    expect(screen.getByText("Abrangência Geográfica")).toBeInTheDocument();
     expect(screen.getByText("Região")).toBeInTheDocument();
     expect(screen.getByText("Categoria")).toBeInTheDocument();
     expect(screen.getByText("Formato")).toBeInTheDocument();
@@ -22,6 +23,16 @@ describe("CatalogFilters", () => {
     render(<CatalogFilters {...defaultProps} />);
     for (const theme of mockCategories.themes) {
       expect(screen.getByLabelText(theme)).toBeInTheDocument();
+    }
+  });
+
+  it("renderiza as quatro abrangências e as novas categorias", () => {
+    render(<CatalogFilters {...defaultProps} />);
+    for (const scope of mockCategories.geographicScopes) {
+      expect(screen.getByLabelText(scope)).toBeInTheDocument();
+    }
+    for (const category of mockCategories.categories) {
+      expect(screen.getByLabelText(category)).toBeInTheDocument();
     }
   });
 
@@ -58,6 +69,16 @@ describe("CatalogFilters", () => {
 
     expect(onFiltersChange).toHaveBeenCalledWith(
       expect.objectContaining({ theme: "Segurança Viária" }),
+    );
+  });
+
+  it("selecionar uma abrangência chama onFiltersChange", async () => {
+    const onFiltersChange = vi.fn();
+    const user = userEvent.setup();
+    render(<CatalogFilters {...defaultProps} onFiltersChange={onFiltersChange} />);
+    await user.click(screen.getByLabelText("Metropolitana"));
+    expect(onFiltersChange).toHaveBeenCalledWith(
+      expect.objectContaining({ geographicScope: "Metropolitana" }),
     );
   });
 

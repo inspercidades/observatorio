@@ -4,27 +4,17 @@
     "title": "Linhas de ônibus – Santo André",
     "description": "Traçado e características das linhas de ônibus municipais de Santo André e das linhas intermunicipais que atendem a cidade.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Linhas e horários",
-    "formats": [
-      "Georreferenciado"
-    ],
+    "geographicScope": "Metropolitana",
+    "category": "Operação e ITS",
+    "formats": ["Georreferenciado"],
     "region": "Santo André",
-    "cities": [
-      "Santo André"
-    ],
+    "cities": ["Santo André"],
     "source": "Prefeitura de Santo André",
     "sourceLink": "https://siga.santoandre.sp.gov.br",
-    "keywords": [
-      "Ônibus",
-      "Infraestrutura viária",
-      "Rotas"
-    ],
+    "keywords": ["Ônibus", "Infraestrutura viária", "Rotas"],
     "period": "2025",
     "updatedAt": "2026-10-16",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Linhas e horários"
-    ],
+    "tags": ["Transporte Público Coletivo", "Operação e ITS"],
     "dataset_info": [
       {
         "dataset_title": "Linhas de Ônibus Municipais – Santo André",
@@ -46,29 +36,17 @@
     "title": "Sinistros de trânsito – São Paulo",
     "description": "Sinistros de trânsito em São Paulo de 2022 a 2025, compatibilizados a partir do InfoSiga. Traz os registros individuais e uma versão agregada por trecho de via.",
     "theme": "Segurança Viária",
-    "subject": "Sinistros de trânsito",
-    "formats": [
-      "Tabela",
-      "Georreferenciado"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Vigilância, Saúde e Atendimento às Vítimas",
+    "formats": ["Tabela", "Georreferenciado"],
     "region": "São Paulo",
-    "cities": [
-      "São Paulo"
-    ],
+    "cities": ["São Paulo"],
     "source": "InfoSiga SP",
     "sourceLink": "https://dadosabertos.sp.gov.br/painel",
-    "keywords": [
-      "Sinistros",
-      "Mobilidade Urbana",
-      "Série histórica",
-      "Infraestrutura viária"
-    ],
+    "keywords": ["Sinistros", "Mobilidade Urbana", "Série histórica", "Infraestrutura viária"],
     "period": "2022–2025",
     "updatedAt": "2026-08-13",
-    "tags": [
-      "Segurança Viária",
-      "Sinistros de trânsito"
-    ],
+    "tags": ["Segurança Viária", "Vigilância, Saúde e Atendimento às Vítimas"],
     "dataset_info": [
       {
         "dataset_title": "Sinistros de Trânsito – São Paulo",
@@ -91,29 +69,17 @@
     "title": "Faixa Azul para motociclistas – São Paulo",
     "description": "Localização dos trechos com faixas de trânsito dedicadas a motociclistas (Faixa Azul) implementadas em São Paulo no período de 2022 a 2025.",
     "theme": "Segurança Viária",
-    "subject": "Infraestrutura viária",
-    "formats": [
-      "Georreferenciado"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Desenho Viário",
+    "formats": ["Georreferenciado"],
     "region": "São Paulo",
-    "cities": [
-      "São Paulo"
-    ],
+    "cities": ["São Paulo"],
     "source": "Prefeitura de São Paulo",
     "sourceLink": "https://dadosabertos.sp.gov.br/painel",
-    "keywords": [
-      "Mobilidade Urbana",
-      "Motocicleta",
-      "Faixa Azul",
-      "Políticas de Mobilidade",
-      "Infraestrutura viária"
-    ],
+    "keywords": ["Mobilidade Urbana", "Motocicleta", "Faixa Azul", "Políticas de Mobilidade", "Infraestrutura viária"],
     "period": "2022–2025",
     "updatedAt": "2026-07-30",
-    "tags": [
-      "Segurança Viária",
-      "Infraestrutura viária"
-    ],
+    "tags": ["Segurança Viária", "Desenho Viário"],
     "dataset_info": [
       {
         "dataset_title": "Trechos com Faixas Dedicadas a Motociclistas (Faixa Azul) – São Paulo",
@@ -129,34 +95,17 @@
     "title": "Embarques nas estações de trem e metrô da Motiva",
     "description": "Embarques por estação nos sistemas de trem, metrô e VLT operados pela Motiva: Metrô Bahia, ViaQuatro, ViaMobilidade (Linhas 5, 8 e 9) e VLT Carioca. Traz séries por hora, por dia e médias mensais, além do cadastro de linhas e estações.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Trem e metrô",
-    "formats": [
-      "Tabela"
-    ],
+    "geographicScope": "Metropolitana",
+    "category": "Demanda",
+    "formats": ["Tabela"],
     "region": "Salvador, São Paulo e Rio de Janeiro",
-    "cities": [
-      "Salvador",
-      "São Paulo",
-      "Rio de Janeiro"
-    ],
+    "cities": ["Salvador", "São Paulo", "Rio de Janeiro"],
     "source": "Motiva",
     "sourceLink": "https://www.motiva.com.br",
-    "keywords": [
-      "Transporte público",
-      "Demanda de passageiros",
-      "Sistemas metroferroviários",
-      "Metrô",
-      "VLT",
-      "Série histórica",
-      "Integração modal",
-      "Infraestrutura viária"
-    ],
+    "keywords": ["Transporte público", "Demanda de passageiros", "Sistemas metroferroviários", "Metrô", "VLT", "Série histórica", "Integração modal", "Infraestrutura viária"],
     "period": "2012–2025",
     "updatedAt": "2026-07-30",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Trem e metrô"
-    ],
+    "tags": ["Transporte Público Coletivo", "Demanda"],
     "dataset_info": [
       {
         "dataset_title": "Embarques a cada hora nas estações Motiva",
@@ -200,28 +149,16 @@
     "title": "Pesquisa Nacional de Mobilidade Urbana (PEMOB)",
     "description": "Respostas dos municípios brasileiros à Pesquisa Nacional de Mobilidade Urbana (PEMOB), do Ministério das Cidades, de 2019 a 2024. Cobre infraestrutura, frota, demanda, tarifas e políticas de mobilidade. Inclui a base anual e uma versão harmonizada para comparar municípios ao longo do tempo.",
     "theme": "Transversal",
-    "subject": "Pesquisas de mobilidade",
-    "formats": [
-      "Tabela"
-    ],
+    "geographicScope": "Federal",
+    "category": "Governança e gestão",
+    "formats": ["Tabela"],
     "region": "Brasil",
-    "cities": [
-      "Brasil"
-    ],
+    "cities": ["Brasil"],
     "source": "Ministério das Cidades / SEMOB",
-    "keywords": [
-      "Mobilidade Urbana",
-      "Gestão de Transportes",
-      "Transporte público",
-      "Políticas de Mobilidade",
-      "Série histórica"
-    ],
+    "keywords": ["Mobilidade Urbana", "Gestão de Transportes", "Transporte público", "Políticas de Mobilidade", "Série histórica"],
     "period": "2019–2024",
     "updatedAt": "2026-07-30",
-    "tags": [
-      "Transversal",
-      "Pesquisas de mobilidade"
-    ],
+    "tags": ["Transversal", "Governança e gestão"],
     "dataset_info": [
       {
         "dataset_title": "Pesquisa Nacional de Mobilidade Urbana (PEMOB)",
@@ -237,26 +174,16 @@
     "title": "Embarques nos ônibus – Belo Horizonte",
     "description": "Registros de embarques no sistema de transporte público por ônibus de Belo Horizonte.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Bilhetagem e demanda",
-    "formats": [
-      "Tabela"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Demanda",
+    "formats": ["Tabela"],
     "region": "Belo Horizonte",
-    "cities": [
-      "Belo Horizonte"
-    ],
+    "cities": ["Belo Horizonte"],
     "source": "Prefeitura de Belo Horizonte / BHTrans",
     "sourceLink": "https://dados.pbh.gov.br",
-    "keywords": [
-      "Bilhetagem eletrônica",
-      "Ônibus",
-      "Embarques"
-    ],
+    "keywords": ["Bilhetagem eletrônica", "Ônibus", "Embarques"],
     "updatedAt": "2025-11-09",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Bilhetagem e demanda"
-    ],
+    "tags": ["Transporte Público Coletivo", "Demanda"],
     "dataset_info": [
       {
         "dataset_title": "Embarques nos Ônibus – Belo Horizonte",
@@ -271,27 +198,17 @@
     "title": "Rede cicloviária – Belo Horizonte",
     "description": "Shapefile da rede cicloviária do município de Belo Horizonte.",
     "theme": "Mobilidade por Bicicleta",
-    "subject": "Infraestrutura cicloviária",
-    "formats": [
-      "Georreferenciado"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Infraestrutura viária",
+    "formats": ["Georreferenciado"],
     "region": "Belo Horizonte",
-    "cities": [
-      "Belo Horizonte"
-    ],
+    "cities": ["Belo Horizonte"],
     "source": "Prefeitura de Belo Horizonte",
     "sourceLink": "https://dados.pbh.gov.br",
-    "keywords": [
-      "Ciclovia",
-      "Mobilidade ativa",
-      "Infraestrutura viária"
-    ],
+    "keywords": ["Ciclovia", "Mobilidade ativa", "Infraestrutura viária"],
     "period": "2003–2025",
     "updatedAt": "2025-11-09",
-    "tags": [
-      "Mobilidade por Bicicleta",
-      "Infraestrutura cicloviária"
-    ],
+    "tags": ["Mobilidade por Bicicleta", "Infraestrutura viária"],
     "dataset_info": [
       {
         "dataset_title": "Rede de Ciclovias – Belo Horizonte",
@@ -307,27 +224,16 @@
     "title": "GTFS dos ônibus – Belo Horizonte",
     "description": "Dados de oferta de transporte público de Belo Horizonte em formato GTFS: linhas, paradas, frequências e shapes.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Linhas e horários",
-    "formats": [
-      "GTFS"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Operação e ITS",
+    "formats": ["GTFS"],
     "region": "Belo Horizonte",
-    "cities": [
-      "Belo Horizonte"
-    ],
+    "cities": ["Belo Horizonte"],
     "source": "Prefeitura de Belo Horizonte / BHTrans",
     "sourceLink": "https://dados.pbh.gov.br",
-    "keywords": [
-      "GTFS",
-      "Ônibus",
-      "Frequência de ônibus",
-      "Infraestrutura viária"
-    ],
+    "keywords": ["GTFS", "Ônibus", "Frequência de ônibus", "Infraestrutura viária"],
     "updatedAt": "2025-11-09",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Linhas e horários"
-    ],
+    "tags": ["Transporte Público Coletivo", "Operação e ITS"],
     "dataset_info": [
       {
         "dataset_title": "GTFS – Belo Horizonte",
@@ -342,27 +248,16 @@
     "title": "GTFS dos ônibus – Fortaleza",
     "description": "Dados de oferta de transporte público de Fortaleza em formato GTFS: linhas, paradas, frequências e shapes.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Linhas e horários",
-    "formats": [
-      "GTFS"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Operação e ITS",
+    "formats": ["GTFS"],
     "region": "Fortaleza",
-    "cities": [
-      "Fortaleza"
-    ],
+    "cities": ["Fortaleza"],
     "source": "Prefeitura de Fortaleza / ETUFOR",
     "sourceLink": "https://dados.fortaleza.ce.gov.br",
-    "keywords": [
-      "GTFS",
-      "Ônibus",
-      "Frequência de ônibus",
-      "Infraestrutura viária"
-    ],
+    "keywords": ["GTFS", "Ônibus", "Frequência de ônibus", "Infraestrutura viária"],
     "updatedAt": "2025-11-09",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Linhas e horários"
-    ],
+    "tags": ["Transporte Público Coletivo", "Operação e ITS"],
     "dataset_info": [
       {
         "dataset_title": "GTFS – Fortaleza",
@@ -377,27 +272,16 @@
     "title": "GTFS dos ônibus – São Paulo",
     "description": "Dados de oferta de transporte público da cidade de São Paulo em formato GTFS: linhas, paradas, frequências e shapes.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Linhas e horários",
-    "formats": [
-      "GTFS"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Operação e ITS",
+    "formats": ["GTFS"],
     "region": "São Paulo",
-    "cities": [
-      "São Paulo"
-    ],
+    "cities": ["São Paulo"],
     "source": "Prefeitura de São Paulo / SPTrans",
     "sourceLink": "https://dadosabertos.sp.gov.br/painel",
-    "keywords": [
-      "GTFS",
-      "Ônibus",
-      "Frequência de ônibus",
-      "Infraestrutura viária"
-    ],
+    "keywords": ["GTFS", "Ônibus", "Frequência de ônibus", "Infraestrutura viária"],
     "updatedAt": "2025-11-09",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Linhas e horários"
-    ],
+    "tags": ["Transporte Público Coletivo", "Operação e ITS"],
     "dataset_info": [
       {
         "dataset_title": "GTFS – São Paulo",
@@ -412,28 +296,17 @@
     "title": "Operação do sistema de ônibus – Santo André",
     "description": "Indicadores operacionais e frota do sistema de ônibus de Santo André.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Operação e frota",
-    "formats": [
-      "Tabela"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Operação e ITS",
+    "formats": ["Tabela"],
     "region": "Santo André",
-    "cities": [
-      "Santo André"
-    ],
+    "cities": ["Santo André"],
     "source": "Prefeitura de Santo André",
     "sourceLink": "https://siga.santoandre.sp.gov.br",
-    "keywords": [
-      "Ônibus",
-      "Frota",
-      "Transporte público",
-      "Qualidade do serviço"
-    ],
+    "keywords": ["Ônibus", "Frota", "Transporte público", "Qualidade do serviço"],
     "period": "2025",
     "updatedAt": "2025-11-09",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Operação e frota"
-    ],
+    "tags": ["Transporte Público Coletivo", "Operação e ITS"],
     "dataset_info": [
       {
         "dataset_title": "Frota de Ônibus – Santo André",
@@ -456,26 +329,16 @@
     "title": "Matriz origem-destino – Belo Horizonte",
     "description": "Dados de origem e destino de viagens na Região Metropolitana de Belo Horizonte.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Pesquisas de mobilidade",
-    "formats": [
-      "Tabela"
-    ],
+    "geographicScope": "Metropolitana",
+    "category": "Demanda",
+    "formats": ["Tabela"],
     "region": "Belo Horizonte",
-    "cities": [
-      "Belo Horizonte"
-    ],
+    "cities": ["Belo Horizonte"],
     "source": "Prefeitura de Belo Horizonte",
     "sourceLink": "https://dados.pbh.gov.br",
-    "keywords": [
-      "Mobilidade Urbana",
-      "Pesquisa OD",
-      "Tempo de viagem"
-    ],
+    "keywords": ["Mobilidade Urbana", "Pesquisa OD", "Tempo de viagem"],
     "updatedAt": "2025-11-09",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Pesquisas de mobilidade"
-    ],
+    "tags": ["Transporte Público Coletivo", "Demanda"],
     "dataset_info": [
       {
         "dataset_title": "Matriz Origem-Destino – Belo Horizonte",
@@ -490,27 +353,17 @@
     "title": "Passageiros de ônibus – Santo André",
     "description": "Total de passageiros transportados pelo sistema de ônibus de Santo André.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Bilhetagem e demanda",
-    "formats": [
-      "Tabela"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Demanda",
+    "formats": ["Tabela"],
     "region": "Santo André",
-    "cities": [
-      "Santo André"
-    ],
+    "cities": ["Santo André"],
     "source": "Prefeitura de Santo André",
     "sourceLink": "https://siga.santoandre.sp.gov.br",
-    "keywords": [
-      "Ônibus",
-      "Demanda de passageiros",
-      "Série histórica"
-    ],
+    "keywords": ["Ônibus", "Demanda de passageiros", "Série histórica"],
     "period": "2025",
     "updatedAt": "2025-11-09",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Bilhetagem e demanda"
-    ],
+    "tags": ["Transporte Público Coletivo", "Demanda"],
     "dataset_info": [
       {
         "dataset_title": "Passageiros de Ônibus – Santo André",
@@ -526,26 +379,17 @@
     "title": "Sinistros de trânsito – Santo André",
     "description": "Registros de sinistros de trânsito ocorridos em Santo André.",
     "theme": "Segurança Viária",
-    "subject": "Sinistros de trânsito",
-    "formats": [
-      "Georreferenciado"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Vigilância, Saúde e Atendimento às Vítimas",
+    "formats": ["Georreferenciado"],
     "region": "Santo André",
-    "cities": [
-      "Santo André"
-    ],
+    "cities": ["Santo André"],
     "source": "Prefeitura de Santo André",
     "sourceLink": "https://siga.santoandre.sp.gov.br",
-    "keywords": [
-      "Sinistros",
-      "Série histórica"
-    ],
+    "keywords": ["Sinistros", "Série histórica"],
     "period": "1998–2025",
     "updatedAt": "2025-11-09",
-    "tags": [
-      "Segurança Viária",
-      "Sinistros de trânsito"
-    ],
+    "tags": ["Segurança Viária", "Vigilância, Saúde e Atendimento às Vítimas"],
     "dataset_info": [
       {
         "dataset_title": "Sinistros de Trânsito – Santo André",
@@ -561,27 +405,16 @@
     "title": "Velocidade nos corredores de ônibus – Belo Horizonte",
     "description": "Dados de velocidade média dos ônibus nos corredores de transporte público de Belo Horizonte.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Operação e frota",
-    "formats": [
-      "Georreferenciado"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Operação e ITS",
+    "formats": ["Georreferenciado"],
     "region": "Belo Horizonte",
-    "cities": [
-      "Belo Horizonte"
-    ],
+    "cities": ["Belo Horizonte"],
     "source": "Prefeitura de Belo Horizonte / BHTrans",
     "sourceLink": "https://dados.pbh.gov.br",
-    "keywords": [
-      "Ônibus",
-      "Velocidade",
-      "Corredores",
-      "Qualidade do serviço"
-    ],
+    "keywords": ["Ônibus", "Velocidade", "Corredores", "Qualidade do serviço"],
     "updatedAt": "2025-11-09",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Operação e frota"
-    ],
+    "tags": ["Transporte Público Coletivo", "Operação e ITS"],
     "dataset_info": [
       {
         "dataset_title": "Velocidade nos Corredores de Ônibus – Belo Horizonte",
@@ -596,28 +429,17 @@
     "title": "Bilhetagem eletrônica – Salvador",
     "description": "Embarques nos ônibus de Salvador registrados pela bilhetagem eletrônica, incluindo os dados do sistema de clearing.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Bilhetagem e demanda",
-    "formats": [
-      "Tabela"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Demanda",
+    "formats": ["Tabela"],
     "region": "Salvador",
-    "cities": [
-      "Salvador"
-    ],
+    "cities": ["Salvador"],
     "source": "Prefeitura de Salvador / SETIN",
     "sourceLink": "https://salvador.ba.gov.br",
-    "keywords": [
-      "Bilhetagem eletrônica",
-      "Ônibus",
-      "Embarques",
-      "Série histórica"
-    ],
+    "keywords": ["Bilhetagem eletrônica", "Ônibus", "Embarques", "Série histórica"],
     "period": "2025",
     "updatedAt": "2025-10-30",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Bilhetagem e demanda"
-    ],
+    "tags": ["Transporte Público Coletivo", "Demanda"],
     "dataset_info": [
       {
         "dataset_title": "Bilhetagem Eletrônica (Clearing) – Salvador",
@@ -640,27 +462,17 @@
     "title": "Rede cicloviária – Salvador",
     "description": "Shapefile da rede cicloviária do município de Salvador.",
     "theme": "Mobilidade por Bicicleta",
-    "subject": "Infraestrutura cicloviária",
-    "formats": [
-      "Georreferenciado"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Infraestrutura viária",
+    "formats": ["Georreferenciado"],
     "region": "Salvador",
-    "cities": [
-      "Salvador"
-    ],
+    "cities": ["Salvador"],
     "source": "Prefeitura de Salvador",
     "sourceLink": "https://salvador.ba.gov.br",
-    "keywords": [
-      "Ciclovia",
-      "Mobilidade ativa",
-      "Infraestrutura viária"
-    ],
+    "keywords": ["Ciclovia", "Mobilidade ativa", "Infraestrutura viária"],
     "period": "2025",
     "updatedAt": "2025-10-30",
-    "tags": [
-      "Mobilidade por Bicicleta",
-      "Infraestrutura cicloviária"
-    ],
+    "tags": ["Mobilidade por Bicicleta", "Infraestrutura viária"],
     "dataset_info": [
       {
         "dataset_title": "Rede de Ciclovias – Salvador",
@@ -676,26 +488,17 @@
     "title": "GPS dos ônibus – Salvador",
     "description": "Dados de rastreamento GPS de ônibus embarcados no sistema de transporte público de Salvador.",
     "theme": "Transporte Público Coletivo",
-    "subject": "GPS embarcado",
-    "formats": [
-      "Tabela"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Operação e ITS",
+    "formats": ["Tabela"],
     "region": "Salvador",
-    "cities": [
-      "Salvador"
-    ],
+    "cities": ["Salvador"],
     "source": "Prefeitura de Salvador / SETIN",
     "sourceLink": "https://salvador.ba.gov.br",
-    "keywords": [
-      "GPS",
-      "Ônibus"
-    ],
+    "keywords": ["GPS", "Ônibus"],
     "period": "2025",
     "updatedAt": "2025-10-30",
-    "tags": [
-      "Transporte Público Coletivo",
-      "GPS embarcado"
-    ],
+    "tags": ["Transporte Público Coletivo", "Operação e ITS"],
     "dataset_info": [
       {
         "dataset_title": "GPS Embarcados – Salvador",
@@ -711,27 +514,16 @@
     "title": "GTFS dos ônibus – Salvador",
     "description": "Dados de oferta de transporte público de Salvador em formato GTFS: linhas, paradas, frequências e shapes.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Linhas e horários",
-    "formats": [
-      "GTFS"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Operação e ITS",
+    "formats": ["GTFS"],
     "region": "Salvador",
-    "cities": [
-      "Salvador"
-    ],
+    "cities": ["Salvador"],
     "source": "Prefeitura de Salvador / SETIN",
     "sourceLink": "https://salvador.ba.gov.br",
-    "keywords": [
-      "GTFS",
-      "Ônibus",
-      "Frequência de ônibus",
-      "Infraestrutura viária"
-    ],
+    "keywords": ["GTFS", "Ônibus", "Frequência de ônibus", "Infraestrutura viária"],
     "updatedAt": "2025-10-30",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Linhas e horários"
-    ],
+    "tags": ["Transporte Público Coletivo", "Operação e ITS"],
     "dataset_info": [
       {
         "dataset_title": "GTFS – Salvador",
@@ -746,26 +538,16 @@
     "title": "Pontos de ônibus – Belo Horizonte",
     "description": "Localização dos pontos de parada de ônibus do sistema de transporte público de Belo Horizonte.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Infraestrutura de transporte",
-    "formats": [
-      "Georreferenciado"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Infraestrutura viária",
+    "formats": ["Georreferenciado"],
     "region": "Belo Horizonte",
-    "cities": [
-      "Belo Horizonte"
-    ],
+    "cities": ["Belo Horizonte"],
     "source": "Prefeitura de Belo Horizonte / BHTrans",
     "sourceLink": "https://dados.pbh.gov.br",
-    "keywords": [
-      "Ônibus",
-      "Infraestrutura viária",
-      "Paradas"
-    ],
+    "keywords": ["Ônibus", "Infraestrutura viária", "Paradas"],
     "updatedAt": "2025-10-30",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Infraestrutura de transporte"
-    ],
+    "tags": ["Transporte Público Coletivo", "Infraestrutura viária"],
     "dataset_info": [
       {
         "dataset_title": "Pontos de Ônibus – Belo Horizonte",
@@ -780,26 +562,16 @@
     "title": "Passageiros por linha de ônibus – Niterói",
     "description": "Passageiros transportados por linha de ônibus em Niterói, com totais diários e mensais.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Bilhetagem e demanda",
-    "formats": [
-      "Tabela"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Demanda",
+    "formats": ["Tabela"],
     "region": "Niterói",
-    "cities": [
-      "Niterói"
-    ],
+    "cities": ["Niterói"],
     "source": "Prefeitura de Niterói / NITTRANS",
     "sourceLink": "https://mobnit.niteroi.rj.gov.br",
-    "keywords": [
-      "Ônibus",
-      "Demanda de passageiros",
-      "Série histórica"
-    ],
+    "keywords": ["Ônibus", "Demanda de passageiros", "Série histórica"],
     "updatedAt": "2025-09-16",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Bilhetagem e demanda"
-    ],
+    "tags": ["Transporte Público Coletivo", "Demanda"],
     "dataset_info": [
       {
         "dataset_title": "Passageiros Diários por Linha de Ônibus – Niterói",
@@ -820,26 +592,16 @@
     "title": "Frota do transporte coletivo – Porto Alegre",
     "description": "Dados sobre a frota de transporte público coletivo em Porto Alegre.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Operação e frota",
-    "formats": [
-      "Tabela"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Operação e ITS",
+    "formats": ["Tabela"],
     "region": "Porto Alegre",
-    "cities": [
-      "Porto Alegre"
-    ],
+    "cities": ["Porto Alegre"],
     "source": "Prefeitura de Porto Alegre / EPTC",
     "sourceLink": "https://dadosabertos.poa.br",
-    "keywords": [
-      "Ônibus",
-      "Frota",
-      "Transporte público"
-    ],
+    "keywords": ["Ônibus", "Frota", "Transporte público"],
     "updatedAt": "2025-09-16",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Operação e frota"
-    ],
+    "tags": ["Transporte Público Coletivo", "Operação e ITS"],
     "dataset_info": [
       {
         "dataset_title": "Frota de Transporte Público – Porto Alegre",
@@ -854,26 +616,16 @@
     "title": "Tabela horária dos ônibus – Porto Alegre",
     "description": "Tabelas horárias do sistema de ônibus de Porto Alegre.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Linhas e horários",
-    "formats": [
-      "Tabela"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Operação e ITS",
+    "formats": ["Tabela"],
     "region": "Porto Alegre",
-    "cities": [
-      "Porto Alegre"
-    ],
+    "cities": ["Porto Alegre"],
     "source": "Prefeitura de Porto Alegre / EPTC",
     "sourceLink": "https://dadosabertos.poa.br",
-    "keywords": [
-      "Ônibus",
-      "Frequência de ônibus",
-      "GTFS"
-    ],
+    "keywords": ["Ônibus", "Frequência de ônibus", "GTFS"],
     "updatedAt": "2025-09-16",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Linhas e horários"
-    ],
+    "tags": ["Transporte Público Coletivo", "Operação e ITS"],
     "dataset_info": [
       {
         "dataset_title": "Tabela Horária de Ônibus – Porto Alegre",
@@ -888,26 +640,17 @@
     "title": "Sinalização viária – Porto Alegre",
     "description": "Localização e características da sinalização viária em Porto Alegre.",
     "theme": "Segurança Viária",
-    "subject": "Infraestrutura viária",
-    "formats": [
-      "Georreferenciado"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Desenho Viário",
+    "formats": ["Georreferenciado"],
     "region": "Porto Alegre",
-    "cities": [
-      "Porto Alegre"
-    ],
+    "cities": ["Porto Alegre"],
     "source": "Prefeitura de Porto Alegre / EPTC",
     "sourceLink": "https://dadosabertos.poa.br",
-    "keywords": [
-      "Infraestrutura viária",
-      "Mobilidade Urbana"
-    ],
+    "keywords": ["Infraestrutura viária", "Mobilidade Urbana"],
     "period": "2025",
     "updatedAt": "2025-09-16",
-    "tags": [
-      "Segurança Viária",
-      "Infraestrutura viária"
-    ],
+    "tags": ["Segurança Viária", "Desenho Viário"],
     "dataset_info": [
       {
         "dataset_title": "Sinalização Viária – Porto Alegre",
@@ -923,27 +666,17 @@
     "title": "Sinistros de trânsito – Porto Alegre",
     "description": "Sinistros de trânsito georreferenciados em Porto Alegre e dados sobre as vítimas, com tipo de vítima e localização.",
     "theme": "Segurança Viária",
-    "subject": "Sinistros de trânsito",
-    "formats": [
-      "Georreferenciado"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Vigilância, Saúde e Atendimento às Vítimas",
+    "formats": ["Georreferenciado"],
     "region": "Porto Alegre",
-    "cities": [
-      "Porto Alegre"
-    ],
+    "cities": ["Porto Alegre"],
     "source": "Prefeitura de Porto Alegre / EPTC",
     "sourceLink": "https://dadosabertos.poa.br",
-    "keywords": [
-      "Sinistros",
-      "Pedestre",
-      "Série histórica"
-    ],
+    "keywords": ["Sinistros", "Pedestre", "Série histórica"],
     "period": "2020–2025",
     "updatedAt": "2025-09-16",
-    "tags": [
-      "Segurança Viária",
-      "Sinistros de trânsito"
-    ],
+    "tags": ["Segurança Viária", "Vigilância, Saúde e Atendimento às Vítimas"],
     "dataset_info": [
       {
         "dataset_title": "Vítimas de Sinistros de Trânsito – Porto Alegre",
@@ -966,27 +699,17 @@
     "title": "Bilhetagem eletrônica – Campinas",
     "description": "Registros de embarques via bilhetagem eletrônica no transporte público de Campinas.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Bilhetagem e demanda",
-    "formats": [
-      "Tabela"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Demanda",
+    "formats": ["Tabela"],
     "region": "Campinas",
-    "cities": [
-      "Campinas"
-    ],
+    "cities": ["Campinas"],
     "source": "Prefeitura de Campinas / EMDEC",
     "sourceLink": "https://campinas.sp.gov.br",
-    "keywords": [
-      "Bilhetagem eletrônica",
-      "Ônibus",
-      "Embarques"
-    ],
+    "keywords": ["Bilhetagem eletrônica", "Ônibus", "Embarques"],
     "period": "2024–2025",
     "updatedAt": "2025-09-15",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Bilhetagem e demanda"
-    ],
+    "tags": ["Transporte Público Coletivo", "Demanda"],
     "dataset_info": [
       {
         "dataset_title": "Bilhetagem Eletrônica – Campinas",
@@ -1002,27 +725,17 @@
     "title": "Passageiros de ônibus – Região Metropolitana do Recife",
     "description": "Passageiros transportados pelo sistema de ônibus da Região Metropolitana do Recife, em totais absolutos e em passageiros equivalentes. Os dados vêm do acordo com o Grande Recife Consórcio de Transporte, que atende Recife e os municípios de Abreu e Lima, Araçoiaba, Cabo de Santo Agostinho, Camaragibe, Igarassu, Ilha de Itamaracá, Ipojuca, Itapissuma, Jaboatão dos Guararapes, Moreno, Olinda, Paulista e São Lourenço da Mata.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Bilhetagem e demanda",
-    "formats": [
-      "Tabela"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Demanda",
+    "formats": ["Tabela"],
     "region": "Recife (RM)",
-    "cities": [
-      "Recife (RM)"
-    ],
+    "cities": ["Recife (RM)"],
     "source": "Grande Recife Consórcio de Transporte",
     "sourceLink": "http://dados.recife.pe.gov.br/",
-    "keywords": [
-      "Transporte público",
-      "Demanda de passageiros",
-      "Série histórica"
-    ],
+    "keywords": ["Transporte público", "Demanda de passageiros", "Série histórica"],
     "period": "2024–2025",
     "updatedAt": "2025-09-15",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Bilhetagem e demanda"
-    ],
+    "tags": ["Transporte Público Coletivo", "Demanda"],
     "dataset_info": [
       {
         "dataset_title": "Passageiros Transportados – Recife",
@@ -1045,29 +758,17 @@
     "title": "Bilhetagem eletrônica – Rio de Janeiro",
     "description": "Embarques nos ônibus do Rio de Janeiro registrados pela bilhetagem eletrônica. Reúne as séries históricas dos sistemas Riocard e Jaé e uma base com os registros de embarque.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Bilhetagem e demanda",
-    "formats": [
-      "Tabela"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Demanda",
+    "formats": ["Tabela"],
     "region": "Rio de Janeiro",
-    "cities": [
-      "Rio de Janeiro"
-    ],
+    "cities": ["Rio de Janeiro"],
     "source": "Prefeitura do Rio de Janeiro / SMTR",
     "sourceLink": "https://www.data.rio",
-    "keywords": [
-      "Bilhetagem eletrônica",
-      "Ônibus",
-      "Embarques",
-      "Série histórica",
-      "Integração modal"
-    ],
+    "keywords": ["Bilhetagem eletrônica", "Ônibus", "Embarques", "Série histórica", "Integração modal"],
     "period": "2023–2025",
     "updatedAt": "2025-09-15",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Bilhetagem e demanda"
-    ],
+    "tags": ["Transporte Público Coletivo", "Demanda"],
     "dataset_info": [
       {
         "dataset_title": "Embarques Riocard (Histórico) – Rio de Janeiro",
@@ -1096,26 +797,16 @@
     "title": "GPS dos ônibus – Rio de Janeiro",
     "description": "Dados de rastreamento GPS de ônibus embarcados no sistema de transporte público do Rio de Janeiro.",
     "theme": "Transporte Público Coletivo",
-    "subject": "GPS embarcado",
-    "formats": [
-      "Tabela"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Operação e ITS",
+    "formats": ["Tabela"],
     "region": "Rio de Janeiro",
-    "cities": [
-      "Rio de Janeiro"
-    ],
+    "cities": ["Rio de Janeiro"],
     "source": "Prefeitura do Rio de Janeiro / SMTR",
     "sourceLink": "https://www.data.rio",
-    "keywords": [
-      "GPS",
-      "Ônibus",
-      "Tempo de viagem"
-    ],
+    "keywords": ["GPS", "Ônibus", "Tempo de viagem"],
     "updatedAt": "2025-09-15",
-    "tags": [
-      "Transporte Público Coletivo",
-      "GPS embarcado"
-    ],
+    "tags": ["Transporte Público Coletivo", "Operação e ITS"],
     "dataset_info": [
       {
         "dataset_title": "GPS Embarcados – Rio de Janeiro",
@@ -1130,28 +821,17 @@
     "title": "GTFS dos ônibus – Rio de Janeiro",
     "description": "Dados de oferta de transporte público do Rio de Janeiro em formato GTFS: linhas, paradas, frequências e shapes.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Linhas e horários",
-    "formats": [
-      "GTFS"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Operação e ITS",
+    "formats": ["GTFS"],
     "region": "Rio de Janeiro",
-    "cities": [
-      "Rio de Janeiro"
-    ],
+    "cities": ["Rio de Janeiro"],
     "source": "Prefeitura do Rio de Janeiro / SMTR",
     "sourceLink": "https://www.data.rio",
-    "keywords": [
-      "GTFS",
-      "Ônibus",
-      "Frequência de ônibus",
-      "Infraestrutura viária"
-    ],
+    "keywords": ["GTFS", "Ônibus", "Frequência de ônibus", "Infraestrutura viária"],
     "period": "2025",
     "updatedAt": "2025-09-15",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Linhas e horários"
-    ],
+    "tags": ["Transporte Público Coletivo", "Operação e ITS"],
     "dataset_info": [
       {
         "dataset_title": "GTFS – Rio de Janeiro",
@@ -1167,29 +847,17 @@
     "title": "Operação do sistema de ônibus – Niterói",
     "description": "Indicadores de operação do sistema de ônibus de Niterói: passageiros transportados por dia, passageiros por veículo, quilometragem percorrida, total de viagens e frota em operação.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Operação e frota",
-    "formats": [
-      "Tabela"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Operação e ITS",
+    "formats": ["Tabela"],
     "region": "Niterói",
-    "cities": [
-      "Niterói"
-    ],
+    "cities": ["Niterói"],
     "source": "Prefeitura de Niterói / NITTRANS",
     "sourceLink": "https://mobnit.niteroi.rj.gov.br",
-    "keywords": [
-      "Ônibus",
-      "Demanda de passageiros",
-      "Série histórica",
-      "Qualidade do serviço",
-      "Frota"
-    ],
+    "keywords": ["Ônibus", "Demanda de passageiros", "Série histórica", "Qualidade do serviço", "Frota"],
     "period": "2025",
     "updatedAt": "2025-09-15",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Operação e frota"
-    ],
+    "tags": ["Transporte Público Coletivo", "Operação e ITS"],
     "dataset_info": [
       {
         "dataset_title": "Passageiros Diários Ônibus (Agregado) – Niterói",
@@ -1230,27 +898,17 @@
     "title": "Operação do sistema de ônibus – Região Metropolitana do Recife",
     "description": "Indicadores operacionais do sistema de ônibus da Região Metropolitana do Recife e cadastro das empresas concessionárias. Os dados vêm do acordo com o Grande Recife Consórcio de Transporte, que atende Recife e os municípios de Abreu e Lima, Araçoiaba, Cabo de Santo Agostinho, Camaragibe, Igarassu, Ilha de Itamaracá, Ipojuca, Itapissuma, Jaboatão dos Guararapes, Moreno, Olinda, Paulista e São Lourenço da Mata.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Operação e frota",
-    "formats": [
-      "Tabela"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Operação e ITS",
+    "formats": ["Tabela"],
     "region": "Recife (RM)",
-    "cities": [
-      "Recife (RM)"
-    ],
+    "cities": ["Recife (RM)"],
     "source": "Grande Recife Consórcio de Transporte",
     "sourceLink": "http://dados.recife.pe.gov.br/",
-    "keywords": [
-      "Transporte público",
-      "Qualidade do serviço",
-      "Gestão de Transportes"
-    ],
+    "keywords": ["Transporte público", "Qualidade do serviço", "Gestão de Transportes"],
     "period": "2024–2025",
     "updatedAt": "2025-09-15",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Operação e frota"
-    ],
+    "tags": ["Transporte Público Coletivo", "Operação e ITS"],
     "dataset_info": [
       {
         "dataset_title": "Dados Operacionais do Transporte Público – Recife",
@@ -1272,26 +930,16 @@
     "title": "Passageiros por dia – Campinas",
     "description": "Total de passageiros transportados por dia no sistema de transporte público de Campinas.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Operação e frota",
-    "formats": [
-      "Tabela"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Demanda",
+    "formats": ["Tabela"],
     "region": "Campinas",
-    "cities": [
-      "Campinas"
-    ],
+    "cities": ["Campinas"],
     "source": "Prefeitura de Campinas / EMDEC",
     "sourceLink": "https://campinas.sp.gov.br",
-    "keywords": [
-      "Transporte público",
-      "Demanda de passageiros",
-      "Série histórica"
-    ],
+    "keywords": ["Transporte público", "Demanda de passageiros", "Série histórica"],
     "updatedAt": "2025-09-15",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Operação e frota"
-    ],
+    "tags": ["Transporte Público Coletivo", "Demanda"],
     "dataset_info": [
       {
         "dataset_title": "Passageiros por Dia – Campinas",
@@ -1306,26 +954,16 @@
     "title": "Rotas de ônibus – Niterói",
     "description": "Traçado das rotas de ônibus do sistema de transporte público de Niterói.",
     "theme": "Transporte Público Coletivo",
-    "subject": "Linhas e horários",
-    "formats": [
-      "Georreferenciado"
-    ],
+    "geographicScope": "Municipal",
+    "category": "Operação e ITS",
+    "formats": ["Georreferenciado"],
     "region": "Niterói",
-    "cities": [
-      "Niterói"
-    ],
+    "cities": ["Niterói"],
     "source": "Prefeitura de Niterói / NITTRANS",
     "sourceLink": "https://mobnit.niteroi.rj.gov.br",
-    "keywords": [
-      "Ônibus",
-      "Infraestrutura viária",
-      "Rotas"
-    ],
+    "keywords": ["Ônibus", "Infraestrutura viária", "Rotas"],
     "updatedAt": "2025-08-04",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Linhas e horários"
-    ],
+    "tags": ["Transporte Público Coletivo", "Operação e ITS"],
     "dataset_info": [
       {
         "dataset_title": "Rotas de Ônibus – Niterói",

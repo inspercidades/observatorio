@@ -7,7 +7,8 @@ export const mockItems: CatalogItem[] = [
     title: "Sinistros de trânsito – São Paulo",
     description: "Sinistros de trânsito em São Paulo de 2022 a 2025, compatibilizados a partir do InfoSiga.",
     theme: "Segurança Viária",
-    subject: "Sinistros de trânsito",
+    geographicScope: "Municipal",
+    category: "Vigilância, Saúde e Atendimento às Vítimas",
     formats: ["Tabela", "Georreferenciado"], // multi-formato
     region: "São Paulo",
     cities: ["São Paulo"],
@@ -16,7 +17,7 @@ export const mockItems: CatalogItem[] = [
     keywords: ["Sinistros", "Mobilidade Urbana", "Série histórica"],
     period: "2022–2025",
     updatedAt: "2026-08-13", // o mais recente
-    tags: ["Segurança Viária", "São Paulo", "Sinistros de trânsito"],
+    tags: ["Segurança Viária", "Vigilância, Saúde e Atendimento às Vítimas"],
     dataset_info: [
       {
         dataset_title: "Sinistros de Trânsito – São Paulo [2022-2025]",
@@ -33,7 +34,8 @@ export const mockItems: CatalogItem[] = [
     title: "Embarques nas estações de trem e metrô da Motiva",
     description: "Embarques por estação nos sistemas operados pela Motiva.",
     theme: "Transporte Público Coletivo",
-    subject: "Trem e metrô",
+    geographicScope: "Metropolitana",
+    category: "Demanda",
     formats: ["Tabela"],
     region: "Salvador, São Paulo e Rio de Janeiro", // string composta – NÃO está na lista de filtros
     cities: ["Salvador", "São Paulo", "Rio de Janeiro"],
@@ -42,7 +44,7 @@ export const mockItems: CatalogItem[] = [
     keywords: ["Metrô", "VLT", "Transporte público", "Série histórica"],
     period: "2012–2025",
     updatedAt: "2026-07-30",
-    tags: ["Transporte Público Coletivo", "Salvador, São Paulo e Rio de Janeiro", "Trem e metrô"],
+    tags: ["Transporte Público Coletivo", "Demanda"],
     dataset_info: [
       {
         dataset_title: "Embarques diários Motiva",
@@ -57,7 +59,8 @@ export const mockItems: CatalogItem[] = [
     title: "Rede cicloviária – Belo Horizonte",
     description: "Shapefile da rede cicloviária do município de Belo Horizonte.",
     theme: "Mobilidade por Bicicleta",
-    subject: "Infraestrutura cicloviária",
+    geographicScope: "Municipal",
+    category: "Infraestrutura viária",
     formats: ["Georreferenciado"],
     region: "Belo Horizonte",
     cities: ["Belo Horizonte"],
@@ -66,7 +69,7 @@ export const mockItems: CatalogItem[] = [
     keywords: ["Ciclovia", "Mobilidade ativa"],
     period: "2003–2025",
     updatedAt: "2025-11-09",
-    tags: ["Mobilidade por Bicicleta", "Belo Horizonte", "Infraestrutura cicloviária"],
+    tags: ["Mobilidade por Bicicleta", "Infraestrutura viária"],
     dataset_info: [
       {
         dataset_title: "Rede de Ciclovias – Belo Horizonte",
@@ -81,7 +84,8 @@ export const mockItems: CatalogItem[] = [
     title: "GTFS dos ônibus – Fortaleza",
     description: "Dados de oferta de transporte público de Fortaleza em formato GTFS.",
     theme: "Transporte Público Coletivo",
-    subject: "Linhas e horários",
+    geographicScope: "Municipal",
+    category: "Operação e ITS",
     formats: ["GTFS"],
     region: "Fortaleza",
     cities: ["Fortaleza"],
@@ -89,7 +93,7 @@ export const mockItems: CatalogItem[] = [
     sourceLink: "https://dados.fortaleza.ce.gov.br",
     keywords: ["GTFS", "Ônibus", "Frequência de ônibus"],
     updatedAt: "2025-09-15", // o mais antigo do conjunto
-    tags: ["Transporte Público Coletivo", "Fortaleza", "Linhas e horários"],
+    tags: ["Transporte Público Coletivo", "Operação e ITS"],
     dataset_info: [
       {
         dataset_title: "GTFS – Fortaleza",
@@ -103,7 +107,8 @@ export const mockItems: CatalogItem[] = [
 
 export const mockCategories: CatalogCategories = {
   themes: ["Transporte Público Coletivo", "Mobilidade por Bicicleta", "Segurança Viária", "Transversal", "Logística Urbana Sustentável", "Mobilidade a Pé"],
+  geographicScopes: ["Municipal", "Metropolitana", "Estadual", "Federal"],
   cities: ["Belo Horizonte", "Fortaleza", "Rio de Janeiro", "Salvador", "São Paulo"],
-  subjects: ["Trem e metrô", "Linhas e horários", "Infraestrutura cicloviária", "Sinistros de trânsito"],
+  categories: ["Demanda", "Infraestrutura viária", "Operação e ITS", "Vigilância, Saúde e Atendimento às Vítimas"],
   formats: ["Tabela", "Georreferenciado", "GTFS"],
 };

@@ -27,8 +27,9 @@ describe("SelectedFilters", () => {
       <SelectedFilters
         filters={{
           theme: "Mobilidade por Bicicleta",
+          geographicScope: "Municipal",
           region: "Belo Horizonte",
-          subject: "Infraestrutura cicloviária",
+          category: "Infraestrutura viária",
           format: "Georreferenciado",
         }}
         onRemoveFilter={vi.fn()}
@@ -36,8 +37,9 @@ describe("SelectedFilters", () => {
       />,
     );
     expect(screen.getByText("Mobilidade por Bicicleta")).toBeInTheDocument();
+    expect(screen.getByText("Municipal")).toBeInTheDocument();
     expect(screen.getByText("Belo Horizonte")).toBeInTheDocument();
-    expect(screen.getByText("Infraestrutura cicloviária")).toBeInTheDocument();
+    expect(screen.getByText("Infraestrutura viária")).toBeInTheDocument();
     expect(screen.getByText("Georreferenciado")).toBeInTheDocument();
   });
 

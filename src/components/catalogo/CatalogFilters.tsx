@@ -19,8 +19,9 @@ export function CatalogFilters({
   const [filters, setFilters] = useState<FiltersType>(initialFilters || {});
   const [filterOptions, setFilterOptions] = useState<CatalogCategories>({
     themes: [],
+    geographicScopes: [],
     cities: [],
-    subjects: [],
+    categories: [],
     formats: [],
   });
 
@@ -41,7 +42,7 @@ export function CatalogFilters({
   }, [initialFilters]);
 
   const handleFilterChange = (
-    type: "theme" | "subject" | "format",
+    type: "theme" | "geographicScope" | "category" | "format",
     value: string,
   ) => {
     const newFilters = { ...filters };
@@ -58,12 +59,13 @@ export function CatalogFilters({
   };
 
   const groups: {
-    key: "theme" | "subject" | "format";
+    key: "theme" | "geographicScope" | "category" | "format";
     label: string;
     options: string[];
   }[] = [
     { key: "theme", label: "Tema", options: filterOptions.themes },
-    { key: "subject", label: "Categoria", options: filterOptions.subjects },
+    { key: "geographicScope", label: "Abrangência Geográfica", options: filterOptions.geographicScopes },
+    { key: "category", label: "Categoria", options: filterOptions.categories },
     { key: "format", label: "Formato", options: filterOptions.formats },
   ];
 
@@ -96,7 +98,7 @@ export function CatalogFilters({
               </div>
             ))}
           </div>
-          {group.key === "theme" && (
+          {group.key === "geographicScope" && (
             <div className="mt-6">
               <label
                 htmlFor="filtro-regiao"
