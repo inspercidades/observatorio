@@ -6,6 +6,7 @@ export interface CityLayer {
   sourceLayer?: string
   layerType?: 'fill' | 'line' | 'circle' | 'symbol'
   hasCustomStyle?: boolean // Indicates if this layer has a custom style defined in layer-styles.ts
+  attribution?: string
 }
 
 export interface CityLayersConfig {
@@ -16,12 +17,13 @@ export const cityLayersConfig: CityLayersConfig = {
   "Rio de Janeiro": [
     {
       id: "renda-rio-4ks1k8",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.3pcgkauc",
-      sourceLayer: "renda_rio-4ks1k8",
+      name: "Rendimento médio do responsável com rendimento",
+      description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
+      tilesetId: "observatorio-nacional.renda-rio-4ks1k8_4099a14c9ddb",
+      sourceLayer: "renda_responsavel_2022_rio",
       layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
+      attribution: "Fonte: IBGE, Censo Demográfico 2022"
     },
     {
       id: "rio_rotas_onibus",
@@ -63,12 +65,13 @@ export const cityLayersConfig: CityLayersConfig = {
     },
     {
       id: "renda-rec-bcpy1l",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.8kla8qks",
-      sourceLayer: "renda_rec-bcpy1l",
+      name: "Rendimento médio do responsável com rendimento",
+      description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
+      tilesetId: "observatorio-nacional.renda-rec-bcpy1l_b0626bf30b64",
+      sourceLayer: "renda_responsavel_2022_rec",
       layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
+      attribution: "Fonte: IBGE, Censo Demográfico 2022"
     },
     {
       id: "rec_ciclovia_ciclomapas",
@@ -92,12 +95,13 @@ export const cityLayersConfig: CityLayersConfig = {
     },
     {
       id: "renda-42uz5h",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.64v29dp1",
-      sourceLayer: "renda-42uz5h",
+      name: "Rendimento médio do responsável com rendimento",
+      description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
+      tilesetId: "observatorio-nacional.renda-42uz5h_fcbe5b1cf6ce",
+      sourceLayer: "renda_responsavel_2022_bhe",
       layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
+      attribution: "Fonte: IBGE, Censo Demográfico 2022"
     },
     {
       id: "heatmap_embarques-b8mehl",
@@ -138,23 +142,25 @@ export const cityLayersConfig: CityLayersConfig = {
     },
     {
       id: "renda_goi-8q2sqk",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.0gzs6kdr",
-      sourceLayer: "renda_goi-8q2sqk",
+      name: "Rendimento médio do responsável com rendimento",
+      description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
+      tilesetId: "observatorio-nacional.renda_goi-8q2sqk_bcc655ad37eb",
+      sourceLayer: "renda_responsavel_2022_goi",
       layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
+      attribution: "Fonte: IBGE, Censo Demográfico 2022"
     },
   ],
   "Fortaleza": [
     {
       id: "frt_income_hh-26qfm4",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.d0fxoy3e",
-      sourceLayer: "frt_income_hh-26qfm4",
+      name: "Rendimento médio do responsável com rendimento",
+      description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
+      tilesetId: "observatorio-nacional.frt_income_hh-26qfm_3d28286a526c",
+      sourceLayer: "renda_responsavel_2022_frt",
       layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
+      attribution: "Fonte: IBGE, Censo Demográfico 2022"
     },
     {
       id: "frt_pop-9wsvgo",
@@ -178,12 +184,13 @@ export const cityLayersConfig: CityLayersConfig = {
   "Niteroi": [
     {
       id: "renda-987gzt",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.5gkcci9a",
-      sourceLayer: "renda-987gzt",
+      name: "Rendimento médio do responsável com rendimento",
+      description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
+      tilesetId: "observatorio-nacional.renda-987gzt_1b8b7f3e6d15",
+      sourceLayer: "renda_responsavel_2022_nit",
       layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
+      attribution: "Fonte: IBGE, Censo Demográfico 2022"
     },
     {
       id: "populacao_nit-3oog1f",
@@ -243,12 +250,13 @@ export const cityLayersConfig: CityLayersConfig = {
     },
     {
       id: "renda_sad-a9kjjx",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.86a15ap9",
-      sourceLayer: "renda_sad-a9kjjx",
+      name: "Rendimento médio do responsável com rendimento",
+      description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
+      tilesetId: "observatorio-nacional.renda_sad-a9kjjx_5f24b768cc1f",
+      sourceLayer: "renda_responsavel_2022_sad",
       layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
+      attribution: "Fonte: IBGE, Censo Demográfico 2022"
     }
   ],
   "Salvador": [
@@ -272,12 +280,13 @@ export const cityLayersConfig: CityLayersConfig = {
     },
     {
       id: "renda_ssa-72km6n",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.8e78qgxw",
-      sourceLayer: "renda_ssa-72km6n",
+      name: "Rendimento médio do responsável com rendimento",
+      description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
+      tilesetId: "observatorio-nacional.renda_ssa-72km6n_d1d281574275",
+      sourceLayer: "renda_responsavel_2022_ssa",
       layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
+      attribution: "Fonte: IBGE, Censo Demográfico 2022"
     },
     {
       id: "populacao_ssa-dgk2gr",
@@ -301,12 +310,13 @@ export const cityLayersConfig: CityLayersConfig = {
     },
     {
       id: "renda-2bxm7u",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.5eawzxg0",
-      sourceLayer: "renda-2bxm7u",
+      name: "Rendimento médio do responsável com rendimento",
+      description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
+      tilesetId: "observatorio-nacional.renda-2bxm7u_3be93a09e319",
+      sourceLayer: "renda_responsavel_2022_cam",
       layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
+      attribution: "Fonte: IBGE, Censo Demográfico 2022"
     },
     {
       id: "cam_rotas_onibus",
@@ -330,23 +340,25 @@ export const cityLayersConfig: CityLayersConfig = {
     },
     {
       id: "cur_income_hh-b297ww",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.dnfgnx3h",
-      sourceLayer: "cur_income_hh-b297ww",
+      name: "Rendimento médio do responsável com rendimento",
+      description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
+      tilesetId: "observatorio-nacional.cur_income_hh-b297w_865cc8df6f62",
+      sourceLayer: "renda_responsavel_2022_cur",
       layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
+      attribution: "Fonte: IBGE, Censo Demográfico 2022"
     },
   ],
   "Porto Alegre": [
     {
       id: "renda_poa-0cq519",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.6nhij7jq",
-      sourceLayer: "renda_poa-0cq519",
+      name: "Rendimento médio do responsável com rendimento",
+      description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
+      tilesetId: "observatorio-nacional.renda_poa-0cq519_717ba22c22f4",
+      sourceLayer: "renda_responsavel_2022_poa",
       layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
+      attribution: "Fonte: IBGE, Censo Demográfico 2022"
     },
     {
       id: "populacao_poa-6gb3pv",
@@ -415,12 +427,13 @@ export const cityLayersConfig: CityLayersConfig = {
     },
     {
       id: "renda_spo-ddwghj",
-      name: "Renda Média",
-      description: "Renda domiciliar média em grid 500x500m (2010, atualizada pelo IPCA para R$ de 2024)",
-      tilesetId: "observatorio-nacional.4gtkl59h",
-      sourceLayer: "renda_spo-ddwghj",
+      name: "Rendimento médio do responsável com rendimento",
+      description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
+      tilesetId: "observatorio-nacional.renda_spo-ddwghj_6f59518608a2",
+      sourceLayer: "renda_responsavel_2022_spo",
       layerType: "fill",
-      hasCustomStyle: true
+      hasCustomStyle: true,
+      attribution: "Fonte: IBGE, Censo Demográfico 2022"
     },
     {
       id: "populacao_spo-94zde5",

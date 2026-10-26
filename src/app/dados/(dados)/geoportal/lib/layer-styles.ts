@@ -1,3 +1,5 @@
+import { createIncome2022Style, INCOME_2022_BREAKS } from './income-2022-style'
+
 export interface LayerStyle {
   id: string
   type: 'fill' | 'line' | 'circle' | 'symbol'
@@ -1391,6 +1393,12 @@ export const layerStyles: Record<string, LayerStyle> = {
 
 // Helper function to get layer style by source layer name
 export function getLayerStyle(sourceLayer: string): LayerStyle | null {
+  const city = sourceLayer.startsWith('renda_responsavel_2022_')
+    ? sourceLayer.slice('renda_responsavel_2022_'.length)
+    : null
+  if (city && INCOME_2022_BREAKS[city]) {
+    return createIncome2022Style(sourceLayer, sourceLayer, INCOME_2022_BREAKS[city])
+  }
   return layerStyles[sourceLayer] || null
 }
 
