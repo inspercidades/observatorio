@@ -14,8 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 📋 Validate PR Title Contains Version
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
-          PR_TITLE="${{ github.event.pull_request.title }}"
           echo "🔍 Checking PR title: $PR_TITLE"
           if [[ "$PR_TITLE" =~ (\[v?[0-9]+\.[0-9]+\.[0-9]+\]|Release\ v?[0-9]+\.[0-9]+\.[0-9]+|v?[0-9]+\.[0-9]+\.[0-9]+) ]]; then
             echo "✅ PR title contains valid version format"
@@ -33,4 +34,11 @@ jobs:
             echo ""
             echo "💡 Please update your PR title to include a version number."
             exit 1
+
+  test-release-notes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test release note escaping
+        run: bash .github/scripts/test-generate-release-notes.sh
           fi
