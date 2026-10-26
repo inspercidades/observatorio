@@ -10,6 +10,7 @@ import { toast } from "sonner"
 import { cityLayersConfig } from "../lib/city-layers"
 import { income2022PopupFields } from "../lib/income-2022-popup"
 import { createStyledLayer } from "../lib/layer-styles"
+import { createVectorSource } from "../lib/mapbox-source"
 import { CityAccordion } from "./city-accordion"
 import { CityLayers } from "./city-layers"
 import { CityLayersComparison } from "./city-layers-comparison"
@@ -443,11 +444,10 @@ export default function PropertyMap() {
         try {
           // Add source
           if (!mapInstance.getSource(layerId)) {
-            mapInstance.addSource(layerId, {
-              type: 'vector',
-              url: `mapbox://${layerConfig.tilesetId}`,
-              attribution: layerConfig.attribution
-            })
+            mapInstance.addSource(
+              layerId,
+              createVectorSource(layerConfig.tilesetId, layerConfig.attribution)
+            )
           }
 
           // Try to use custom style first, fallback to default
@@ -722,11 +722,10 @@ export default function PropertyMap() {
 
           try {
             // Add source
-            map.current!.addSource(layerId, {
-              type: 'vector',
-              url: `mapbox://${layerConfig.tilesetId}`,
-              attribution: layerConfig.attribution
-            })
+            map.current!.addSource(
+              layerId,
+              createVectorSource(layerConfig.tilesetId, layerConfig.attribution)
+            )
 
             // Try to use custom style first, fallback to default
             let layerConfigToAdd: mapboxgl.AnyLayer
@@ -970,11 +969,10 @@ export default function PropertyMap() {
         const targetMap = isLayer1 ? beforeMap.current : afterMap.current
         
         // Add source
-        targetMap!.addSource(layerId, {
-          type: 'vector',
-          url: `mapbox://${layerConfig.tilesetId}`,
-              attribution: layerConfig.attribution
-        })
+        targetMap!.addSource(
+          layerId,
+          createVectorSource(layerConfig.tilesetId, layerConfig.attribution)
+        )
         
         // Try to use custom style first, fallback to default
         let layerConfigToAdd: mapboxgl.AnyLayer
@@ -1117,11 +1115,10 @@ export default function PropertyMap() {
           
           try {
             // Add source
-            map.current!.addSource(layerId, {
-              type: 'vector',
-              url: `mapbox://${layerConfig.tilesetId}`,
-              attribution: layerConfig.attribution
-            })
+            map.current!.addSource(
+              layerId,
+              createVectorSource(layerConfig.tilesetId, layerConfig.attribution)
+            )
             
             // Try to use custom style first, fallback to default
             let layerConfigToAdd: mapboxgl.AnyLayer
