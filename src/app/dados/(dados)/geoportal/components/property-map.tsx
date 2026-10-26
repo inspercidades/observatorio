@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 import { toast } from "sonner"
 import { cityLayersConfig } from "../lib/city-layers"
+import { income2022PopupFields } from "../lib/income-2022-popup"
 import { createStyledLayer } from "../lib/layer-styles"
 import { CityAccordion } from "./city-accordion"
 import { CityLayers } from "./city-layers"
@@ -147,6 +148,9 @@ export default function PropertyMap() {
   const addHoverHandlers = (layerId: string, layerName: string, targetMap?: mapboxgl.Map) => {
     const mapInstance = targetMap || map.current
     if (!mapInstance) return
+    const isIncome2022 = Object.values(cityLayersConfig)
+      .flat()
+      .some(layer => layer.id === layerId && layer.sourceLayer?.startsWith('renda_responsavel_2022_'))
 
     // Create event handler functions
     const mouseenterHandler = () => {
@@ -176,6 +180,34 @@ export default function PropertyMap() {
       // Remove existing popup
       if (popupRef.current) {
         popupRef.current.remove()
+      }
+
+      if (isIncome2022) {
+        const popupContent = document.createElement('div')
+        popupContent.className = 'p-2 min-w-50'
+        const title = document.createElement('h3')
+        title.className = 'font-semibold text-sm mb-2'
+        title.textContent = layerName
+        popupContent.appendChild(title)
+
+        for (const field of income2022PopupFields(feature.properties || {})) {
+          const row = document.createElement('div')
+          row.className = 'flex justify-between items-center gap-2 text-xs mb-1'
+          const label = document.createElement('span')
+          label.className = 'font-medium text-gray-600'
+          label.textContent = `${field.label}:`
+          const value = document.createElement('span')
+          value.className = 'bg-gray-100 px-2 py-1 rounded text-gray-800'
+          value.textContent = field.value
+          row.append(label, value)
+          popupContent.appendChild(row)
+        }
+
+        const popup = new mapboxgl.Popup({ closeButton: false, closeOnClick: false, maxWidth: '400px' })
+        popup.setLngLat(coordinates).setDOMContent(popupContent).addTo(mapInstance)
+        popupRef.current = popup
+        setHoveredFeature({ feature, layerName, coordinates })
+        return
       }
 
       // Check if there are any properties to display
@@ -413,7 +445,8 @@ export default function PropertyMap() {
           if (!mapInstance.getSource(layerId)) {
             mapInstance.addSource(layerId, {
               type: 'vector',
-              url: `mapbox://${layerConfig.tilesetId}`
+              url: `mapbox://${layerConfig.tilesetId}`,
+              attribution: layerConfig.attribution
             })
           }
 
@@ -691,7 +724,8 @@ export default function PropertyMap() {
             // Add source
             map.current!.addSource(layerId, {
               type: 'vector',
-              url: `mapbox://${layerConfig.tilesetId}`
+              url: `mapbox://${layerConfig.tilesetId}`,
+              attribution: layerConfig.attribution
             })
 
             // Try to use custom style first, fallback to default
@@ -938,7 +972,8 @@ export default function PropertyMap() {
         // Add source
         targetMap!.addSource(layerId, {
           type: 'vector',
-          url: `mapbox://${layerConfig.tilesetId}`
+          url: `mapbox://${layerConfig.tilesetId}`,
+              attribution: layerConfig.attribution
         })
         
         // Try to use custom style first, fallback to default
@@ -1084,7 +1119,8 @@ export default function PropertyMap() {
             // Add source
             map.current!.addSource(layerId, {
               type: 'vector',
-              url: `mapbox://${layerConfig.tilesetId}`
+              url: `mapbox://${layerConfig.tilesetId}`,
+              attribution: layerConfig.attribution
             })
             
             // Try to use custom style first, fallback to default

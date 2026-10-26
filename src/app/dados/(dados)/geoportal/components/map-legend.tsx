@@ -2,7 +2,8 @@
 
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { getLayerLegend, LegendItem } from "../lib/layer-styles"
+import { getLayerLegend, getLayerStyle, LegendItem } from "../lib/layer-styles"
+import { income2022LegendFromStyle } from "../lib/income-2022-style"
 
 interface LayerLegendProps {
   layerId: string
@@ -16,6 +17,12 @@ interface LayerLegendProps {
 const getLegendConfig = (layerId: string, layerType: string, sourceLayer?: string): LegendItem[] => {
   // First, try to get legend from layer-styles.ts using sourceLayer
   if (sourceLayer) {
+    const style = getLayerStyle(sourceLayer)
+    const incomeLegend = style && income2022LegendFromStyle(style)
+    if (incomeLegend) {
+      return incomeLegend
+    }
+
     const autoLegend = getLayerLegend(sourceLayer)
     if (autoLegend && autoLegend.length > 0) {
       return autoLegend
