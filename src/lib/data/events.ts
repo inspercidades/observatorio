@@ -1,4 +1,4 @@
-import connectedSmartCities from "@/app/assets/images/connectedsmartcities.png"
+import connectedSmartCities from "@/app/assets/images/connected_smart_cities_2026.webp"
 import events1 from "@/app/assets/images/events1.png"
 import events2 from "@/app/assets/images/events2.png"
 import events3 from "@/app/assets/images/events3.png"
