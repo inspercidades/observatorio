@@ -9,6 +9,8 @@ import events8 from "@/app/assets/images/events8.png"
 import events9 from "@/app/assets/images/events9.png"
 import lancamentoAvaliacao from "@/app/assets/images/lancamentoavaliacao.jpg"
 import lancamentoOms from "@/app/assets/images/lancamentooms.jpg"
+import sextaMobilidadeNovembro2026 from "@/app/assets/images/sexta_da_mobilidade_novembro_2026.webp"
+import sextaMobilidadeSegurancaViaria2026 from "@/app/assets/images/sexta_da_mobilidade_seguranca_viaria_2026.webp"
 import trilhaMobilidade from "@/app/assets/images/trilha_mobilidade.webp"
 import transmitted1 from "@/app/assets/images/transmitted1.png"
 import transmitted3 from "@/app/assets/images/transmitted3.png"
@@ -161,6 +163,25 @@ export const eventsData: EventData[] = [
     showInHome: false,
     date: "17/11/2026",
     location: "São Paulo",
+  },
+  {
+    id: "sexta-da-mobilidade-seguranca-viaria-2026",
+    title: "Sexta da Mobilidade: Dados e estratégias de segurança viária",
+    description: "30/10/2026 • Sexta da Mobilidade",
+    image: sextaMobilidadeSegurancaViaria2026,
+    href: "https://www.insper.edu.br/pt/eventos/2026/10/sexta-da-mobilidade-dados-e-estrategias-de-seguranca-viaria",
+    showInHome: false,
+    date: "30/10/2026",
+    location: "Sexta da Mobilidade",
+  },
+  {
+    id: "sexta-da-mobilidade-novembro-2026",
+    title: "Sexta da Mobilidade: última edição do ano de 2026",
+    description: "27/11/2026 • Sexta da Mobilidade",
+    image: sextaMobilidadeNovembro2026,
+    showInHome: false,
+    date: "27/11/2026",
+    location: "Sexta da Mobilidade",
   },
 
   // Sexta da Mobilidade
