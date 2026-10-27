@@ -119,11 +119,22 @@ describe("filterItems", () => {
     expect(filterItems(mockItems, { region: "Manaus" })).toHaveLength(0);
   });
 
-  // Assunto
-  it("filtra por assunto com match exato", () => {
-    const result = filterItems(mockItems, { subject: "Trem e metrô" });
+  // Categoria
+  it("filtra por categoria com match exato", () => {
+    const result = filterItems(mockItems, { category: "Demanda" });
     expect(result).toHaveLength(1);
     expect(result[0].id).toBe("motiva-trem-metro");
+  });
+
+  // Abrangência geográfica
+  it("filtra por abrangência geográfica", () => {
+    const result = filterItems(mockItems, { geographicScope: "Metropolitana" });
+    expect(result).toHaveLength(1);
+    expect(result[0].id).toBe("motiva-trem-metro");
+  });
+
+  it("retorna vazio quando nenhum card tem a abrangência", () => {
+    expect(filterItems(mockItems, { geographicScope: "Estadual" })).toHaveLength(0);
   });
 
   // Formato – usa .some() porque cards podem ter múltiplos formatos

@@ -1,6 +1,44 @@
 {
-  "themes": ["Transporte Público Coletivo", "Mobilidade por Bicicleta", "Segurança Viária", "Transversal", "Logística Urbana Sustentável", "Mobilidade a Pé"],
-  "cities": ["Belo Horizonte", "Campinas", "Fortaleza", "Niterói", "Porto Alegre", "Recife (RM)", "Rio de Janeiro", "Salvador", "Santo André", "São Paulo", "Brasil"],
-  "subjects": ["Pesquisas de mobilidade", "Trem e metrô", "Linhas e horários", "Bilhetagem e demanda", "Operação e frota", "GPS embarcado", "Infraestrutura de transporte", "Infraestrutura cicloviária", "Infraestrutura viária", "Sinistros de trânsito"],
-  "formats": ["Tabela", "Georreferenciado", "GTFS"]
+  "themes": [
+    "Transporte Público Coletivo",
+    "Mobilidade a Pé",
+    "Mobilidade por Bicicleta",
+    "Segurança Viária",
+    "Logística Urbana Sustentável",
+    "Socioeconômico",
+    "Clima e Meio Ambiente",
+    "Transversal"
+  ],
+  "geographicScopes": [
+    "Municipal",
+    "Metropolitana",
+    "Estadual",
+    "Federal"
+  ],
+  "cities": [
+    "Belo Horizonte",
+    "Campinas",
+    "Fortaleza",
+    "Niterói",
+    "Porto Alegre",
+    "Recife (RM)",
+    "Rio de Janeiro",
+    "Salvador",
+    "Santo André",
+    "São Paulo",
+    "Brasil"
+  ],
+  "categories": [
+    "Governança e gestão",
+    "Operação e ITS",
+    "Infraestrutura viária",
+    "Demanda",
+    "Desenho Viário",
+    "Vigilância, Saúde e Atendimento às Vítimas"
+  ],
+  "formats": [
+    "Tabela",
+    "Georreferenciado",
+    "GTFS"
+  ]
 }

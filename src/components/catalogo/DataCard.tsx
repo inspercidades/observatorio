@@ -55,9 +55,14 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
               {item.theme}
             </span>
           )}
-          {item.subject && (
+          {item.category && (
             <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-foreground/6 text-foreground">
-              {item.subject}
+              {item.category}
+            </span>
+          )}
+          {item.geographicScope && (
+            <span className="inline-flex items-center px-3 py-1.5 text-xs font-medium bg-foreground/6 text-foreground">
+              {item.geographicScope}
             </span>
           )}
         </div>
@@ -130,12 +135,22 @@ export function DataCard({ item, initialOpen = false }: DataCardProps) {
                   <p className="text-sm text-muted-foreground">{item.theme}</p>
                 </div>
               )}
-              {item.subject && (
+              {item.category && (
                 <div>
                   <h4 className="text-sm font-medium text-foreground mb-1">
                     Categoria
                   </h4>
-                  <p className="text-sm text-muted-foreground">{item.subject}</p>
+                  <p className="text-sm text-muted-foreground">{item.category}</p>
+                </div>
+              )}
+              {item.geographicScope && (
+                <div>
+                  <h4 className="text-sm font-medium text-foreground mb-1">
+                    Abrangência geográfica
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    {item.geographicScope}
+                  </p>
                 </div>
               )}
               {item.formats && item.formats.length > 0 && (

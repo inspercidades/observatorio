@@ -42,7 +42,12 @@ describe("DataCard – card fechado", () => {
 
   it("renderiza a tag de categoria", () => {
     render(<DataCard item={item} />);
-    expect(screen.getByText("Sinistros de trânsito")).toBeInTheDocument();
+    expect(screen.getByText(item.category)).toBeInTheDocument();
+  });
+
+  it("renderiza a tag de abrangência geográfica", () => {
+    render(<DataCard item={item} />);
+    expect(screen.getByText("Municipal")).toBeInTheDocument();
   });
 
   it("mostra período e formatos no rodapé", () => {
@@ -116,6 +121,8 @@ describe("DataCard – modal aberto", () => {
 
     expect(screen.getByRole("dialog")).toHaveTextContent("Fonte original dos dados");
     expect(screen.getByRole("dialog")).toHaveTextContent("Categoria");
+    expect(screen.getByRole("dialog")).toHaveTextContent("Abrangência geográfica");
+    expect(screen.getByRole("dialog")).toHaveTextContent(item.geographicScope);
     expect(screen.queryByText("Segurança Viária • São Paulo")).not.toBeInTheDocument();
 
     const link = screen.getByRole("link", { name: /INFOSIGA SP/i });

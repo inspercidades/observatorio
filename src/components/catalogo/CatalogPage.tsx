@@ -33,8 +33,9 @@ export function CatalogPage() {
   });
   const [filterOptions, setFilterOptions] = useState<CatalogCategories>({
     themes: [],
+    geographicScopes: [],
     cities: [],
-    subjects: [],
+    categories: [],
     formats: [],
   });
 
@@ -47,7 +48,10 @@ export function CatalogPage() {
       if (currentFilters.search) params.append("search", currentFilters.search);
       if (currentFilters.theme) params.append("theme", currentFilters.theme);
       if (currentFilters.region) params.append("region", currentFilters.region);
-      if (currentFilters.subject) params.append("subject", currentFilters.subject);
+      if (currentFilters.geographicScope) {
+        params.append("geographicScope", currentFilters.geographicScope);
+      }
+      if (currentFilters.category) params.append("category", currentFilters.category);
       if (currentFilters.format) params.append("format", currentFilters.format);
 
       const response = await fetch(`/api/catalog?${params.toString()}`);

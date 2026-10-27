@@ -11,7 +11,8 @@ export interface CatalogItem {
   title: string;
   description: string;
   theme: string;
-  subject: string;
+  geographicScope: string;
+  category: string;
   formats: string[];
   region: string;
   cities: string[];
@@ -32,8 +33,9 @@ export interface CatalogItem {
 
 export interface CatalogCategories {
   themes: string[];
+  geographicScopes: string[];
   cities: string[];
-  subjects: string[];
+  categories: string[];
   formats: string[];
 }
 
@@ -41,7 +43,8 @@ export interface CatalogFilters {
   search?: string;
   theme?: string;
   region?: string;
-  subject?: string;
+  geographicScope?: string;
+  category?: string;
   format?: string;
 }
 
@@ -60,7 +63,8 @@ export function searchItems(items: CatalogItem[], searchTerm: string): CatalogIt
       item.description,
       item.region,
       item.theme,
-      item.subject,
+      item.geographicScope,
+      item.category,
       ...item.keywords,
       ...item.cities,
     ];
@@ -90,8 +94,14 @@ export function filterItems(
       return false;
 
     if (
-      filters.subject &&
-      item.subject.toLowerCase() !== filters.subject.toLowerCase()
+      filters.geographicScope &&
+      item.geographicScope.toLowerCase() !== filters.geographicScope.toLowerCase()
+    )
+      return false;
+
+    if (
+      filters.category &&
+      item.category.toLowerCase() !== filters.category.toLowerCase()
     )
       return false;
 
@@ -122,7 +132,8 @@ export async function GET(request: NextRequest) {
       search: searchParams.get("search") || undefined,
       theme: searchParams.get("theme") || undefined,
       region: searchParams.get("region") || undefined,
-      subject: searchParams.get("subject") || undefined,
+      geographicScope: searchParams.get("geographicScope") || undefined,
+      category: searchParams.get("category") || undefined,
       format: searchParams.get("format") || undefined,
     };
 

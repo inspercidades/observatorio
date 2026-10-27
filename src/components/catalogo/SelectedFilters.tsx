@@ -28,8 +28,15 @@ export function SelectedFilters({
     if (filters.region) {
       active.push({ type: "region", value: filters.region, label: filters.region });
     }
-    if (filters.subject) {
-      active.push({ type: "subject", value: filters.subject, label: filters.subject });
+    if (filters.geographicScope) {
+      active.push({
+        type: "geographicScope",
+        value: filters.geographicScope,
+        label: filters.geographicScope,
+      });
+    }
+    if (filters.category) {
+      active.push({ type: "category", value: filters.category, label: filters.category });
     }
     if (filters.format) {
       active.push({ type: "format", value: filters.format, label: filters.format });

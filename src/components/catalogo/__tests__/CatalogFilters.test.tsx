@@ -14,6 +14,7 @@ describe("CatalogFilters", () => {
     render(<CatalogFilters {...defaultProps} />);
     expect(screen.getByText("Tema")).toBeInTheDocument();
     expect(screen.getByText("Região")).toBeInTheDocument();
+    expect(screen.getByText("Abrangência geográfica")).toBeInTheDocument();
     expect(screen.getByText("Categoria")).toBeInTheDocument();
     expect(screen.getByText("Formato")).toBeInTheDocument();
   });
@@ -34,6 +35,30 @@ describe("CatalogFilters", () => {
     for (const city of mockCategories.cities) {
       expect(screen.getByRole("option", { name: city })).toBeInTheDocument();
     }
+  });
+
+  it("renderiza todas as abrangências, inclusive Estadual", () => {
+    render(<CatalogFilters {...defaultProps} />);
+    for (const scope of mockCategories.geographicScopes) {
+      expect(screen.getByLabelText(scope)).toBeInTheDocument();
+    }
+  });
+
+  it("marcar uma abrangência chama onFiltersChange com { geographicScope: valor }", async () => {
+    const onFiltersChange = vi.fn();
+    const user = userEvent.setup();
+    render(
+      <CatalogFilters
+        {...defaultProps}
+        onFiltersChange={onFiltersChange}
+      />,
+    );
+
+    await user.click(screen.getByLabelText("Estadual"));
+
+    expect(onFiltersChange).toHaveBeenCalledWith(
+      expect.objectContaining({ geographicScope: "Estadual" }),
+    );
   });
 
   it("nenhum checkbox está marcado por padrão", () => {
