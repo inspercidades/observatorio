@@ -20,6 +20,7 @@ import transmitted6 from "@/app/assets/images/transmitted6.png"
 import transmitted7 from "@/app/assets/images/transmitted7.png"
 import video7 from "@/app/assets/images/video7.png"
 import { StaticImageData } from "next/image"
+import { parseBrDate, startOfToday } from "@/lib/data/dates"
 
 export interface EventData {
   id: string
@@ -264,35 +265,29 @@ export const eventsData: EventData[] = [
   },
 ]
 
-function parseEventDate(date: string) {
-  const [day, month, year] = date.split("/").map(Number)
-  return new Date(year, month - 1, day)
+function getPublishedEvents(events: EventData[] = eventsData) {
+  return events.filter((event) => event.published !== false && !event.isTransmitted)
 }
 
-function startOfToday() {
-  const today = new Date()
-  return new Date(today.getFullYear(), today.getMonth(), today.getDate())
-}
-
-function getPublishedEvents() {
-  return eventsData.filter((event) => event.published !== false && !event.isTransmitted)
+function byDateAscending(a: EventData, b: EventData) {
+  return parseBrDate(a.date).getTime() - parseBrDate(b.date).getTime()
 }
 
 function byDateDescending(a: EventData, b: EventData) {
-  return parseEventDate(b.date).getTime() - parseEventDate(a.date).getTime()
+  return byDateAscending(b, a)
 }
 
-export function getUpcomingEvents(): EventData[] {
-  const today = startOfToday()
-  return getPublishedEvents()
-    .filter((event) => parseEventDate(event.date) >= today)
-    .sort(byDateDescending)
+/** Eventos de hoje em diante, do mais próximo para o mais distante. */
+export function getUpcomingEvents(today = startOfToday(), events: EventData[] = eventsData): EventData[] {
+  return getPublishedEvents(events)
+    .filter((event) => parseBrDate(event.date) >= today)
+    .sort(byDateAscending)
 }
 
 export function getPastEvents(): EventData[] {
   const today = startOfToday()
   return getPublishedEvents()
-    .filter((event) => parseEventDate(event.date) < today)
+    .filter((event) => parseBrDate(event.date) < today)
     .sort(byDateDescending)
 }
 
