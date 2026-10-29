@@ -5,14 +5,16 @@ interface AgendaSectionProps {
   subtitle?: string;
   /** Cor do quadrado ao fim da linha: vermelho em Eventos, amarelo em Cursos. */
   accentColor: string;
+  /** Espaçamento menor, para seções só com texto. */
+  compact?: boolean;
   children: ReactNode;
 }
 
 /** Seção das páginas de Eventos e Cursos: título, linha e quadrado colorido. */
-export function AgendaSection({ title, subtitle, accentColor, children }: AgendaSectionProps) {
+export function AgendaSection({ title, subtitle, accentColor, compact, children }: AgendaSectionProps) {
   return (
-    <section className="px-4 2xl:px-16 py-20 pb-30">
-      <div className="flex items-end justify-between mb-16">
+    <section className={`px-4 2xl:px-16 ${compact ? "py-12" : "py-20 pb-30"}`}>
+      <div className={`flex items-end justify-between ${compact ? "mb-8" : "mb-16"}`}>
         <h2 className="text-4xl font-medium leading-none">
           {title}
           {subtitle ? (

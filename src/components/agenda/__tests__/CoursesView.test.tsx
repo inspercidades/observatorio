@@ -4,30 +4,47 @@ import { CoursesView } from "@/components/agenda/CoursesView";
 import type { Course } from "@/lib/types/course";
 
 const open: Course[] = [
-  { id: "gestao", title: "Gestão da Mobilidade", description: "", kind: "aberto", nextClass: "10/03/2027", href: "https://ee.insper.edu.br/gestao" },
+  {
+    id: "gestao",
+    title: "Gestão da Mobilidade",
+    description: "",
+    kind: "aberto",
+    nextClass: "10/03/2027",
+    enrollmentUntil: "08/03/2027",
+    href: "https://ee.insper.edu.br/gestao",
+  },
   { id: "seguranca", title: "Segurança Viária", description: "", kind: "aberto" },
 ];
 
 const custom: Course[] = [
-  { id: "seinfra", title: "Transporte Metropolitano", description: "", kind: "customizado", client: "SEINFRA-MG", year: 2026 },
+  {
+    id: "seinfra",
+    title: "Transporte Metropolitano",
+    description: "Planejamento e regulação de sistemas metropolitanos.",
+    kind: "customizado",
+    client: "SEINFRA-MG",
+    year: 2026,
+    format: "Híbrido · 40 h",
+  },
   { id: "imersao", title: "Imersão Brasil-Colômbia", description: "", kind: "customizado", year: 2024 },
 ];
 
 describe("CoursesView", () => {
-  it("mostra os grupos de cursos recorrentes e customizados", () => {
+  it("mostra os grupos de cursos abertos, sob demanda e realizados", () => {
     render(<CoursesView upcoming={[]} open={open} custom={custom} />);
-    expect(screen.getByRole("heading", { name: /recorrentes/i })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: /customizados/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /abertos/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /sob demanda/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /realizados/i })).toBeInTheDocument();
   });
 
-  it("esconde 'Na agenda' quando não há turma marcada", () => {
+  it("esconde 'Inscrições abertas' quando não há turma marcada", () => {
     render(<CoursesView upcoming={[]} open={open} custom={custom} />);
-    expect(screen.queryByRole("heading", { name: "Na agenda" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: /inscrições abertas/i })).not.toBeInTheDocument();
   });
 
-  it("mostra 'Na agenda' com as turmas marcadas", () => {
+  it("mostra 'Inscrições abertas' com as turmas marcadas", () => {
     render(<CoursesView upcoming={[open[0]]} open={open} custom={custom} />);
-    expect(screen.getByRole("heading", { name: "Na agenda" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /inscrições abertas/i })).toBeInTheDocument();
   });
 
   it("mostra a data da próxima turma ou 'Próxima turma em breve'", () => {
@@ -48,9 +65,26 @@ describe("CoursesView", () => {
     expect(screen.getByText("2024")).toBeInTheDocument();
   });
 
+  it("mostra o formato e a descrição dos customizados", () => {
+    render(<CoursesView upcoming={[]} open={open} custom={custom} />);
+    expect(screen.getByText("Híbrido · 40 h")).toBeInTheDocument();
+    expect(screen.getByText("Planejamento e regulação de sistemas metropolitanos.")).toBeInTheDocument();
+  });
+
   it("oferece contato por e-mail para cursos customizados", () => {
     render(<CoursesView upcoming={[]} open={open} custom={custom} />);
     const cta = screen.getByRole("link", { name: /fale conosco/i });
     expect(cta).toHaveAttribute("href", expect.stringContaining("mailto:mobilidade@insper.edu.br"));
+  });
+
+  it("destaca o curso com inscrições abertas e o prazo", () => {
+    render(<CoursesView upcoming={[open[0]]} open={open} custom={custom} />);
+    expect(screen.getByRole("heading", { name: /inscrições abertas/i })).toBeInTheDocument();
+    expect(screen.getAllByText("Inscrições abertas até 08/03/2027").length).toBeGreaterThan(0);
+  });
+
+  it("não marca como aberto o curso sem prazo de inscrição", () => {
+    render(<CoursesView upcoming={[]} open={[open[1]]} custom={custom} />);
+    expect(screen.queryByText(/Inscrições abertas até/)).not.toBeInTheDocument();
   });
 });

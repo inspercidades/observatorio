@@ -1,6 +1,6 @@
 import { AgendaSection } from "@/components/agenda/AgendaSection";
-import { WideCard, WideGrid } from "@/components/agenda/AgendaCards";
-import { CUSTOM_COURSES_EMAIL } from "@/lib/data/courses";
+import { FeaturedCourseCard, WideCard, WideGrid } from "@/components/agenda/AgendaCards";
+import { CUSTOM_COURSES_EMAIL, enrollmentLabel } from "@/lib/data/courses";
 import type { Course } from "@/lib/types/course";
 
 const ACCENT = "#F7A703";
@@ -23,22 +23,27 @@ export function CoursesView({ upcoming, open, custom }: CoursesViewProps) {
   return (
     <>
       {upcoming.length > 0 ? (
-        <AgendaSection title="Na agenda" accentColor={ACCENT}>
-          <WideGrid>
+        <AgendaSection title="Inscrições abertas" accentColor={ACCENT}>
+          <div className="flex flex-col gap-8">
             {upcoming.map((course) => (
-              <WideCard
+              <FeaturedCourseCard
                 key={course.id}
                 title={course.title}
-                meta={[course.nextClass, course.location].filter(Boolean).join(" • ")}
+                description={course.description}
+                details={[
+                  course.classEnd ? `Aulas de ${course.nextClass} a ${course.classEnd}` : `Início em ${course.nextClass}`,
+                  [course.format, course.location].filter(Boolean).join(" · "),
+                ].filter(Boolean)}
                 image={course.image}
                 href={course.href}
+                badge={enrollmentLabel(course)}
               />
             ))}
-          </WideGrid>
+          </div>
         </AgendaSection>
       ) : null}
 
-      <AgendaSection title="Cursos" subtitle="recorrentes" accentColor={ACCENT}>
+      <AgendaSection title="Cursos" subtitle="abertos" accentColor={ACCENT}>
         <WideGrid>
           {open.map((course) => (
             <WideCard
@@ -47,16 +52,18 @@ export function CoursesView({ upcoming, open, custom }: CoursesViewProps) {
               meta={nextClassLabel(course)}
               image={course.image}
               href={course.href}
+              badge={enrollmentLabel(course)}
             />
           ))}
         </WideGrid>
       </AgendaSection>
 
-      <AgendaSection title="Cursos" subtitle="customizados" accentColor={ACCENT}>
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+      <AgendaSection title="Cursos" subtitle="sob demanda" accentColor={ACCENT} compact>
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <p className="max-w-2xl text-gray-700">
             Desenhamos cursos sob medida para governos, agências e instituições, com conteúdo baseado nos
-            dados e nas pesquisas do Observatório.
+            dados e nas pesquisas do Observatório. Conte o tema, o público e o formato (presencial, híbrido
+            ou online), e montamos a proposta com a equipe.
           </p>
           <a
             href={`mailto:${CUSTOM_COURSES_EMAIL}?subject=${encodeURIComponent("Curso customizado")}`}
@@ -65,12 +72,17 @@ export function CoursesView({ upcoming, open, custom }: CoursesViewProps) {
             Fale conosco
           </a>
         </div>
+      </AgendaSection>
+
+      <AgendaSection title="Cursos" subtitle="realizados" accentColor={ACCENT}>
         <WideGrid>
           {custom.map((course) => (
             <WideCard
               key={course.id}
               title={course.title}
               meta={customLabel(course)}
+              details={course.format}
+              description={course.description}
               image={course.image}
             />
           ))}
