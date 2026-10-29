@@ -1,7 +1,8 @@
 "use client"
 
 import { BrandSlider } from "@/components/brand-slider"
-import { EventsSection } from "@/components/events-section"
+import { GeoPortalHighlight } from "@/components/geoportal-highlight"
+import { AgendaHome } from "@/components/agenda-home"
 import { Header } from "@/components/header"
 import { HeroSwiper } from "@/components/hero-swiper"
 import { ImpactNumbersSection } from "@/components/impact-numbers-section"
@@ -17,17 +18,17 @@ export function HomeContent() {
       {/* Hero Swiper */}
       <HeroSwiper />
 
+      {/* GeoPortal */}
+      <GeoPortalHighlight />
+
       {/* Brand Slider Section */}
       <BrandSlider />
 
       {/* Projects Section */}
       <ProjectsSection />
 
-      {/* Events Section */}
-      <EventsSection />
-
-      {/* impact numbers */}
-      <ImpactNumbersSection />
+      {/* Agenda: eventos futuros, cursos abertos e eventos recentes */}
+      <AgendaHome />
 
       {/* video cast */}
       {/* <VideoCastSection /> */}

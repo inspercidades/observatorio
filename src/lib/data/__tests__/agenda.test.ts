@@ -39,4 +39,29 @@ describe("getAgenda", () => {
   it("limita o número de itens quando pedido", () => {
     expect(getAgenda(today, mockEvents, mockCourses, 2)).toHaveLength(2);
   });
+
+  it("inclui eventos realizados nos últimos dias quando pedido", () => {
+    const recent: EventData[] = [
+      ...mockEvents,
+      { id: "recente", title: "Recente", description: "", showInHome: false, date: "20/10/2026" },
+    ];
+    const items = getAgenda(today, recent, mockCourses, undefined, { recentPastDays: 30 });
+    const past = items.filter((i) => i.isPast).map((i) => i.id);
+    expect(past).toEqual(["recente"]);
+    expect(items.filter((i) => !i.isPast).map((i) => i.id)).toEqual(["sexta-out", "seguranca", "sexta-nov"]);
+  });
+
+  it("não inclui eventos passados por padrão", () => {
+    const items = getAgenda(today, mockEvents, mockCourses);
+    expect(items.some((i) => i.isPast)).toBe(false);
+  });
+
+  it("guarda o fim e o intervalo de datas dos eventos de vários dias", () => {
+    const multi: EventData[] = [
+      { id: "csc", title: "CSC", description: "", showInHome: false, date: "17/11/2026", endDate: "19/11/2026" },
+    ];
+    const [item] = getAgenda(today, multi, []);
+    expect(item.endDate).toEqual(new Date(2026, 10, 19));
+    expect(item.dateLabel).toBe("17 a 19/11/2026");
+  });
 });

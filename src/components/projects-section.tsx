@@ -2,9 +2,9 @@
 
 import catalogo from "@/app/assets/images/catalogo.png"
 import dashboard from "@/app/assets/images/dashboard.png"
-import geoportal from "@/app/assets/images/geoportal.png"
 import tabela from "@/app/assets/images/tabela.png"
 import wriDashboard from "@/app/assets/images/wri-dashboard.png"
+import { ImpactNumbersSection } from '@/components/impact-numbers-section'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -30,13 +30,6 @@ const projects: Project[] = [
     description: 'Parceria ONMS & WRI Brasil - Dashboard dos dados do QualiÔnibus.',
     image: wriDashboard,
     href: '/dados/wri-dashboard'
-  },
-  {
-    id: 'geoportal',
-    title: 'GeoPortal',
-    description: 'Visualize dados espaciais e de mobilidade urbana em mapa interativo com camadas temáticas e ferramentas de visualização.',
-    image: geoportal,
-    href: '/dados/geoportal'
   },
 
     {
@@ -107,6 +100,8 @@ export function ProjectsSection() {
           </p>
 </div>
 </section>
+
+      <ImpactNumbersSection />
 
       <section className="py-8 mx-auto bg-[#f9f9f6]">
         <div className="mx-auto">
