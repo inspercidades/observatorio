@@ -9,6 +9,7 @@ import events8 from "@/app/assets/images/events8.png"
 import events9 from "@/app/assets/images/events9.png"
 import lancamentoAvaliacao from "@/app/assets/images/lancamentoavaliacao.jpg"
 import lancamentoOms from "@/app/assets/images/lancamentooms.jpg"
+import mobifilm2026 from "@/app/assets/images/mobifilm_2026.webp"
 import sextaMobilidadeNovembro2026 from "@/app/assets/images/sexta_da_mobilidade_novembro_2026.webp"
 import sextaMobilidadeSegurancaViaria2026 from "@/app/assets/images/sexta_da_mobilidade_seguranca_viaria_2026.webp"
 import trilhaMobilidade from "@/app/assets/images/trilha_mobilidade.webp"
@@ -22,6 +23,20 @@ import video7 from "@/app/assets/images/video7.png"
 import { StaticImageData } from "next/image"
 import { parseBrDate, startOfToday } from "@/lib/data/dates"
 
+/** Uma mesa ou painel com participação do Observatório. */
+export interface EventSession {
+  stage: string
+  title: string
+  date: string
+  time: string
+  track?: string
+  summary?: string
+  /** Quem do Observatório participa e em qual papel. */
+  onms: { name: string; role: string }[]
+  speakers?: string[]
+  moderation?: string
+}
+
 export interface EventData {
   id: string
   title: string
@@ -33,6 +48,14 @@ export interface EventData {
   isTransmitted?: boolean
   published?: boolean
   location?: string
+  /** Data final, em "dd/mm/aaaa", para eventos de mais de um dia. */
+  endDate?: string
+  /** Texto mais longo para a página do evento. */
+  about?: string
+  /** Participação do Observatório. Com sessões, o card leva à página do evento. */
+  sessions?: EventSession[]
+  /** Pessoas do Observatório confirmadas, com sessão ainda a definir. */
+  attendees?: { name: string; note?: string }[]
 }
 
 export const eventsData: EventData[] = [
@@ -150,7 +173,7 @@ export const eventsData: EventData[] = [
     title: "Trilha da Mobilidade Urbana: ABX 26",
     description: "01/10/2026 • São Paulo",
     image: trilhaMobilidade,
-    href: "http://archive.today/2026.10.03-202500/https://abxtrilhamobilidadeurbana.framer.website/",
+    href: "https://abxtrilhamobilidadeurbana.framer.website/",
     showInHome: false,
     date: "01/10/2026",
     location: "São Paulo",
@@ -158,12 +181,89 @@ export const eventsData: EventData[] = [
   {
     id: "connected-smart-cities-2026",
     title: "Connected Smart Cities 2026: Parque da Mobilidade Urbana",
-    description: "17/11/2026 • São Paulo",
+    description: "16/11/2026 • Expo Center Norte",
     image: connectedSmartCities,
     href: "https://evento.connectedsmartcities.com.br",
     showInHome: false,
-    date: "17/11/2026",
-    location: "São Paulo",
+    date: "16/11/2026",
+    location: "Expo Center Norte, São Paulo",
+    endDate: "18/11/2026",
+    about:
+      "O Observatório participa do Connected Smart Cities 2026 no Parque da Mobilidade Urbana, com mesas sobre o novo marco do transporte público, mobilidade inclusiva, gestão do trânsito e uso de dados no governo.",
+    sessions: [
+      {
+        stage: "Palco PMU 13 · Mobilidade que Inclui",
+        title: "Inovação e Modernização da Gestão da Mobilidade Urbana: do Novo Marco à Transformação do Setor",
+        date: "17/11/2026",
+        time: "10h30 às 11h30",
+        track: "Mobilidade Inclusiva",
+        summary:
+          "O novo Marco Legal do Transporte Público Coletivo Urbano amplia a agenda de transparência, planejamento e gestão de dados e reforça o papel do SIMU. O painel debate como estados e municípios podem transformar essas diretrizes em capacidade de gestão, projetos estruturados e melhores serviços.",
+        onms: [{ name: "Sérgio Avelleda", role: "Palestrante" }],
+        speakers: [
+          "Maína Celidonio, Secretária Municipal de Transportes, Prefeitura do Rio de Janeiro",
+          "Leiner Bastos, Gerente de Soluções, Banco do Brasil",
+          "João Lucas Albuquerque, Gerente de Mobilidade, FNP",
+          "Marcos Daniel Souza dos Santos, Secretário Nacional de Mobilidade Urbana, Ministério das Cidades",
+        ],
+      },
+      {
+        stage: "Palco PMU 13 · Mobilidade que Inclui",
+        title: "Mobilidade como política pública",
+        date: "17/11/2026",
+        time: "11h45 às 12h45",
+        track: "Mobilidade Inclusiva",
+        summary:
+          "A organização do transporte urbano exige articulação entre municípios, estados e União para viabilizar sistemas integrados.",
+        onms: [{ name: "Vinicius Oike", role: "Palestrante" }],
+        speakers: [
+          "Ricardo Silva, Prefeito, Prefeitura de Ribeirão Preto",
+          "Bruna Pengo, Coordenadora de Projetos, Instituto Cidades Responsivas",
+          "Andrei Cossetin, Prefeito, Prefeitura de Ijuí",
+          "Jocelia Marcimiano Gorla, Gerente de Planejamento de Trânsito e Urbanização, Prefeitura de Londrina",
+        ],
+        moderation: "Ana Nassar, Diretora de Programas, ITDP",
+      },
+      {
+        stage: "Palco PMU 14 · Mobilidade no Tempo Real",
+        title: "Tecnologia para gestão do trânsito nas cidades",
+        date: "17/11/2026",
+        time: "16h30 às 17h30",
+        track: "Tecnologia",
+        summary:
+          "Como semáforos inteligentes, monitoramento e análise de dados estão sendo usados para reduzir congestionamentos e melhorar a fluidez urbana.",
+        onms: [{ name: "Vinicius Oike", role: "Moderador" }],
+        speakers: [
+          "Ana Carolina Carvalho, Arquiteta Urbanista, Metrics Mobilidade",
+          "Rafael Rueda Muhlmann, Secretário de Inovação, Modernização e Transformação Digital, Prefeitura de São José dos Pinhais",
+          "Emanuele Cassimiro, Diretora de Relacionamento e Estratégia, Primova",
+          "Milton Roberto Persoli, Diretor-Presidente, CET",
+        ],
+      },
+      {
+        stage: "Palco PMU 16 · Mobilidade que Descarboniza",
+        title: "Políticas públicas para mobilidade sustentável",
+        date: "17/11/2026",
+        time: "16h30 às 17h30",
+        summary: "Como estruturar políticas de longo prazo para redução de emissões.",
+        onms: [{ name: "Suzana Nogueira", role: "Participante" }],
+        speakers: ["Letícia Sabino, Diretora Presidente, Instituto Caminhabilidade"],
+      },
+      {
+        stage: "Palco GOV 2 · Governo Orientado por Dados",
+        title: "Uso avançado de dados: analytics e predição na gestão pública",
+        date: "18/11/2026",
+        time: "15h15 às 16h15",
+        track: "Ética e Governança de Dados",
+        summary: "Como dados podem antecipar demandas e melhorar decisões.",
+        onms: [{ name: "Vinicius Oike", role: "Moderador" }],
+        speakers: [
+          "Ricardo Marinho Soares Braz, Coordenador do Escritório de Dados, Prefeitura de Niterói",
+          "Sérvio Túlio Teixeira e Silva, Secretário Executivo da Presidência, TCE-GO",
+          "Marcos Monteiro, Secretário Municipal de Infraestrutura Urbana e Obras, Prefeitura de São Paulo",
+        ],
+      },
+    ],
   },
   {
     id: "sexta-da-mobilidade-seguranca-viaria-2026",
@@ -174,6 +274,64 @@ export const eventsData: EventData[] = [
     showInHome: false,
     date: "30/10/2026",
     location: "Sexta da Mobilidade",
+  },
+  {
+    id: "mobifilm-2026",
+    title: "Mobifilm 2026: VI Festival Brasileiro de Filmes sobre Mobilidade Urbana",
+    description: "12/11/2026 • Insper",
+    image: mobifilm2026,
+    href: "https://www.mobifilm.com.br/",
+    showInHome: false,
+    date: "12/11/2026",
+    endDate: "14/11/2026",
+    location: "Insper",
+    about:
+      "O festival reúne 37 filmes em sete categorias, nove sessões de cinema, dois seminários e a cerimônia de premiação, com apresentação de Leona Cavalli. Entrada gratuita, com transmissão no YouTube do Mobifilm.",
+    sessions: [
+      {
+        stage: "Abertura",
+        title: "Abertura oficial do festival",
+        date: "12/11/2026",
+        time: "9h30",
+        onms: [{ name: "Tomás Alvim", role: "Abertura" }],
+      },
+      {
+        stage: "Seminário 1",
+        title: "Os rumos do transporte público no Brasil",
+        date: "12/11/2026",
+        time: "10h às 12h",
+        onms: [{ name: "Suzana Nogueira", role: "Palestrante" }],
+        speakers: [
+          "João Ronco Jr., Prodata Mobility Brasil",
+          "Maurício Biazotto, Hitachi Rail",
+          "Renata Ruggiero, Motiva",
+        ],
+        moderation: "Alexandre Pelegi, ANTP, Diário do Transporte e Podcast do Transporte",
+      },
+      {
+        stage: "Seminário 2",
+        title: "Violência de trânsito no Brasil: o que está mudando?",
+        date: "13/11/2026",
+        time: "10h às 12h",
+        onms: [
+          { name: "Sérgio Avelleda", role: "Moderador" },
+          { name: "Adriano Borges", role: "Palestrante" },
+        ],
+        speakers: [
+          "Luiz Carlos Néspoli, ANTP",
+          "Ana Beatriz Monteiro Figueiredo, BID",
+          "José Montal, ABRAMET",
+        ],
+      },
+      {
+        stage: "Premiação",
+        title: "Cerimônia de premiação e encerramento",
+        date: "14/11/2026",
+        time: "14h às 17h",
+        summary: "Júri formado por Eliane Caffé, Leonardo Kehdi e Sérgio Kieling.",
+        onms: [{ name: "Sérgio Avelleda", role: "Entrega o prêmio principal" }],
+      },
+    ],
   },
   {
     id: "sexta-da-mobilidade-novembro-2026",
@@ -278,16 +436,20 @@ function byDateDescending(a: EventData, b: EventData) {
 }
 
 /** Eventos de hoje em diante, do mais próximo para o mais distante. */
+/** Último dia do evento; para eventos de um dia, a própria data. */
+function lastDay(event: EventData): Date {
+  return parseBrDate(event.endDate ?? event.date)
+}
+
 export function getUpcomingEvents(today = startOfToday(), events: EventData[] = eventsData): EventData[] {
   return getPublishedEvents(events)
-    .filter((event) => parseBrDate(event.date) >= today)
+    .filter((event) => lastDay(event) >= today)
     .sort(byDateAscending)
 }
 
-export function getPastEvents(): EventData[] {
-  const today = startOfToday()
-  return getPublishedEvents()
-    .filter((event) => parseBrDate(event.date) < today)
+export function getPastEvents(today = startOfToday(), events: EventData[] = eventsData): EventData[] {
+  return getPublishedEvents(events)
+    .filter((event) => lastDay(event) < today)
     .sort(byDateDescending)
 }
 
@@ -303,4 +465,13 @@ export function getEventsForHome(): EventData[] {
 
 export function getAllEvents(): EventData[] {
   return eventsData
+}
+
+export function getEventById(id: string, events: EventData[] = eventsData): EventData | undefined {
+  return getPublishedEvents(events).find((event) => event.id === id)
+}
+
+/** Link do card: página interna quando há detalhes da participação, senão o link externo. */
+export function getEventHref(event: EventData): string | undefined {
+  return event.sessions?.length || event.attendees?.length ? `/eventos/${event.id}` : event.href
 }

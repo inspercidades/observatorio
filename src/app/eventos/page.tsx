@@ -1,12 +1,13 @@
 import { AgendaSection } from "@/components/agenda/AgendaSection";
 import { PortraitCard, PortraitGrid, WideCard, WideGrid } from "@/components/agenda/AgendaCards";
 import { Header } from "@/components/header";
-import { EventData, getPastEvents, getTransmittedEvents, getUpcomingEvents } from "@/lib/data/events";
+import { formatDateRange } from "@/lib/data/dates";
+import { EventData, getEventHref, getPastEvents, getTransmittedEvents, getUpcomingEvents } from "@/lib/data/events";
 
 const ACCENT = "#C2181A";
 
 function eventMeta(event: EventData) {
-  return `${event.date} • ${event.location}`;
+  return `${formatDateRange(event.date, event.endDate)} • ${event.location}`;
 }
 
 // Regera a página uma vez por dia para mover itens de "Na agenda" conforme a data.
@@ -25,7 +26,7 @@ export default function Eventos() {
         <AgendaSection title="Na agenda" accentColor={ACCENT}>
           <PortraitGrid>
             {upcomingEvents.map((event) => (
-              <PortraitCard key={event.id} title={event.title} meta={eventMeta(event)} image={event.image} href={event.href} />
+              <PortraitCard key={event.id} title={event.title} meta={eventMeta(event)} image={event.image} href={getEventHref(event)} />
             ))}
           </PortraitGrid>
         </AgendaSection>
