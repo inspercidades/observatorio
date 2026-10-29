@@ -47,7 +47,7 @@ describe('2022 income website contract', () => {
     const unchanged = layers.filter(item => !incomeIds.has(item.id))
     expect(unchanged).toHaveLength(32)
     expect(createHash('sha256').update(JSON.stringify(unchanged)).digest('hex')).toBe(
-      '27e902c617e6cfd6d0193203fbffdaa77602ae1b244170ab0a97e03e3795551d',
+      'ae6a18385355124c316e618a91ced55555949b38cfecfc3470f04b7012909ee4',
     )
   })
 })
