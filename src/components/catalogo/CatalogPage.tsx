@@ -7,6 +7,7 @@ import type {
   CatalogItem,
   CatalogCategories,
 } from "@/app/api/catalog/route";
+import { pruneFilters } from "@/lib/catalog-facets";
 import { useDebounce } from "@/hooks/useDebounce";
 import { CardSkeleton } from "./CardSkeleton";
 import { CatalogFilters } from "./CatalogFilters";
@@ -59,6 +60,8 @@ export function CatalogPage() {
 
       setData(result.data);
       setFilterOptions(result.filters);
+      // Uma seleção que sumiu das opções (ex.: categoria de outro tema) é limpa.
+      setFilters((prev) => pruneFilters(prev, result.filters));
     } catch (error) {
       console.error("Error fetching catalog data:", error);
     } finally {

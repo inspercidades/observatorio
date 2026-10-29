@@ -2,6 +2,9 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import catalogData from "@/lib/data/new-catalog/catalog.json";
 import categoriesData from "@/lib/data/new-catalog/categories.json";
+import { FACETS } from "@/lib/catalog-facets";
+
+export { pruneFilters } from "@/lib/catalog-facets";
 
 // Revalida o cache a cada 10 minutos
 export const revalidate = 600;
@@ -118,6 +121,21 @@ export function filterItems(
   });
 }
 
+/** Opções de cada grupo que ainda retornam algum card, dadas as outras seleções. */
+export function facetOptions(
+  items: CatalogItem[],
+  filters: CatalogFilters,
+  base: CatalogCategories,
+): CatalogCategories {
+  const options = { ...base };
+  for (const facet of FACETS) {
+    const matching = filterItems(items, { ...filters, [facet.filter]: undefined });
+    const present = new Set(matching.flatMap(facet.values).map((v) => v.toLowerCase()));
+    options[facet.options] = base[facet.options].filter((v) => present.has(v.toLowerCase()));
+  }
+  return options;
+}
+
 export function sortItems(items: CatalogItem[]): CatalogItem[] {
   return [...items].sort((a, b) =>
     a.title.localeCompare(b.title, "pt-BR", { sensitivity: "base" }),
@@ -143,13 +161,14 @@ export async function GET(request: NextRequest) {
       filtered = searchItems(filtered, filters.search);
     }
 
+    const options = facetOptions(filtered, filters, categoriesData as CatalogCategories);
     filtered = filterItems(filtered, filters);
     filtered = sortItems(filtered);
 
     return NextResponse.json({
       data: filtered,
       total: filtered.length,
-      filters: categoriesData as CatalogCategories,
+      filters: options,
     });
   } catch (error) {
     console.error("Error fetching catalog data:", error);

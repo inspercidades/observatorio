@@ -1,10 +1,13 @@
 import { describe, expect, it } from "vitest";
 import {
+  facetOptions,
   filterItems,
+  pruneFilters,
   searchItems,
   sortItems,
 } from "@/app/api/catalog/route";
-import { mockItems } from "@/test/fixtures";
+import categoriesData from "@/lib/data/new-catalog/categories.json";
+import { mockCategories, mockItems } from "@/test/fixtures";
 
 // ─── searchItems ─────────────────────────────────────────────────────────────
 
@@ -199,5 +202,72 @@ describe("sortItems", () => {
     const original = [...mockItems];
     sortItems(mockItems);
     expect(mockItems.map((i) => i.id)).toEqual(original.map((i) => i.id));
+  });
+});
+
+// ─── facetOptions ────────────────────────────────────────────────────────────
+
+describe("facetOptions", () => {
+  it("sem filtros, mostra só as opções com algum card", () => {
+    const options = facetOptions(mockItems, {}, mockCategories);
+    expect(options.geographicScopes).toEqual(["Municipal", "Metropolitana"]);
+    expect(options.cities).toEqual(mockCategories.cities);
+  });
+
+  it("mantém todos os temas e formatos", () => {
+    const options = facetOptions(mockItems, { theme: "Segurança Viária" }, mockCategories);
+    expect(options.themes).toEqual(mockCategories.themes);
+    expect(options.formats).toEqual(mockCategories.formats);
+  });
+
+  it("filtra as categorias pelo tema escolhido", () => {
+    const options = facetOptions(
+      mockItems,
+      { theme: "Transporte Público Coletivo" },
+      mockCategories,
+    );
+    expect(options.categories).toEqual(["Operação e ITS", "Demanda"]);
+  });
+
+  it("filtra as regiões pela abrangência escolhida", () => {
+    const options = facetOptions(mockItems, { geographicScope: "Metropolitana" }, mockCategories);
+    expect(options.cities).toEqual(["Rio de Janeiro", "Salvador", "São Paulo"]);
+  });
+
+  it("filtra as abrangências pela região escolhida", () => {
+    const options = facetOptions(mockItems, { region: "Fortaleza" }, mockCategories);
+    expect(options.geographicScopes).toEqual(["Municipal"]);
+  });
+
+  it("não usa a própria seleção para filtrar as opções do grupo", () => {
+    const options = facetOptions(mockItems, { geographicScope: "Metropolitana" }, mockCategories);
+    expect(options.geographicScopes).toEqual(["Municipal", "Metropolitana"]);
+  });
+});
+
+// ─── pruneFilters ────────────────────────────────────────────────────────────
+
+describe("pruneFilters", () => {
+  it("limpa a seleção que deixou de estar nas opções", () => {
+    const options = facetOptions(mockItems, { theme: "Segurança Viária" }, mockCategories);
+    const pruned = pruneFilters(
+      { theme: "Segurança Viária", category: "Demanda", region: "São Paulo" },
+      options,
+    );
+    expect(pruned).toEqual({ theme: "Segurança Viária", region: "São Paulo" });
+  });
+
+  it("devolve o mesmo objeto quando nada muda", () => {
+    const filters = { region: "Fortaleza" };
+    const options = facetOptions(mockItems, filters, mockCategories);
+    expect(pruneFilters(filters, options)).toBe(filters);
+  });
+});
+
+// ─── categories.json ─────────────────────────────────────────────────────────
+
+describe("categories.json", () => {
+  it("não oferece o tema Socioeconômico", () => {
+    expect(categoriesData.themes).not.toContain("Socioeconômico");
   });
 });
