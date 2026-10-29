@@ -1,4 +1,4 @@
-import connectedSmartCities from "@/app/assets/images/connectedsmartcities.png"
+import connectedSmartCities from "@/app/assets/images/connected_smart_cities_2026.webp"
 import events1 from "@/app/assets/images/events1.png"
 import events2 from "@/app/assets/images/events2.png"
 import events3 from "@/app/assets/images/events3.png"
@@ -9,6 +9,8 @@ import events8 from "@/app/assets/images/events8.png"
 import events9 from "@/app/assets/images/events9.png"
 import lancamentoAvaliacao from "@/app/assets/images/lancamentoavaliacao.jpg"
 import lancamentoOms from "@/app/assets/images/lancamentooms.jpg"
+import sextaMobilidadeNovembro2026 from "@/app/assets/images/sexta_da_mobilidade_novembro_2026.webp"
+import sextaMobilidadeSegurancaViaria2026 from "@/app/assets/images/sexta_da_mobilidade_seguranca_viaria_2026.webp"
 import trilhaMobilidade from "@/app/assets/images/trilha_mobilidade.webp"
 import transmitted1 from "@/app/assets/images/transmitted1.png"
 import transmitted3 from "@/app/assets/images/transmitted3.png"
@@ -18,6 +20,7 @@ import transmitted6 from "@/app/assets/images/transmitted6.png"
 import transmitted7 from "@/app/assets/images/transmitted7.png"
 import video7 from "@/app/assets/images/video7.png"
 import { StaticImageData } from "next/image"
+import { parseBrDate, startOfToday } from "@/lib/data/dates"
 
 export interface EventData {
   id: string
@@ -162,6 +165,25 @@ export const eventsData: EventData[] = [
     date: "17/11/2026",
     location: "São Paulo",
   },
+  {
+    id: "sexta-da-mobilidade-seguranca-viaria-2026",
+    title: "Sexta da Mobilidade: Dados e estratégias de segurança viária",
+    description: "30/10/2026 • Sexta da Mobilidade",
+    image: sextaMobilidadeSegurancaViaria2026,
+    href: "https://www.insper.edu.br/pt/eventos/2026/10/sexta-da-mobilidade-dados-e-estrategias-de-seguranca-viaria",
+    showInHome: false,
+    date: "30/10/2026",
+    location: "Sexta da Mobilidade",
+  },
+  {
+    id: "sexta-da-mobilidade-novembro-2026",
+    title: "Sexta da Mobilidade: última edição do ano de 2026",
+    description: "27/11/2026 • Sexta da Mobilidade",
+    image: sextaMobilidadeNovembro2026,
+    showInHome: false,
+    date: "27/11/2026",
+    location: "Sexta da Mobilidade",
+  },
 
   // Sexta da Mobilidade
   {
@@ -243,35 +265,29 @@ export const eventsData: EventData[] = [
   },
 ]
 
-function parseEventDate(date: string) {
-  const [day, month, year] = date.split("/").map(Number)
-  return new Date(year, month - 1, day)
+function getPublishedEvents(events: EventData[] = eventsData) {
+  return events.filter((event) => event.published !== false && !event.isTransmitted)
 }
 
-function startOfToday() {
-  const today = new Date()
-  return new Date(today.getFullYear(), today.getMonth(), today.getDate())
-}
-
-function getPublishedEvents() {
-  return eventsData.filter((event) => event.published !== false && !event.isTransmitted)
+function byDateAscending(a: EventData, b: EventData) {
+  return parseBrDate(a.date).getTime() - parseBrDate(b.date).getTime()
 }
 
 function byDateDescending(a: EventData, b: EventData) {
-  return parseEventDate(b.date).getTime() - parseEventDate(a.date).getTime()
+  return byDateAscending(b, a)
 }
 
-export function getUpcomingEvents(): EventData[] {
-  const today = startOfToday()
-  return getPublishedEvents()
-    .filter((event) => parseEventDate(event.date) >= today)
-    .sort(byDateDescending)
+/** Eventos de hoje em diante, do mais próximo para o mais distante. */
+export function getUpcomingEvents(today = startOfToday(), events: EventData[] = eventsData): EventData[] {
+  return getPublishedEvents(events)
+    .filter((event) => parseBrDate(event.date) >= today)
+    .sort(byDateAscending)
 }
 
 export function getPastEvents(): EventData[] {
   const today = startOfToday()
   return getPublishedEvents()
-    .filter((event) => parseEventDate(event.date) < today)
+    .filter((event) => parseBrDate(event.date) < today)
     .sort(byDateDescending)
 }
 
