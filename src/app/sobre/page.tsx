@@ -504,7 +504,12 @@ export default function Sobre() {
                   <div className="relative overflow-hidden h-[350px] w-[250px] md:h-[450px] md:w-[350px] bg-[#ECECEC]">
                     <MemberPhoto name={member.name} image={member.image} />
                   </div>
-                  <div className="mt-4 text-left">
+                  {/* Texto fora do arraste: permite selecionar e copiar nome e e-mail */}
+                  <div
+                    className="swiper-no-swiping mt-4 cursor-text select-text text-left"
+                    onMouseEnter={() => setIsHovering(false)}
+                    onMouseLeave={() => setIsHovering(true)}
+                  >
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
                       {member.name}
                     </h3>
@@ -559,7 +564,12 @@ export default function Sobre() {
                   <div className="relative overflow-hidden h-[350px] w-[250px] md:h-[450px] md:w-[350px] bg-[#ECECEC]">
                     <MemberPhoto name={member.name} image={member.image} />
                   </div>
-                  <div className="mt-4 text-left">
+                  {/* Texto fora do arraste: permite selecionar e copiar nome e e-mail */}
+                  <div
+                    className="swiper-no-swiping mt-4 cursor-text select-text text-left"
+                    onMouseEnter={() => setIsHovering(false)}
+                    onMouseLeave={() => setIsHovering(true)}
+                  >
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
                       {member.name}
                     </h3>
@@ -614,7 +624,12 @@ export default function Sobre() {
                   <div className="relative overflow-hidden h-[350px] w-[250px] md:h-[450px] md:w-[350px] bg-[#ECECEC]">
                     <MemberPhoto name={member.name} image={member.image} />
                   </div>
-                  <div className="mt-4 text-left">
+                  {/* Texto fora do arraste: permite selecionar e copiar nome e e-mail */}
+                  <div
+                    className="swiper-no-swiping mt-4 cursor-text select-text text-left"
+                    onMouseEnter={() => setIsHovering(false)}
+                    onMouseLeave={() => setIsHovering(true)}
+                  >
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
                       {member.name}
                     </h3>
