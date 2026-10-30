@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { CatalogFilters as FiltersType, CatalogCategories } from "@/app/api/catalog/route";
+import type { CatalogFilters as FiltersType, CatalogCategories } from "@/lib/catalog";
 import { Combobox } from "@/components/combo-box";
 import { Checkbox } from "@/components/ui/checkbox";
 

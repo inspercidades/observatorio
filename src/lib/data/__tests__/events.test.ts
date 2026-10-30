@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getEventById, getUpcomingEvents, type EventData } from "@/lib/data/events";
+import { getEventById, getEventHref, getPastEvents, getUpcomingEvents, type EventData } from "@/lib/data/events";
 
 const mockEvents: EventData[] = [
   { id: "dezembro", title: "Dezembro", description: "", showInHome: false, date: "05/12/2026" },
@@ -23,6 +23,28 @@ describe("getEventById", () => {
     const hidden: EventData[] = [{ ...mockEvents[0], published: false }];
     expect(getEventById("dezembro", hidden)).toBeUndefined();
     expect(getEventById("nada", mockEvents)).toBeUndefined();
+  });
+});
+
+describe("getEventHref", () => {
+  it("leva à página interna quando há sessões, mesmo com link externo", () => {
+    const event: EventData = {
+      id: "csc",
+      title: "CSC",
+      description: "",
+      showInHome: false,
+      date: "16/11/2026",
+      href: "https://evento.example",
+      sessions: [{ stage: "Palco", title: "Mesa", date: "17/11/2026", time: "10h", onms: [] }],
+    };
+    expect(getEventHref(event)).toBe("/eventos/csc");
+  });
+});
+
+describe("datas cadastradas", () => {
+  it("interpreta eventos publicados sem rejeitar o ano solto das gravações", () => {
+    expect(() => getUpcomingEvents()).not.toThrow();
+    expect(() => getPastEvents()).not.toThrow();
   });
 });
 

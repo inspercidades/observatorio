@@ -5,7 +5,7 @@ import {
   pruneFilters,
   searchItems,
   sortItems,
-} from "@/app/api/catalog/route";
+} from "@/lib/catalog";
 import categoriesData from "@/lib/data/new-catalog/categories.json";
 import { mockCategories, mockItems } from "@/test/fixtures";
 

@@ -4,10 +4,9 @@ import catalogo from "@/app/assets/images/catalogo.png"
 import dashboard from "@/app/assets/images/dashboard.png"
 import tabela from "@/app/assets/images/tabela.png"
 import wriDashboard from "@/app/assets/images/wri-dashboard.png"
-import { ImpactNumbersSection } from '@/components/impact-numbers-section'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { FreeMode } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
@@ -55,7 +54,7 @@ const projects: Project[] = [
   }
 ]
 
-export function ProjectsSection() {
+export function ProjectsSection({ impact }: { impact: ReactNode }) {
   const [isHovering, setIsHovering] = useState(false)
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
 
@@ -101,7 +100,7 @@ export function ProjectsSection() {
 </div>
 </section>
 
-      <ImpactNumbersSection />
+      {impact}
 
       <section className="py-8 mx-auto bg-[#f9f9f6]">
         <div className="mx-auto">

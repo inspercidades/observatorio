@@ -1,4 +1,4 @@
-import type { CatalogItem, CatalogCategories } from "@/app/api/catalog/route";
+import type { CatalogItem, CatalogCategories } from "@/lib/catalog";
 
 /** Conjunto mínimo de cards cobrindo os casos-limite dos filtros */
 export const mockItems: CatalogItem[] = [

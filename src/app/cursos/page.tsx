@@ -2,8 +2,8 @@ import { CoursesView } from "@/components/agenda/CoursesView";
 import { Header } from "@/components/header";
 import { getCustomCourses, getOpenCourses, getUpcomingCourses } from "@/lib/data/courses";
 
-// Regera a página uma vez por dia para mover itens de "Na agenda" conforme a data.
-export const revalidate = 86400;
+// Atualiza a cada hora. O dia da agenda segue America/Sao_Paulo.
+export const revalidate = 3600;
 
 export default function Cursos() {
   return (

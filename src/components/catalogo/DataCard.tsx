@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import type { CatalogItem } from "@/app/api/catalog/route";
+import type { CatalogItem } from "@/lib/catalog";
 
 interface DataCardProps {
   item: CatalogItem;

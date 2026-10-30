@@ -1,13 +1,8 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
-import type {
-  CatalogFilters as FiltersType,
-  CatalogItem,
-  CatalogCategories,
-} from "@/app/api/catalog/route";
-import { pruneFilters } from "@/lib/catalog-facets";
+import { useEffect, useRef, useState } from "react";
+import { pruneFilters, type CatalogCategories, type CatalogFilters as FiltersType, type CatalogItem } from "@/lib/catalog";
 import { useDebounce } from "@/hooks/useDebounce";
 import { CardSkeleton } from "./CardSkeleton";
 import { CatalogFilters } from "./CatalogFilters";
@@ -42,37 +37,49 @@ export function CatalogPage() {
 
   const isFirstRender = useRef(true);
 
-  const fetchData = useCallback(async (currentFilters: FiltersType) => {
-    setLoading(true);
-    try {
-      const params = new URLSearchParams();
-      if (currentFilters.search) params.append("search", currentFilters.search);
-      if (currentFilters.theme) params.append("theme", currentFilters.theme);
-      if (currentFilters.region) params.append("region", currentFilters.region);
-      if (currentFilters.geographicScope) {
-        params.append("geographicScope", currentFilters.geographicScope);
-      }
-      if (currentFilters.category) params.append("category", currentFilters.category);
-      if (currentFilters.format) params.append("format", currentFilters.format);
-
-      const response = await fetch(`/api/catalog?${params.toString()}`);
-      const result: CatalogResponse = await response.json();
-
-      setData(result.data);
-      setFilterOptions(result.filters);
-      // Uma seleção que sumiu das opções (ex.: categoria de outro tema) é limpa.
-      setFilters((prev) => pruneFilters(prev, result.filters));
-    } catch (error) {
-      console.error("Error fetching catalog data:", error);
-    } finally {
-      setLoading(false);
-      setInitialLoading(false);
-    }
-  }, []);
-
   useEffect(() => {
-    fetchData(filters);
-  }, [filters, fetchData]);
+    const controller = new AbortController();
+    let active = true;
+
+    async function load(currentFilters: FiltersType) {
+      setLoading(true);
+      try {
+        const params = new URLSearchParams();
+        if (currentFilters.search) params.append("search", currentFilters.search);
+        if (currentFilters.theme) params.append("theme", currentFilters.theme);
+        if (currentFilters.region) params.append("region", currentFilters.region);
+        if (currentFilters.geographicScope) {
+          params.append("geographicScope", currentFilters.geographicScope);
+        }
+        if (currentFilters.category) params.append("category", currentFilters.category);
+        if (currentFilters.format) params.append("format", currentFilters.format);
+
+        const response = await fetch(`/api/catalog?${params.toString()}`, { signal: controller.signal });
+        const result: CatalogResponse = await response.json();
+        if (!active) return;
+
+        setData(result.data);
+        setFilterOptions(result.filters);
+        // Limpa seleção obsoleta com o filtro desta request, não com o estado que chegou depois.
+        const pruned = pruneFilters(currentFilters, result.filters);
+        if (pruned !== currentFilters) setFilters(pruned);
+      } catch (error) {
+        if (!active || (error instanceof Error && error.name === "AbortError")) return;
+        console.error("Error fetching catalog data:", error);
+      } finally {
+        if (active) {
+          setLoading(false);
+          setInitialLoading(false);
+        }
+      }
+    }
+
+    load(filters);
+    return () => {
+      active = false;
+      controller.abort();
+    };
+  }, [filters]);
 
   // Debounced search
   const [searchTerm, setSearchTerm] = useState(initialQuery);

@@ -1,4 +1,5 @@
 import { getAgenda, type AgendaItem } from "@/lib/data/agenda"
+import { classifyHref } from "@/lib/links"
 import { ArrowRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -17,16 +18,17 @@ function kindLabel(item: AgendaItem) {
 }
 
 function ItemLink({ href, className, children }: { href?: string; className?: string; children: ReactNode }) {
-  if (!href) return <div className={className}>{children}</div>
-  if (href.startsWith("http")) {
+  const target = href ? classifyHref(href) : null
+  if (!target) return <div className={className}>{children}</div>
+  if (target.kind === "external") {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+      <a href={target.href} target="_blank" rel="noopener noreferrer" className={className}>
         {children}
       </a>
     )
   }
   return (
-    <Link href={href} className={className}>
+    <Link href={target.href} className={className}>
       {children}
     </Link>
   )

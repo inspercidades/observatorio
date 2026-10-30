@@ -10,8 +10,8 @@ function eventMeta(event: EventData) {
   return `${formatDateRange(event.date, event.endDate)} • ${event.location}`;
 }
 
-// Regera a página uma vez por dia para mover itens de "Na agenda" conforme a data.
-export const revalidate = 86400;
+// Atualiza a cada hora. O dia da agenda segue America/Sao_Paulo.
+export const revalidate = 3600;
 
 export default function Eventos() {
   const upcomingEvents = getUpcomingEvents();
@@ -36,7 +36,7 @@ export default function Eventos() {
         <AgendaSection title="Sexta da" subtitle="Mobilidade" accentColor={ACCENT}>
           <WideGrid>
             {transmittedEvents.map((event) => (
-              <WideCard key={event.id} title={event.title} meta={eventMeta(event)} image={event.image} href={event.href} />
+              <WideCard key={event.id} title={event.title} meta={eventMeta(event)} image={event.image} href={getEventHref(event)} />
             ))}
           </WideGrid>
         </AgendaSection>
@@ -46,7 +46,7 @@ export default function Eventos() {
         <AgendaSection title="Eventos" subtitle="passados" accentColor={ACCENT}>
           <PortraitGrid>
             {pastEvents.map((event) => (
-              <PortraitCard key={event.id} title={event.title} meta={eventMeta(event)} image={event.image} href={event.href} />
+              <PortraitCard key={event.id} title={event.title} meta={eventMeta(event)} image={event.image} href={getEventHref(event)} />
             ))}
           </PortraitGrid>
         </AgendaSection>
