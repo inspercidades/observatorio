@@ -233,13 +233,13 @@ export function CityLayersComparison({
                           className={`text-sm flex flex-row items-center gap-2 text-black leading-relaxed ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                           style={{ color: '#000000' }}
                         >
-                          <div className="flex items-center gap-2">
-                            <span className={`block truncate ${isSelected ? 'font-semibold' : 'font-medium'}`} style={{ color: '#000000' }}>{layer.name}</span>
+                          <div className="flex min-w-0 items-center gap-2">
+                            <span className={`block ${isSelected ? 'font-semibold' : 'font-medium'}`} style={{ color: '#000000' }}>{layer.name}</span>
                           </div>
                           {layer.description && (
                             <Tooltip>
                               <TooltipTrigger asChild>
-                                  <Info className="w-4 h-4" />
+                                  <Info className="w-4 h-4 shrink-0" />
                               </TooltipTrigger>
                               <TooltipContent side="right" className="max-w-xs">
                                 <p>{layer.description}</p>
@@ -322,13 +322,13 @@ export function CityLayersComparison({
                           className={`text-sm flex flex-row items-center gap-2 text-black leading-relaxed ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                           style={{ color: '#000000' }}
                         >
-                          <div className="flex items-center gap-2">
-                            <span className={`block truncate ${isSelected ? 'font-semibold' : 'font-medium'}`} style={{ color: '#000000' }}>{layer.name}</span>
+                          <div className="flex min-w-0 items-center gap-2">
+                            <span className={`block ${isSelected ? 'font-semibold' : 'font-medium'}`} style={{ color: '#000000' }}>{layer.name}</span>
                           </div>
                           {layer.description && (
                             <Tooltip>
                               <TooltipTrigger asChild>
-                                  <Info className="w-4 h-4" />
+                                  <Info className="w-4 h-4 shrink-0" />
                               </TooltipTrigger>
                               <TooltipContent side="right" className="max-w-xs">
                                 <p>{layer.description}</p>

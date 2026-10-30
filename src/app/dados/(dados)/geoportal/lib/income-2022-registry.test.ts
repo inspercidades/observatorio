@@ -30,7 +30,8 @@ describe('2022 income website contract', () => {
       expect(layer?.tilesetId).toMatch(
         new RegExp(`^observatorio-nacional\\.${id.slice(0, 19)}_[0-9a-f]{12}$`),
       )
-      expect(layer?.name).toContain('responsável com rendimento')
+      expect(layer?.name).toBe('Renda do responsável')
+      expect(layer?.description).toContain('responsáveis com rendimento')
       expect(layer?.description).toContain('2022')
       expect(layer?.description).toContain('nominais')
       expect(layer?.description).not.toContain('2010')
