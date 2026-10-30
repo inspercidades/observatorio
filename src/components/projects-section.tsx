@@ -103,7 +103,7 @@ export function ProjectsSection({ impact }: { impact: ReactNode }) {
 
       {impact}
 
-      <section className="py-26 mx-auto bg-[#f9f9f6]">
+      <section className="py-26 pb-16 mx-auto bg-[#f9f9f6]">
         <div className="mx-auto">
           {/* Section Title */}
           <h2 className="text-3xl md:text-4xl px-4 2xl:px-16 font-medium text-gray-900 mb-6">
