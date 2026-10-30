@@ -85,7 +85,7 @@ export default function ChartsPage() {
            <div className="bg-white w-full lg:max-w-[716px] flex flex-col sm:flex-row justify-between mb-4 items-start sm:items-center rounded-lg p-2 py-4 gap-4">
            <div className="flex flex-col gap-0">
             <h2 className="text-lg sm:text-xl px-2 font-bold text-gray-900">Explore dados da Pesquisa Nacional de Mobilidade Urbana</h2>
-            <div className="pb-2 text-sm lg:text-base px-2 text-gray-600">Pesquisa realizada pelo Mininstério das Cidades
+            <div className="pb-2 text-sm lg:text-base px-2 text-gray-600">Pesquisa realizada pelo Ministério das Cidades
           </div>
            </div>
             <Link href="/dados/pemob-dashboard/saiba-mais">

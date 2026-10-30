@@ -17,7 +17,7 @@ export const cityLayersConfig: CityLayersConfig = {
   "Rio de Janeiro": [
     {
       id: "renda-rio-4ks1k8",
-      name: "Rendimento médio do responsável com rendimento",
+      name: "Renda do responsável",
       description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
       tilesetId: "observatorio-nacional.renda-rio-4ks1k8_4099a14c9ddb",
       sourceLayer: "renda_responsavel_2022_rio",
@@ -65,7 +65,7 @@ export const cityLayersConfig: CityLayersConfig = {
     },
     {
       id: "renda-rec-bcpy1l",
-      name: "Rendimento médio do responsável com rendimento",
+      name: "Renda do responsável",
       description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
       tilesetId: "observatorio-nacional.renda-rec-bcpy1l_b0626bf30b64",
       sourceLayer: "renda_responsavel_2022_rec",
@@ -95,7 +95,7 @@ export const cityLayersConfig: CityLayersConfig = {
     },
     {
       id: "renda-42uz5h",
-      name: "Rendimento médio do responsável com rendimento",
+      name: "Renda do responsável",
       description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
       tilesetId: "observatorio-nacional.renda-42uz5h_fcbe5b1cf6ce",
       sourceLayer: "renda_responsavel_2022_bhe",
@@ -142,7 +142,7 @@ export const cityLayersConfig: CityLayersConfig = {
     },
     {
       id: "renda_goi-8q2sqk",
-      name: "Rendimento médio do responsável com rendimento",
+      name: "Renda do responsável",
       description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
       tilesetId: "observatorio-nacional.renda_goi-8q2sqk_bcc655ad37eb",
       sourceLayer: "renda_responsavel_2022_goi",
@@ -154,7 +154,7 @@ export const cityLayersConfig: CityLayersConfig = {
   "Fortaleza": [
     {
       id: "frt_income_hh-26qfm4",
-      name: "Rendimento médio do responsável com rendimento",
+      name: "Renda do responsável",
       description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
       tilesetId: "observatorio-nacional.frt_income_hh-26qfm_3d28286a526c",
       sourceLayer: "renda_responsavel_2022_frt",
@@ -184,7 +184,7 @@ export const cityLayersConfig: CityLayersConfig = {
   "Niteroi": [
     {
       id: "renda-987gzt",
-      name: "Rendimento médio do responsável com rendimento",
+      name: "Renda do responsável",
       description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
       tilesetId: "observatorio-nacional.renda-987gzt_1b8b7f3e6d15",
       sourceLayer: "renda_responsavel_2022_nit",
@@ -250,7 +250,7 @@ export const cityLayersConfig: CityLayersConfig = {
     },
     {
       id: "renda_sad-a9kjjx",
-      name: "Rendimento médio do responsável com rendimento",
+      name: "Renda do responsável",
       description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
       tilesetId: "observatorio-nacional.renda_sad-a9kjjx_5f24b768cc1f",
       sourceLayer: "renda_responsavel_2022_sad",
@@ -280,7 +280,7 @@ export const cityLayersConfig: CityLayersConfig = {
     },
     {
       id: "renda_ssa-72km6n",
-      name: "Rendimento médio do responsável com rendimento",
+      name: "Renda do responsável",
       description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
       tilesetId: "observatorio-nacional.renda_ssa-72km6n_d1d281574275",
       sourceLayer: "renda_responsavel_2022_ssa",
@@ -310,7 +310,7 @@ export const cityLayersConfig: CityLayersConfig = {
     },
     {
       id: "renda-2bxm7u",
-      name: "Rendimento médio do responsável com rendimento",
+      name: "Renda do responsável",
       description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
       tilesetId: "observatorio-nacional.renda-2bxm7u_3be93a09e319",
       sourceLayer: "renda_responsavel_2022_cam",
@@ -340,7 +340,7 @@ export const cityLayersConfig: CityLayersConfig = {
     },
     {
       id: "cur_income_hh-b297ww",
-      name: "Rendimento médio do responsável com rendimento",
+      name: "Renda do responsável",
       description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
       tilesetId: "observatorio-nacional.cur_income_hh-b297w_865cc8df6f62",
       sourceLayer: "renda_responsavel_2022_cur",
@@ -352,7 +352,7 @@ export const cityLayersConfig: CityLayersConfig = {
   "Porto Alegre": [
     {
       id: "renda_poa-0cq519",
-      name: "Rendimento médio do responsável com rendimento",
+      name: "Renda do responsável",
       description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
       tilesetId: "observatorio-nacional.renda_poa-0cq519_717ba22c22f4",
       sourceLayer: "renda_responsavel_2022_poa",
@@ -427,7 +427,7 @@ export const cityLayersConfig: CityLayersConfig = {
     },
     {
       id: "renda_spo-ddwghj",
-      name: "Rendimento médio do responsável com rendimento",
+      name: "Renda do responsável",
       description: "Média mensal do rendimento das pessoas responsáveis com rendimento, por setor censitário (Censo 2022, R$ nominais). Sem valor divulgado em cinza. Fonte: IBGE.",
       tilesetId: "observatorio-nacional.renda_spo-ddwghj_6f59518608a2",
       sourceLayer: "renda_responsavel_2022_spo",
