@@ -84,7 +84,7 @@ const brands: BrandLogo[] = [
 export function BrandSlider() {
   const isMobile = useIsMobile()
   return (
-    <section className="bg-[#f9f9f6] py-16 overflow-hidden">
+    <section className="bg-[#f9f9f6] py-16 md:pt-30 overflow-hidden">
       <div className="px-4 2xl:px-16 mx-auto max-w-full">
         <div className="flex flex-col lg:flex-row items-left lg:items-center gap-4 lg:gap-8">
           {/* Text Section - Top on mobile, Left on desktop */}

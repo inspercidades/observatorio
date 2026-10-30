@@ -132,16 +132,23 @@ export function AgendaHome() {
   const [featured, ...rest] = upcoming
 
   return (
-    <section className="bg-[#f9f9f6] px-4 py-16 2xl:px-16">
-      <div className="mb-10 flex items-end justify-between">
+    <section className="bg-[#f9f9f6] px-4 py-16 2xl:px-16 pb-40">
+      <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <h2 className="text-3xl font-medium text-gray-900 md:text-4xl">Agenda</h2>
-        <div className="mx-16 hidden h-[1.2px] flex-grow bg-gray-300 md:block" />
-        <div className="flex shrink-0 gap-6 text-sm font-medium text-gray-900">
-          <Link href="/eventos" className="inline-flex items-center gap-1 hover:underline">
-            Todos os eventos <ArrowRight className="h-4 w-4" />
+        <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 md:flex md:w-auto">
+          <Link
+            href="/eventos"
+            className="inline-flex min-h-11 w-full items-center justify-center gap-2 border border-gray-900 bg-white px-4 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-100 md:w-auto"
+          >
+            Todos os eventos
+            <ArrowRight className="h-4 w-4" />
           </Link>
-          <Link href="/cursos" className="inline-flex items-center gap-1 hover:underline">
-            Todos os cursos <ArrowRight className="h-4 w-4" />
+          <Link
+            href="/cursos"
+            className="inline-flex min-h-11 w-full items-center justify-center gap-2 border border-gray-900 bg-white px-4 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-100 md:w-auto"
+          >
+            Todos os cursos
+            <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </div>

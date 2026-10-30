@@ -1,41 +1,33 @@
-import { Clock, Database, GraduationCap, MapPin, Users, type LucideIcon } from "lucide-react"
-
-interface ImpactNumber {
-  value: string
-  label: string
-  icon: LucideIcon
-}
-
 interface ImpactNumbersSectionProps {
   datasetCount: number
 }
 
-function impactNumbers(datasetCount: number): ImpactNumber[] {
+function impactNumbers(datasetCount: number) {
   return [
-    { value: String(datasetCount), label: "conjuntos de dados no catálogo", icon: Database },
-    { value: "22", label: "municípios com dados", icon: MapPin },
-    { value: "+205", label: "alunos em educação executiva", icon: GraduationCap },
-    { value: "+47", label: "horas de eventos", icon: Clock },
-    { value: "+1.010", label: "participantes em eventos", icon: Users },
+    { value: String(datasetCount), label: "conjuntos de dados no catálogo" },
+    { value: "22", label: "municípios com dados" },
+    { value: "+205", label: "alunos em educação executiva" },
+    { value: "+47", label: "horas de eventos" },
+    { value: "+1.010", label: "participantes em eventos" },
   ]
 }
 
 export function ImpactNumbersSection({ datasetCount }: ImpactNumbersSectionProps) {
   return (
-    <section className="bg-[#f9f9f6] px-4 py-8 2xl:px-16">
-      <div className="grid grid-cols-2 gap-y-6 rounded-xl bg-[#2F2C2C] px-6 py-6 md:grid-cols-3 lg:grid-cols-5 lg:divide-x lg:divide-white/20">
-        {impactNumbers(datasetCount).map(({ value, label, icon: Icon }) => (
-          <div key={label} className="flex items-center gap-4 lg:justify-center lg:px-4">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white">
-              <Icon className="h-6 w-6 text-[#2F2C2C]" />
-            </div>
-            <div className="text-white">
-              <div className="text-2xl font-semibold leading-none">{value}</div>
-              <div className="mt-1 text-sm leading-tight text-white/80">{label}</div>
-            </div>
-          </div>
+    <section className="bg-[#f9f9f6] px-4 py-8 2xl:px-16" aria-label="Números do observatório">
+      <ul className="lg:grid lg:grid-cols-5 lg:divide-x lg:divide-gray-200 lg:border-y lg:border-gray-200">
+        {impactNumbers(datasetCount).map(({ value, label }) => (
+          <li
+            key={label}
+            className="flex items-baseline justify-between gap-4 border-b border-gray-200 py-4 last:border-b-0 lg:flex-col lg:items-start lg:border-b-0 lg:px-4 lg:py-6 lg:first:pl-0"
+          >
+            <span className="text-3xl font-semibold text-gray-900">{value}</span>
+            <span className="max-w-[14rem] text-right text-sm leading-snug text-gray-600 lg:max-w-none lg:text-left">
+              {label}
+            </span>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   )
 }
