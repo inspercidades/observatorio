@@ -1,3 +1,12 @@
+import sextaVideo15 from "@/app/assets/images/sexta_mobilidade_15.jpg"
+import sextaVideo14 from "@/app/assets/images/sexta_mobilidade_14.jpg"
+import sextaVideo13 from "@/app/assets/images/sexta_mobilidade_13.jpg"
+import sextaVideo12 from "@/app/assets/images/sexta_mobilidade_12.jpg"
+import sextaVideo11 from "@/app/assets/images/sexta_mobilidade_11.jpg"
+import sextaVideo10 from "@/app/assets/images/sexta_mobilidade_10.jpg"
+import sextaVideo9 from "@/app/assets/images/sexta_mobilidade_9.jpg"
+import sextaVideo8 from "@/app/assets/images/sexta_mobilidade_8.jpg"
+import sextaVideo2 from "@/app/assets/images/sexta_mobilidade_2.jpg"
 import connectedSmartCities from "@/app/assets/images/connected_smart_cities_2026.webp"
 import events1 from "@/app/assets/images/events1.png"
 import events2 from "@/app/assets/images/events2.png"
@@ -46,6 +55,9 @@ export interface EventData {
   showInHome: boolean
   date: string
   isTransmitted?: boolean
+  series?: "sexta-da-mobilidade"
+  /** URL da gravação; href mantém a página original do evento. */
+  videoUrl?: string
   published?: boolean
   location?: string
   /** Data final, em "dd/mm/aaaa", para eventos de mais de um dia. */
@@ -267,6 +279,7 @@ export const eventsData: EventData[] = [
   },
   {
     id: "sexta-da-mobilidade-seguranca-viaria-2026",
+    series: "sexta-da-mobilidade",
     title: "Sexta da Mobilidade: Dados e estratégias de segurança viária",
     description: "30/10/2026 • Sexta da Mobilidade",
     image: sextaMobilidadeSegurancaViaria2026,
@@ -335,6 +348,7 @@ export const eventsData: EventData[] = [
   },
   {
     id: "sexta-da-mobilidade-novembro-2026",
+    series: "sexta-da-mobilidade",
     title: "Sexta da Mobilidade: última edição do ano de 2026",
     description: "27/11/2026 • Sexta da Mobilidade",
     image: sextaMobilidadeNovembro2026,
@@ -344,6 +358,7 @@ export const eventsData: EventData[] = [
   },
 
   // Sexta da Mobilidade
+  // Fontes e datas dos encontros: docs/sexta-da-mobilidade-2026-11-02.json.
   {
     id: "transmitted1",
     isTransmitted: true,
@@ -351,7 +366,7 @@ export const eventsData: EventData[] = [
     description: "Sexta da Mobilidade",
     image: transmitted1,
     showInHome: false,
-    date: "2025",
+    date: "30/08/2024",
     location: "Sexta da Mobilidade",
     href: "https://youtu.be/IfodUOjixfk",
   },
@@ -360,9 +375,9 @@ export const eventsData: EventData[] = [
     isTransmitted: true,
     title: "Dados e Mobilidade Urbana",
     description: "Sexta da Mobilidade",
-    image: transmitted1,
+    image: sextaVideo2,
     showInHome: false,
-    date: "2025",
+    date: "25/10/2024",
     location: "Sexta da Mobilidade",
     href: "https://youtu.be/81MLQuaW0aY",
   },
@@ -373,7 +388,7 @@ export const eventsData: EventData[] = [
     description: "Sexta da Mobilidade",
     image: transmitted3,
     showInHome: false,
-    date: "2025",
+    date: "29/11/2024",
     location: "Sexta da Mobilidade",
     href: "https://youtu.be/rAv5NNZWByQ",
   },
@@ -384,7 +399,7 @@ export const eventsData: EventData[] = [
     description: "Sexta da Mobilidade",
     image: transmitted4,
     showInHome: false,
-    date: "2025",
+    date: "21/02/2025",
     location: "Sexta da Mobilidade",
     href: "https://youtu.be/wWF66SLgErs",
   },
@@ -395,7 +410,7 @@ export const eventsData: EventData[] = [
     description: "Sexta da Mobilidade",
     image: transmitted5,
     showInHome: false,
-    date: "2025",
+    date: "21/03/2025",
     location: "Sexta da Mobilidade",
     href: "https://youtu.be/z8mLOna5ry4",
   },
@@ -406,7 +421,7 @@ export const eventsData: EventData[] = [
     description: "Sexta da Mobilidade",
     image: transmitted6,
     showInHome: false,
-    date: "2025",
+    date: "30/05/2025",
     location: "Sexta da Mobilidade",
     href: "https://www.youtube.com/watch?v=yk3ffu7kuys&list=PLw0ygoHfe_jMvdGpI8WhU1-CIVEWm1-k-&index=7",
   },
@@ -417,9 +432,97 @@ export const eventsData: EventData[] = [
     description: "Sexta da Mobilidade",
     image: transmitted7,
     showInHome: false,
-    date: "2025",
+    date: "27/06/2025",
     location: "Sexta da Mobilidade",
     href: "https://www.youtube.com/watch?v=-J_Ol823NFc&list=PLw0ygoHfe_jMvdGpI8WhU1-CIVEWm1-k-&index=8",
+  },
+  {
+    id: "transmitted8",
+    isTransmitted: true,
+    title: "Como acelerar a expansão de metrô/trens metropolitanos nas cidades do Brasil?",
+    description: "Sexta da Mobilidade",
+    image: sextaVideo8,
+    showInHome: false,
+    date: "29/08/2025",
+    location: "Sexta da Mobilidade",
+    href: "https://youtu.be/uhPqjkp7DKo",
+  },
+  {
+    id: "transmitted9",
+    isTransmitted: true,
+    title: "Urbanismo Social e teleférico – soluções latino-americanas + Insper Cidades",
+    description: "Sexta da Mobilidade",
+    image: sextaVideo9,
+    showInHome: false,
+    date: "26/09/2025",
+    location: "Sexta da Mobilidade",
+    href: "https://youtu.be/_5J9ZKNlcCI",
+  },
+  {
+    id: "transmitted10",
+    isTransmitted: true,
+    title: "a mobilidade urbana liderada por mulheres",
+    description: "Sexta da Mobilidade",
+    image: sextaVideo10,
+    showInHome: false,
+    date: "31/10/2025",
+    location: "Sexta da Mobilidade",
+    href: "https://youtu.be/KC3H6yN_wvQ",
+  },
+  {
+    id: "transmitted11",
+    isTransmitted: true,
+    title: "uso de dados em favor da segurança viária",
+    description: "Sexta da Mobilidade",
+    image: sextaVideo11,
+    showInHome: false,
+    date: "28/11/2025",
+    location: "Sexta da Mobilidade",
+    href: "https://youtu.be/z-SlSZB8umQ",
+  },
+  {
+    id: "transmitted12",
+    isTransmitted: true,
+    title: "Tarifa Zero: o avanço dos subsídios e da tarifa zero nas cidades brasileiras",
+    description: "Sexta da Mobilidade",
+    image: sextaVideo12,
+    showInHome: false,
+    date: "27/02/2026",
+    location: "Sexta da Mobilidade",
+    href: "https://youtu.be/OsVRaGqENIc",
+  },
+  {
+    id: "transmitted13",
+    isTransmitted: true,
+    title: "Eleições 26: pautas estratégicas para a agenda federal da mobilidade urbana",
+    description: "Sexta da Mobilidade",
+    image: sextaVideo13,
+    showInHome: false,
+    date: "24/04/2026",
+    location: "Sexta da Mobilidade",
+    href: "https://youtu.be/-qAvQx0YvJA",
+  },
+  {
+    id: "transmitted14",
+    isTransmitted: true,
+    title: "Mobilidade nas Eleições 2026: Segurança Viária",
+    description: "Sexta da Mobilidade",
+    image: sextaVideo14,
+    showInHome: false,
+    date: "29/05/2026",
+    location: "Sexta da Mobilidade",
+    href: "https://youtu.be/D0EivrvXzj0",
+  },
+  {
+    id: "transmitted15",
+    isTransmitted: true,
+    title: "Mobilidade Nas Eleições 2026: Descarbonização do Transporte",
+    description: "Sexta da Mobilidade",
+    image: sextaVideo15,
+    showInHome: false,
+    date: "26/06/2026",
+    location: "Sexta da Mobilidade",
+    href: "https://youtu.be/NDYDMJvKzbw",
   },
 ]
 
@@ -453,8 +556,22 @@ export function getPastEvents(today = startOfToday(), events: EventData[] = even
     .sort(byDateDescending)
 }
 
-export function getTransmittedEvents(): EventData[] {
-  return eventsData.filter((event) => event.isTransmitted).reverse()
+/** Seções exclusivas da página de eventos; a agenda da home preserva os realizados recentes. */
+export function getEventSections(today = startOfToday(), events: EventData[] = eventsData) {
+  const past = getPastEvents(today, events)
+  const sexta = [
+    ...past.filter((event) => event.series === "sexta-da-mobilidade"),
+    ...events.filter((event) => event.isTransmitted && event.published !== false),
+  ].sort(byDateDescending)
+  return {
+    upcoming: getUpcomingEvents(today, events),
+    sexta,
+    past: past.filter((event) => event.series !== "sexta-da-mobilidade"),
+  }
+}
+
+export function isVideoPending(event: EventData): boolean {
+  return event.series === "sexta-da-mobilidade" && !event.videoUrl && !event.isTransmitted
 }
 
 export function getEventsForHome(): EventData[] {

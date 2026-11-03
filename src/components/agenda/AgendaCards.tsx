@@ -39,13 +39,13 @@ function CardShell({ href, className, children }: { href?: string; className: st
   );
 }
 
-function CardImage({ title, image, sizes }: { title: string; image?: StaticImageData; sizes: string }) {
+function CardImage({ title, image, sizes, fit = "cover" }: { title: string; image?: StaticImageData; sizes: string; fit?: "cover" | "contain" }) {
   return image ? (
     <Image
       src={image}
       alt={title}
       fill
-      className="object-cover object-center transition-transform duration-300 group-hover:scale-105"
+      className={`${fit === "contain" ? "object-contain" : "object-cover"} object-center transition-transform duration-300 group-hover:scale-105`}
       sizes={sizes}
     />
   ) : (
@@ -75,7 +75,8 @@ export function WideCard({
   badge,
   details,
   description,
-}: AgendaCardProps & { details?: string; description?: string }) {
+  imageFit,
+}: AgendaCardProps & { details?: string; description?: string; imageFit?: "cover" | "contain" }) {
   return (
     <CardShell href={href} className="group flex w-full flex-col items-start text-left">
       <div className="relative aspect-[7/4] w-full overflow-hidden">
@@ -83,6 +84,7 @@ export function WideCard({
         <CardImage
           title={title}
           image={image}
+          fit={imageFit}
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
       </div>

@@ -1,0 +1,172 @@
+{
+  "checkedAt": "2026-11-02",
+  "playlist": "https://www.youtube.com/playlist?list=PLw0ygoHfe_jMvdGpI8WhU1-CIVEWm1-k-",
+  "scope": "Public series videos in the playlist, cross-checked against Insper channel search. Dates refer to events, not uploads.",
+  "excluded": [
+    {
+      "id": "6DmTzXg4Ri8",
+      "reason": "Private; public replacement NDYDMJvKzbw"
+    },
+    {
+      "id": "z3-NaEgwABQ",
+      "reason": "Portal launch, not an episode of Sexta da Mobilidade"
+    }
+  ],
+  "notes": [
+    "YouTube episode numbering is inconsistent; the site omits episode numbers.",
+    "D0EivrvXzj0 has an erroneous Tarifa Zero prefix on YouTube; the site uses the official event title.",
+    "Dates with supplemental or indirect evidence are identified in dateEvidence."
+  ],
+  "videos": [
+    {
+      "id": "IfodUOjixfk",
+      "title": "Sexta da Mobilidade 1 | Soluções baseadas na natureza e mobilidade urbana",
+      "eventDate": "30/08/2024",
+      "dateSource": "https://www.insper.edu.br/pt/eventos/2024/08/sexta-da-mobilidade-solucoes-baseadas-na-natureza-e-mobilidade-urbana-a-urgencia-da-mudanca-de-paradigma-das-cidades",
+      "dateEvidence": "Insper event page",
+      "videoUrl": "https://www.youtube.com/watch?v=IfodUOjixfk",
+      "uploadDate": "2025-04-10T04:07:39-07:00",
+      "playability": "OK"
+    },
+    {
+      "id": "81MLQuaW0aY",
+      "title": "Sexta da Mobilidade 2 | Dados e Mobilidade Urbana",
+      "eventDate": "25/10/2024",
+      "dateSource": "https://pt.linkedin.com/posts/insper-edu_sexta-da-mobilidade-dados-e-mobilidade-urbana-activity-7252604291243200514-anF_",
+      "dateEvidence": "Official Insper post says 25 October; official event path /2024/10/ confirms year",
+      "videoUrl": "https://www.youtube.com/watch?v=81MLQuaW0aY",
+      "uploadDate": "2025-04-10T11:05:49-07:00",
+      "playability": "OK"
+    },
+    {
+      "id": "rAv5NNZWByQ",
+      "title": "Sexta da Mobilidade 3 | Soluções brasileiras para o futuro da Mobilidade, o caso do Aeromóvel",
+      "eventDate": "29/11/2024",
+      "dateSource": "https://aerom.com/pt/aeromovel-e-destaque-no-evento-sexta-da-mobilidade-do-insper/",
+      "dateEvidence": "Primary participating organization; explicitly 29 November 2024",
+      "videoUrl": "https://www.youtube.com/watch?v=rAv5NNZWByQ",
+      "uploadDate": "2025-04-11T12:45:25-07:00",
+      "playability": "OK"
+    },
+    {
+      "id": "wWF66SLgErs",
+      "title": "Sexta da Mobilidade 4 | COP 30: o que precisamos para descarbonizar a mobilidade urbana",
+      "eventDate": "21/02/2025",
+      "dateSource": "https://www.insper.edu.br/pt/eventos/2025/02/sexta-da-mobilidade-cop-30-o-que-precisamos-para-descarbonizar-a-mobilidade-urbana",
+      "dateEvidence": "Official Insper search result displays 21 February; event path and text confirm 2025; corroborated by CCR newsletter.",
+      "videoUrl": "https://www.youtube.com/watch?v=wWF66SLgErs",
+      "uploadDate": "2025-04-11T13:15:33-07:00",
+      "playability": "OK"
+    },
+    {
+      "id": "z8mLOna5ry4",
+      "title": "Sexta da Mobilidade 5 | Debates da pesquisa Origem e Destino da Região Metropolitana de São Paulo",
+      "eventDate": "21/03/2025",
+      "dateSource": "https://www.mobilize.org.br/agenda/1170/sexta-da-mobilidade-como-sao-paulo-se-locomove.html",
+      "dateEvidence": "Supplemental event listing explicitly 21 March 2025, links official Insper event",
+      "videoUrl": "https://www.youtube.com/watch?v=z8mLOna5ry4",
+      "uploadDate": "2025-04-11T13:30:58-07:00",
+      "playability": "OK"
+    },
+    {
+      "id": "yk3ffu7kuys",
+      "title": "Sexta da Mobilidade 6: Segurança viária e visão 0 - Como eliminar mortes/feridos graves na cidade",
+      "eventDate": "30/05/2025",
+      "dateSource": "https://www.insper.edu.br/pt/eventos/2025/05/seguranca-viaria-e-visao-zero-como-eliminar-mortes-e-feridos-graves-na-sua-cidade",
+      "dateEvidence": "Official event page search extract displays 30 May; URL confirms 2025",
+      "videoUrl": "https://www.youtube.com/watch?v=yk3ffu7kuys",
+      "uploadDate": "2025-08-21T13:33:10-07:00",
+      "playability": "OK"
+    },
+    {
+      "id": "-J_Ol823NFc",
+      "title": "Sexta da Mobilidade 7: Combustíveis alternativos e a descarbonização",
+      "eventDate": "27/06/2025",
+      "dateSource": "https://br.linkedin.com/in/marta-reimberg-709241a9",
+      "dateEvidence": "Indexed repost of speaker Caio Luz original announcement explicitly 27 June; matched official 2025/06 event title and speakers. Date source indirect; official HTML extract omitted date.",
+      "videoUrl": "https://www.youtube.com/watch?v=-J_Ol823NFc",
+      "uploadDate": "2025-08-23T06:43:35-07:00",
+      "playability": "OK"
+    },
+    {
+      "id": "uhPqjkp7DKo",
+      "title": "Sexta da Mobilidade 8: Como acelerar a expansão de metrô/trens metropolitanos nas cidades do Brasil?",
+      "eventDate": "29/08/2025",
+      "dateSource": "https://www.youtube.com/watch?v=uhPqjkp7DKo",
+      "dateEvidence": "Explicit date in official video description",
+      "videoUrl": "https://www.youtube.com/watch?v=uhPqjkp7DKo",
+      "uploadDate": "2025-09-25T15:51:32-07:00",
+      "playability": "OK"
+    },
+    {
+      "id": "_5J9ZKNlcCI",
+      "title": "Sexta da Mobilidade 9: Urbanismo Social e teleférico – soluções latino-americanas + Insper Cidades",
+      "eventDate": "26/09/2025",
+      "dateSource": "https://www.youtube.com/watch?v=_5J9ZKNlcCI",
+      "dateEvidence": "Explicit date in official video description",
+      "videoUrl": "https://www.youtube.com/watch?v=_5J9ZKNlcCI",
+      "uploadDate": "2025-10-24T11:57:21-07:00",
+      "playability": "OK"
+    },
+    {
+      "id": "KC3H6yN_wvQ",
+      "title": "Sexta da Mobilidade: a mobilidade urbana liderada por mulheres",
+      "eventDate": "31/10/2025",
+      "dateSource": "https://www.inscricoes.circuitourbano.org/trabalho/view?q=eyJwYXJhbXMiOiJ7XCJJRF9UUkFCQUxIT1wiOlwiNzQ2XCJ9IiwiaCI6IjY3M2ZiNzIyNThhYTA5MWEwMjI5ODRlZjlkZTkxMDVjIn0%3D",
+      "dateEvidence": "Official Circuito Urbano program 2025; Insper event links same video",
+      "videoUrl": "https://www.youtube.com/watch?v=KC3H6yN_wvQ",
+      "uploadDate": "2025-10-31T21:50:31-07:00",
+      "playability": "OK"
+    },
+    {
+      "id": "z-SlSZB8umQ",
+      "title": "Sexta da Mobilidade 11: uso de dados em favor da segurança viária",
+      "eventDate": "28/11/2025",
+      "dateSource": "https://www.insper.edu.br/pt/eventos/2025/11/sexta-da-mobilidade-uso-de-dados-em-favor-da-seguranca-viaria",
+      "dateEvidence": "Official event page search extract displays 28 November; URL confirms 2025",
+      "videoUrl": "https://www.youtube.com/watch?v=z-SlSZB8umQ",
+      "uploadDate": "2026-01-05T09:46:37-08:00",
+      "playability": "OK"
+    },
+    {
+      "id": "OsVRaGqENIc",
+      "title": "Sexta da Mobilidade 12: Tarifa Zero: o avanço dos subsídios e da tarifa zero nas cidades brasileiras",
+      "eventDate": "27/02/2026",
+      "dateSource": "https://www.youtube.com/watch?v=OsVRaGqENIc",
+      "dateEvidence": "Explicit event date in official video description",
+      "videoUrl": "https://www.youtube.com/watch?v=OsVRaGqENIc",
+      "uploadDate": "2026-07-06T07:01:25-07:00",
+      "playability": "OK"
+    },
+    {
+      "id": "-qAvQx0YvJA",
+      "title": "Sexta da Mobilidade 13: Eleições 26: pautas estratégicas para a agenda federal da mobilidade urbana",
+      "eventDate": "24/04/2026",
+      "dateSource": "https://www.youtube.com/watch?v=-qAvQx0YvJA",
+      "dateEvidence": "Explicit event date in official video description",
+      "videoUrl": "https://www.youtube.com/watch?v=-qAvQx0YvJA",
+      "uploadDate": "2026-07-06T07:08:19-07:00",
+      "playability": "OK"
+    },
+    {
+      "id": "D0EivrvXzj0",
+      "title": "Sexta da Mobilidade 14: Tarifa Zero: Mobilidade nas Eleições Segurança Viária",
+      "eventDate": "29/05/2026",
+      "dateSource": "https://www.youtube.com/watch?v=D0EivrvXzj0",
+      "dateEvidence": "Explicit event date in official video description; official event title omits erroneous Tarifa Zero prefix in YouTube title",
+      "videoUrl": "https://www.youtube.com/watch?v=D0EivrvXzj0",
+      "uploadDate": "2026-07-06T07:45:39-07:00",
+      "playability": "OK"
+    },
+    {
+      "id": "NDYDMJvKzbw",
+      "title": "Sexta da Mobilidade 14: Mobilidade Nas Eleições 2026: Descarbonização do Transporte",
+      "eventDate": "26/06/2026",
+      "dateSource": "https://www.youtube.com/watch?v=NDYDMJvKzbw",
+      "dateEvidence": "Explicit event date in official video description; public replacement for private 6DmTzXg4Ri8",
+      "videoUrl": "https://www.youtube.com/watch?v=NDYDMJvKzbw",
+      "uploadDate": "2026-09-01T08:14:40-07:00",
+      "playability": "OK"
+    }
+  ]
+}
