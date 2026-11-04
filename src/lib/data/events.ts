@@ -358,7 +358,7 @@ export const eventsData: EventData[] = [
   },
 
   // Sexta da Mobilidade
-  // Fontes e datas dos encontros: docs/sexta-da-mobilidade-2026-11-02.json.
+  // Fontes e datas dos encontros: src/lib/data/__tests__/fixtures/sexta-da-mobilidade-2026-11-02.json.
   {
     id: "transmitted1",
     isTransmitted: true,

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import audit from "../../../../docs/sexta-da-mobilidade-2026-11-02.json";
+import audit from "./fixtures/sexta-da-mobilidade-2026-11-02.json";
 import { eventsData, getEventById, getEventHref, getPastEvents, getEventSections, getUpcomingEvents, isVideoPending, type EventData } from "@/lib/data/events";
 
 const mockEvents: EventData[] = [
