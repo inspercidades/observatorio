@@ -1,13 +1,18 @@
 "use client"
 
 import { BrandSlider } from "@/components/brand-slider"
-import { EventsSection } from "@/components/events-section"
+import { GeoPortalHighlight } from "@/components/geoportal-highlight"
 import { Header } from "@/components/header"
 import { HeroSwiper } from "@/components/hero-swiper"
-import { ImpactNumbersSection } from "@/components/impact-numbers-section"
 import { ProjectsSection } from "@/components/projects-section"
+import type { ReactNode } from "react"
 
-export function HomeContent() {
+interface HomeContentProps {
+  agenda: ReactNode
+  impact: ReactNode
+}
+
+export function HomeContent({ agenda, impact }: HomeContentProps) {
   return (
     <div className="min-h-screen bg-black">
       <div className="absolute top-0 left-0 w-full z-50">
@@ -17,17 +22,17 @@ export function HomeContent() {
       {/* Hero Swiper */}
       <HeroSwiper />
 
+      {/* GeoPortal */}
+      <GeoPortalHighlight />
+
       {/* Brand Slider Section */}
       <BrandSlider />
 
       {/* Projects Section */}
-      <ProjectsSection />
+      <ProjectsSection impact={impact} />
 
-      {/* Events Section */}
-      <EventsSection />
-
-      {/* impact numbers */}
-      <ImpactNumbersSection />
+      {/* Agenda: eventos futuros, cursos abertos e eventos recentes */}
+      {agenda}
 
       {/* video cast */}
       {/* <VideoCastSection /> */}

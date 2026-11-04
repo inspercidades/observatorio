@@ -1,4 +1,13 @@
-import connectedSmartCities from "@/app/assets/images/connectedsmartcities.png"
+import sextaVideo15 from "@/app/assets/images/sexta_mobilidade_15.jpg"
+import sextaVideo14 from "@/app/assets/images/sexta_mobilidade_14.jpg"
+import sextaVideo13 from "@/app/assets/images/sexta_mobilidade_13.jpg"
+import sextaVideo12 from "@/app/assets/images/sexta_mobilidade_12.jpg"
+import sextaVideo11 from "@/app/assets/images/sexta_mobilidade_11.jpg"
+import sextaVideo10 from "@/app/assets/images/sexta_mobilidade_10.jpg"
+import sextaVideo9 from "@/app/assets/images/sexta_mobilidade_9.jpg"
+import sextaVideo8 from "@/app/assets/images/sexta_mobilidade_8.jpg"
+import sextaVideo2 from "@/app/assets/images/sexta_mobilidade_2.jpg"
+import connectedSmartCities from "@/app/assets/images/connected_smart_cities_2026.webp"
 import events1 from "@/app/assets/images/events1.png"
 import events2 from "@/app/assets/images/events2.png"
 import events3 from "@/app/assets/images/events3.png"
@@ -9,6 +18,9 @@ import events8 from "@/app/assets/images/events8.png"
 import events9 from "@/app/assets/images/events9.png"
 import lancamentoAvaliacao from "@/app/assets/images/lancamentoavaliacao.jpg"
 import lancamentoOms from "@/app/assets/images/lancamentooms.jpg"
+import mobifilm2026 from "@/app/assets/images/mobifilm_2026.webp"
+import sextaMobilidadeNovembro2026 from "@/app/assets/images/sexta_da_mobilidade_novembro_2026.webp"
+import sextaMobilidadeSegurancaViaria2026 from "@/app/assets/images/sexta_da_mobilidade_seguranca_viaria_2026.webp"
 import trilhaMobilidade from "@/app/assets/images/trilha_mobilidade.webp"
 import transmitted1 from "@/app/assets/images/transmitted1.png"
 import transmitted3 from "@/app/assets/images/transmitted3.png"
@@ -18,6 +30,21 @@ import transmitted6 from "@/app/assets/images/transmitted6.png"
 import transmitted7 from "@/app/assets/images/transmitted7.png"
 import video7 from "@/app/assets/images/video7.png"
 import { StaticImageData } from "next/image"
+import { parseBrDate, startOfToday } from "@/lib/data/dates"
+
+/** Uma mesa ou painel com participação do Observatório. */
+export interface EventSession {
+  stage: string
+  title: string
+  date: string
+  time: string
+  track?: string
+  summary?: string
+  /** Quem do Observatório participa e em qual papel. */
+  onms: { name: string; role: string }[]
+  speakers?: string[]
+  moderation?: string
+}
 
 export interface EventData {
   id: string
@@ -28,8 +55,19 @@ export interface EventData {
   showInHome: boolean
   date: string
   isTransmitted?: boolean
+  series?: "sexta-da-mobilidade"
+  /** URL da gravação; href mantém a página original do evento. */
+  videoUrl?: string
   published?: boolean
   location?: string
+  /** Data final, em "dd/mm/aaaa", para eventos de mais de um dia. */
+  endDate?: string
+  /** Texto mais longo para a página do evento. */
+  about?: string
+  /** Participação do Observatório. Com sessões, o card leva à página do evento. */
+  sessions?: EventSession[]
+  /** Pessoas do Observatório confirmadas, com sessão ainda a definir. */
+  attendees?: { name: string; note?: string }[]
 }
 
 export const eventsData: EventData[] = [
@@ -147,7 +185,7 @@ export const eventsData: EventData[] = [
     title: "Trilha da Mobilidade Urbana: ABX 26",
     description: "01/10/2026 • São Paulo",
     image: trilhaMobilidade,
-    href: "http://archive.today/2026.10.03-202500/https://abxtrilhamobilidadeurbana.framer.website/",
+    href: "https://abxtrilhamobilidadeurbana.framer.website/",
     showInHome: false,
     date: "01/10/2026",
     location: "São Paulo",
@@ -155,15 +193,172 @@ export const eventsData: EventData[] = [
   {
     id: "connected-smart-cities-2026",
     title: "Connected Smart Cities 2026: Parque da Mobilidade Urbana",
-    description: "17/11/2026 • São Paulo",
+    description: "16/11/2026 • Expo Center Norte",
     image: connectedSmartCities,
     href: "https://evento.connectedsmartcities.com.br",
     showInHome: false,
-    date: "17/11/2026",
-    location: "São Paulo",
+    date: "16/11/2026",
+    location: "Expo Center Norte, São Paulo",
+    endDate: "18/11/2026",
+    about:
+      "O Observatório participa do Connected Smart Cities 2026 no Parque da Mobilidade Urbana, com mesas sobre o novo marco do transporte público, mobilidade inclusiva, gestão do trânsito e uso de dados no governo.",
+    sessions: [
+      {
+        stage: "Palco PMU 13 · Mobilidade que Inclui",
+        title: "Inovação e Modernização da Gestão da Mobilidade Urbana: do Novo Marco à Transformação do Setor",
+        date: "17/11/2026",
+        time: "10h30 às 11h30",
+        track: "Mobilidade Inclusiva",
+        summary:
+          "O novo Marco Legal do Transporte Público Coletivo Urbano amplia a agenda de transparência, planejamento e gestão de dados e reforça o papel do SIMU. O painel debate como estados e municípios podem transformar essas diretrizes em capacidade de gestão, projetos estruturados e melhores serviços.",
+        onms: [{ name: "Sérgio Avelleda", role: "Palestrante" }],
+        speakers: [
+          "Maína Celidonio, Secretária Municipal de Transportes, Prefeitura do Rio de Janeiro",
+          "Leiner Bastos, Gerente de Soluções, Banco do Brasil",
+          "João Lucas Albuquerque, Gerente de Mobilidade, FNP",
+          "Marcos Daniel Souza dos Santos, Secretário Nacional de Mobilidade Urbana, Ministério das Cidades",
+        ],
+      },
+      {
+        stage: "Palco PMU 13 · Mobilidade que Inclui",
+        title: "Mobilidade como política pública",
+        date: "17/11/2026",
+        time: "11h45 às 12h45",
+        track: "Mobilidade Inclusiva",
+        summary:
+          "A organização do transporte urbano exige articulação entre municípios, estados e União para viabilizar sistemas integrados.",
+        onms: [{ name: "Vinicius Oike", role: "Palestrante" }],
+        speakers: [
+          "Ricardo Silva, Prefeito, Prefeitura de Ribeirão Preto",
+          "Bruna Pengo, Coordenadora de Projetos, Instituto Cidades Responsivas",
+          "Andrei Cossetin, Prefeito, Prefeitura de Ijuí",
+          "Jocelia Marcimiano Gorla, Gerente de Planejamento de Trânsito e Urbanização, Prefeitura de Londrina",
+        ],
+        moderation: "Ana Nassar, Diretora de Programas, ITDP",
+      },
+      {
+        stage: "Palco PMU 14 · Mobilidade no Tempo Real",
+        title: "Tecnologia para gestão do trânsito nas cidades",
+        date: "17/11/2026",
+        time: "16h30 às 17h30",
+        track: "Tecnologia",
+        summary:
+          "Como semáforos inteligentes, monitoramento e análise de dados estão sendo usados para reduzir congestionamentos e melhorar a fluidez urbana.",
+        onms: [{ name: "Vinicius Oike", role: "Moderador" }],
+        speakers: [
+          "Ana Carolina Carvalho, Arquiteta Urbanista, Metrics Mobilidade",
+          "Rafael Rueda Muhlmann, Secretário de Inovação, Modernização e Transformação Digital, Prefeitura de São José dos Pinhais",
+          "Emanuele Cassimiro, Diretora de Relacionamento e Estratégia, Primova",
+          "Milton Roberto Persoli, Diretor-Presidente, CET",
+        ],
+      },
+      {
+        stage: "Palco PMU 16 · Mobilidade que Descarboniza",
+        title: "Políticas públicas para mobilidade sustentável",
+        date: "17/11/2026",
+        time: "16h30 às 17h30",
+        summary: "Como estruturar políticas de longo prazo para redução de emissões.",
+        onms: [{ name: "Suzana Nogueira", role: "Participante" }],
+        speakers: ["Letícia Sabino, Diretora Presidente, Instituto Caminhabilidade"],
+      },
+      {
+        stage: "Palco GOV 2 · Governo Orientado por Dados",
+        title: "Uso avançado de dados: analytics e predição na gestão pública",
+        date: "18/11/2026",
+        time: "15h15 às 16h15",
+        track: "Ética e Governança de Dados",
+        summary: "Como dados podem antecipar demandas e melhorar decisões.",
+        onms: [{ name: "Vinicius Oike", role: "Moderador" }],
+        speakers: [
+          "Ricardo Marinho Soares Braz, Coordenador do Escritório de Dados, Prefeitura de Niterói",
+          "Sérvio Túlio Teixeira e Silva, Secretário Executivo da Presidência, TCE-GO",
+          "Marcos Monteiro, Secretário Municipal de Infraestrutura Urbana e Obras, Prefeitura de São Paulo",
+        ],
+      },
+    ],
+  },
+  {
+    id: "sexta-da-mobilidade-seguranca-viaria-2026",
+    series: "sexta-da-mobilidade",
+    title: "Sexta da Mobilidade: Dados e estratégias de segurança viária",
+    description: "30/10/2026 • Sexta da Mobilidade",
+    image: sextaMobilidadeSegurancaViaria2026,
+    href: "https://www.insper.edu.br/pt/eventos/2026/10/sexta-da-mobilidade-dados-e-estrategias-de-seguranca-viaria",
+    showInHome: false,
+    date: "30/10/2026",
+    location: "Sexta da Mobilidade",
+  },
+  {
+    id: "mobifilm-2026",
+    title: "Mobifilm 2026: VI Festival Brasileiro de Filmes sobre Mobilidade Urbana",
+    description: "12/11/2026 • Insper",
+    image: mobifilm2026,
+    href: "https://www.mobifilm.com.br/",
+    showInHome: false,
+    date: "12/11/2026",
+    endDate: "14/11/2026",
+    location: "Insper",
+    about:
+      "O festival reúne 37 filmes em sete categorias, nove sessões de cinema, dois seminários e a cerimônia de premiação, com apresentação de Leona Cavalli. Entrada gratuita, com transmissão no YouTube do Mobifilm.",
+    sessions: [
+      {
+        stage: "Abertura",
+        title: "Abertura oficial do festival",
+        date: "12/11/2026",
+        time: "9h30",
+        onms: [{ name: "Tomás Alvim", role: "Abertura" }],
+      },
+      {
+        stage: "Seminário 1",
+        title: "Os rumos do transporte público no Brasil",
+        date: "12/11/2026",
+        time: "10h às 12h",
+        onms: [{ name: "Suzana Nogueira", role: "Palestrante" }],
+        speakers: [
+          "João Ronco Jr., Prodata Mobility Brasil",
+          "Maurício Biazotto, Hitachi Rail",
+          "Renata Ruggiero, Motiva",
+        ],
+        moderation: "Alexandre Pelegi, ANTP, Diário do Transporte e Podcast do Transporte",
+      },
+      {
+        stage: "Seminário 2",
+        title: "Violência de trânsito no Brasil: o que está mudando?",
+        date: "13/11/2026",
+        time: "10h às 12h",
+        onms: [
+          { name: "Sérgio Avelleda", role: "Moderador" },
+          { name: "Adriano Borges", role: "Palestrante" },
+        ],
+        speakers: [
+          "Luiz Carlos Néspoli, ANTP",
+          "Ana Beatriz Monteiro Figueiredo, BID",
+          "José Montal, ABRAMET",
+        ],
+      },
+      {
+        stage: "Premiação",
+        title: "Cerimônia de premiação e encerramento",
+        date: "14/11/2026",
+        time: "14h às 17h",
+        summary: "Júri formado por Eliane Caffé, Leonardo Kehdi e Sérgio Kieling.",
+        onms: [{ name: "Sérgio Avelleda", role: "Entrega o prêmio principal" }],
+      },
+    ],
+  },
+  {
+    id: "sexta-da-mobilidade-novembro-2026",
+    series: "sexta-da-mobilidade",
+    title: "Sexta da Mobilidade: última edição do ano de 2026",
+    description: "27/11/2026 • Sexta da Mobilidade",
+    image: sextaMobilidadeNovembro2026,
+    showInHome: false,
+    date: "27/11/2026",
+    location: "Sexta da Mobilidade",
   },
 
   // Sexta da Mobilidade
+  // Fontes e datas dos encontros: src/lib/data/__tests__/fixtures/sexta-da-mobilidade-2026-11-02.json.
   {
     id: "transmitted1",
     isTransmitted: true,
@@ -171,7 +366,7 @@ export const eventsData: EventData[] = [
     description: "Sexta da Mobilidade",
     image: transmitted1,
     showInHome: false,
-    date: "2025",
+    date: "30/08/2024",
     location: "Sexta da Mobilidade",
     href: "https://youtu.be/IfodUOjixfk",
   },
@@ -180,9 +375,9 @@ export const eventsData: EventData[] = [
     isTransmitted: true,
     title: "Dados e Mobilidade Urbana",
     description: "Sexta da Mobilidade",
-    image: transmitted1,
+    image: sextaVideo2,
     showInHome: false,
-    date: "2025",
+    date: "25/10/2024",
     location: "Sexta da Mobilidade",
     href: "https://youtu.be/81MLQuaW0aY",
   },
@@ -193,7 +388,7 @@ export const eventsData: EventData[] = [
     description: "Sexta da Mobilidade",
     image: transmitted3,
     showInHome: false,
-    date: "2025",
+    date: "29/11/2024",
     location: "Sexta da Mobilidade",
     href: "https://youtu.be/rAv5NNZWByQ",
   },
@@ -204,7 +399,7 @@ export const eventsData: EventData[] = [
     description: "Sexta da Mobilidade",
     image: transmitted4,
     showInHome: false,
-    date: "2025",
+    date: "21/02/2025",
     location: "Sexta da Mobilidade",
     href: "https://youtu.be/wWF66SLgErs",
   },
@@ -215,7 +410,7 @@ export const eventsData: EventData[] = [
     description: "Sexta da Mobilidade",
     image: transmitted5,
     showInHome: false,
-    date: "2025",
+    date: "21/03/2025",
     location: "Sexta da Mobilidade",
     href: "https://youtu.be/z8mLOna5ry4",
   },
@@ -226,7 +421,7 @@ export const eventsData: EventData[] = [
     description: "Sexta da Mobilidade",
     image: transmitted6,
     showInHome: false,
-    date: "2025",
+    date: "30/05/2025",
     location: "Sexta da Mobilidade",
     href: "https://www.youtube.com/watch?v=yk3ffu7kuys&list=PLw0ygoHfe_jMvdGpI8WhU1-CIVEWm1-k-&index=7",
   },
@@ -237,46 +432,146 @@ export const eventsData: EventData[] = [
     description: "Sexta da Mobilidade",
     image: transmitted7,
     showInHome: false,
-    date: "2025",
+    date: "27/06/2025",
     location: "Sexta da Mobilidade",
     href: "https://www.youtube.com/watch?v=-J_Ol823NFc&list=PLw0ygoHfe_jMvdGpI8WhU1-CIVEWm1-k-&index=8",
   },
+  {
+    id: "transmitted8",
+    isTransmitted: true,
+    title: "Como acelerar a expansão de metrô/trens metropolitanos nas cidades do Brasil?",
+    description: "Sexta da Mobilidade",
+    image: sextaVideo8,
+    showInHome: false,
+    date: "29/08/2025",
+    location: "Sexta da Mobilidade",
+    href: "https://youtu.be/uhPqjkp7DKo",
+  },
+  {
+    id: "transmitted9",
+    isTransmitted: true,
+    title: "Urbanismo Social e teleférico – soluções latino-americanas + Insper Cidades",
+    description: "Sexta da Mobilidade",
+    image: sextaVideo9,
+    showInHome: false,
+    date: "26/09/2025",
+    location: "Sexta da Mobilidade",
+    href: "https://youtu.be/_5J9ZKNlcCI",
+  },
+  {
+    id: "transmitted10",
+    isTransmitted: true,
+    title: "a mobilidade urbana liderada por mulheres",
+    description: "Sexta da Mobilidade",
+    image: sextaVideo10,
+    showInHome: false,
+    date: "31/10/2025",
+    location: "Sexta da Mobilidade",
+    href: "https://youtu.be/KC3H6yN_wvQ",
+  },
+  {
+    id: "transmitted11",
+    isTransmitted: true,
+    title: "uso de dados em favor da segurança viária",
+    description: "Sexta da Mobilidade",
+    image: sextaVideo11,
+    showInHome: false,
+    date: "28/11/2025",
+    location: "Sexta da Mobilidade",
+    href: "https://youtu.be/z-SlSZB8umQ",
+  },
+  {
+    id: "transmitted12",
+    isTransmitted: true,
+    title: "Tarifa Zero: o avanço dos subsídios e da tarifa zero nas cidades brasileiras",
+    description: "Sexta da Mobilidade",
+    image: sextaVideo12,
+    showInHome: false,
+    date: "27/02/2026",
+    location: "Sexta da Mobilidade",
+    href: "https://youtu.be/OsVRaGqENIc",
+  },
+  {
+    id: "transmitted13",
+    isTransmitted: true,
+    title: "Eleições 26: pautas estratégicas para a agenda federal da mobilidade urbana",
+    description: "Sexta da Mobilidade",
+    image: sextaVideo13,
+    showInHome: false,
+    date: "24/04/2026",
+    location: "Sexta da Mobilidade",
+    href: "https://youtu.be/-qAvQx0YvJA",
+  },
+  {
+    id: "transmitted14",
+    isTransmitted: true,
+    title: "Mobilidade nas Eleições 2026: Segurança Viária",
+    description: "Sexta da Mobilidade",
+    image: sextaVideo14,
+    showInHome: false,
+    date: "29/05/2026",
+    location: "Sexta da Mobilidade",
+    href: "https://youtu.be/D0EivrvXzj0",
+  },
+  {
+    id: "transmitted15",
+    isTransmitted: true,
+    title: "Mobilidade Nas Eleições 2026: Descarbonização do Transporte",
+    description: "Sexta da Mobilidade",
+    image: sextaVideo15,
+    showInHome: false,
+    date: "26/06/2026",
+    location: "Sexta da Mobilidade",
+    href: "https://youtu.be/NDYDMJvKzbw",
+  },
 ]
 
-function parseEventDate(date: string) {
-  const [day, month, year] = date.split("/").map(Number)
-  return new Date(year, month - 1, day)
+function getPublishedEvents(events: EventData[] = eventsData) {
+  return events.filter((event) => event.published !== false && !event.isTransmitted)
 }
 
-function startOfToday() {
-  const today = new Date()
-  return new Date(today.getFullYear(), today.getMonth(), today.getDate())
-}
-
-function getPublishedEvents() {
-  return eventsData.filter((event) => event.published !== false && !event.isTransmitted)
+function byDateAscending(a: EventData, b: EventData) {
+  return parseBrDate(a.date).getTime() - parseBrDate(b.date).getTime()
 }
 
 function byDateDescending(a: EventData, b: EventData) {
-  return parseEventDate(b.date).getTime() - parseEventDate(a.date).getTime()
+  return byDateAscending(b, a)
 }
 
-export function getUpcomingEvents(): EventData[] {
-  const today = startOfToday()
-  return getPublishedEvents()
-    .filter((event) => parseEventDate(event.date) >= today)
+/** Eventos de hoje em diante, do mais próximo para o mais distante. */
+/** Último dia do evento; para eventos de um dia, a própria data. */
+function lastDay(event: EventData): Date {
+  return parseBrDate(event.endDate ?? event.date)
+}
+
+export function getUpcomingEvents(today = startOfToday(), events: EventData[] = eventsData): EventData[] {
+  return getPublishedEvents(events)
+    .filter((event) => lastDay(event) >= today)
+    .sort(byDateAscending)
+}
+
+export function getPastEvents(today = startOfToday(), events: EventData[] = eventsData): EventData[] {
+  return getPublishedEvents(events)
+    .filter((event) => lastDay(event) < today)
     .sort(byDateDescending)
 }
 
-export function getPastEvents(): EventData[] {
-  const today = startOfToday()
-  return getPublishedEvents()
-    .filter((event) => parseEventDate(event.date) < today)
-    .sort(byDateDescending)
+/** Seções exclusivas da página de eventos; a agenda da home preserva os realizados recentes. */
+export function getEventSections(today = startOfToday(), events: EventData[] = eventsData) {
+  const past = getPastEvents(today, events)
+  const sexta = [
+    ...past.filter((event) => event.series === "sexta-da-mobilidade"),
+    ...events.filter((event) => event.isTransmitted && event.published !== false),
+  ].sort(byDateDescending)
+  return {
+    upcoming: getUpcomingEvents(today, events),
+    sexta,
+    past: past.filter((event) => event.series !== "sexta-da-mobilidade"),
+  }
 }
 
-export function getTransmittedEvents(): EventData[] {
-  return eventsData.filter((event) => event.isTransmitted).reverse()
+export function isVideoPending(event: EventData): boolean {
+  return event.series === "sexta-da-mobilidade" && !event.videoUrl && !event.isTransmitted
 }
 
 export function getEventsForHome(): EventData[] {
@@ -287,4 +582,13 @@ export function getEventsForHome(): EventData[] {
 
 export function getAllEvents(): EventData[] {
   return eventsData
+}
+
+export function getEventById(id: string, events: EventData[] = eventsData): EventData | undefined {
+  return getPublishedEvents(events).find((event) => event.id === id)
+}
+
+/** Link do card: página interna quando há detalhes da participação, senão o link externo. */
+export function getEventHref(event: EventData): string | undefined {
+  return event.sessions?.length || event.attendees?.length ? `/eventos/${event.id}` : event.href
 }

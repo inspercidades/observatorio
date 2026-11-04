@@ -117,7 +117,7 @@ export function UserBar() {
 
           {isAdmin && (
             <Link
-              href="/projetos/admin/wri-emails"
+              href="/dados/admin/wri-emails"
               className="flex items-center gap-2.5 w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
             >
               <Mail className="h-4 w-4" />

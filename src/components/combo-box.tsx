@@ -28,54 +28,71 @@ const years = [
   { value: "2024", label: "2024" },
 ]
 
-interface YearComboboxProps {
+export interface ComboboxOption {
   value: string
-  onValueChange: (value: string) => void
-  placeholder?: string
-  className?: string
+  label: string
 }
 
-export function YearCombobox({ 
-  value, 
-  onValueChange, 
-  placeholder = "Selecionar ano...",
-  className 
-}: YearComboboxProps) {
+interface ComboboxProps {
+  value: string
+  onValueChange: (value: string) => void
+  options: ComboboxOption[]
+  placeholder?: string
+  searchPlaceholder?: string
+  emptyMessage?: string
+  className?: string
+  id?: string
+  formatValue?: (value: string) => string
+}
+
+export function Combobox({
+  value,
+  onValueChange,
+  options,
+  placeholder = "Selecionar...",
+  searchPlaceholder = "Buscar...",
+  emptyMessage = "Nenhum resultado encontrado.",
+  className,
+  id,
+  formatValue,
+}: ComboboxProps) {
   const [open, setOpen] = React.useState(false)
+  const selected = options.find((option) => option.value === value)
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
+          id={id}
           variant="outline"
           role="combobox"
           aria-expanded={open}
           className={cn("w-full justify-between bg-white hover:bg-white border-0 shadow-none", className)}
         >
-         {`${value ? `Ano: ${value}` : placeholder}`}
+          {selected ? (formatValue ? formatValue(selected.value) : selected.label) : placeholder}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0" align="start">
         <Command>
-          <CommandInput placeholder="Buscar ano..." className="h-9" />
+          <CommandInput placeholder={searchPlaceholder} className="h-9" />
           <CommandList>
-            <CommandEmpty>Nenhum ano encontrado.</CommandEmpty>
+            <CommandEmpty>{emptyMessage}</CommandEmpty>
             <CommandGroup>
-              {years.map((year) => (
+              {options.map((option) => (
                 <CommandItem
-                  key={year.value}
-                  value={year.value}
-                  onSelect={(currentValue) => {
-                    onValueChange(currentValue === value ? "" : currentValue)
+                  key={option.value}
+                  value={option.value}
+                  onSelect={() => {
+                    onValueChange(option.value === value ? "" : option.value)
                     setOpen(false)
                   }}
                 >
-                  {year.label}
+                  {option.label}
                   <Check
                     className={cn(
                       "ml-auto h-4 w-4",
-                      value === year.value ? "opacity-100" : "opacity-0"
+                      value === option.value ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>
@@ -85,6 +102,33 @@ export function YearCombobox({
         </Command>
       </PopoverContent>
     </Popover>
+  )
+}
+
+interface YearComboboxProps {
+  value: string
+  onValueChange: (value: string) => void
+  placeholder?: string
+  className?: string
+}
+
+export function YearCombobox({
+  value,
+  onValueChange,
+  placeholder = "Selecionar ano...",
+  className,
+}: YearComboboxProps) {
+  return (
+    <Combobox
+      value={value}
+      onValueChange={onValueChange}
+      options={years}
+      placeholder={placeholder}
+      searchPlaceholder="Buscar ano..."
+      emptyMessage="Nenhum ano encontrado."
+      className={className}
+      formatValue={(year) => `Ano: ${year}`}
+    />
   )
 }
 

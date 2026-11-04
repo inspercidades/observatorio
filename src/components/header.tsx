@@ -25,23 +25,23 @@ import {
 const projetosItems = [
   {
     title: "Catálogo de Dados",
-    href: "/projetos/catalago-de-dados",
+    href: "/dados/catalogo-de-dados",
     description: "Navegue por um catálogo interativo com dados de mobilidade de diversas cidades brasileiras.",
   },
   {
     title: "Dashboard PEMOB",
-    href: "/projetos/dashboard",
+    href: "/dados/pemob-dashboard",
     description: "Visualize dados espaciais e de mobilidade urbana em mapa interativo com camadas temáticas e ferramentas de visualização.",
   },
 
   {
     title: "Dados PEMOB",
-    href: "/projetos/tabela",
+    href: "/dados/pemob-tabela",
     description: "Explore indicadores de mobilidade de diferentes cidades brasileiras em uma tabela interativa.",
   },
   {
     title: "Painel QualiÔnibus",
-    href: "/projetos/dashboard-wri-brasil",
+    href: "/dados/wri-dashboard",
     description: "Parceria ONMS & WRI Brasil - Dashboard dos dados do QualiÔnibus.",
   },
 ]
@@ -76,7 +76,7 @@ export function Header({ isBgDark = false, className }: HeaderProps) {
 
   // Check if current path contains "geoportal"
   const isGeoportalPage = pathname.includes("geoportal");
-  const isMobilidadePage = pathname.startsWith("/projetos/") && !isGeoportalPage;
+  const isMobilidadePage = pathname.startsWith("/dados/") && !isGeoportalPage;
   
   return (
     <header className={`z-50 w-full ${className} ${isMobileMenuOpen ? 'bg-white' : isGeoportalPage ? 'bg-none!' : isBgDark ? 'bg-gradient-to-b from-[#242424] to-[#242424]/0' : ''}`}>
@@ -113,7 +113,7 @@ export function Header({ isBgDark = false, className }: HeaderProps) {
 
             <NavigationMenuItem>
               <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href="/projetos/geoportal" className={isGeoportalPage ? activeTextClass : inactiveTextClass}>
+                <Link href="/dados/geoportal" className={isGeoportalPage ? activeTextClass : inactiveTextClass}>
                   GeoPortal
                 </Link>
               </NavigationMenuLink>
@@ -219,7 +219,7 @@ export function Header({ isBgDark = false, className }: HeaderProps) {
             </Link>
 
             <Link
-              href="/projetos/geoportal"
+              href="/dados/geoportal"
               onClick={closeMobileMenu}
               className={`block py-3 text-lg font-medium transition-colors ${
                 isGeoportalPage ? "text-black font-medium" : "text-gray-400 hover:text-black"

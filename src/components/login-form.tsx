@@ -53,7 +53,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 
       const callbackUrl = searchParams.get("callbackUrl")
       const destination =
-        callbackUrl && callbackUrl.startsWith("/") ? callbackUrl : "/projetos/dashboard-wri-brasil"
+        callbackUrl && callbackUrl.startsWith("/") ? callbackUrl : "/dados/wri-dashboard"
       window.location.assign(destination)
     } catch {
       setError("Email ou senha incorretos. Tente novamente.")

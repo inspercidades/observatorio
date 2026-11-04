@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from "next/server"
 import { FIREBASE_AUTH_CONFIG } from "@/lib/firebase-auth-config"
 
 const PROTECTED_PATHS = [
-  "/projetos/dashboard-wri-brasil",
-  "/projetos/admin",
+  "/dados/wri-dashboard",
+  "/dados/admin",
 ]
 
 function isProtected(request: NextRequest) {
@@ -74,7 +74,7 @@ export default async function middleware(request: NextRequest) {
         const destination =
           callbackUrl && callbackUrl.startsWith("/")
             ? callbackUrl
-            : "/projetos/dashboard-wri-brasil"
+            : "/dados/wri-dashboard"
         return NextResponse.redirect(new URL(destination, request.url))
       }
       const response = NextResponse.next({ request: { headers } })

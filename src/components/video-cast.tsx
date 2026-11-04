@@ -29,35 +29,35 @@ const videoCast: VideoCast[] = [
     title: 'Soluções baseadas na natureza e mobilidade urbana',
     description: 'Sexta da Mobilidade',
     image: videocast1,
-    href: '/projetos/dashboard'
+    href: '/dados/pemob-dashboard'
   },
   {
     id: 'event2',
     title: 'Apresentação do Observatório Nac. de Mobilidade Sustentável para a comunidade do Rio de Janeiro ',
     description: 'Sexta da Mobilidade',
     image: videocast2,
-    href: '/projetos/geoportal'
+    href: '/dados/geoportal'
   },
   {
     id: 'event3',
     title: 'Gestão metropolitana: desafios e oportunidades',
     description: 'Sexta da Mobilidade',
     image: videocast3,
-    href: '/projetos/catalago-de-dados'
+    href: '/dados/catalogo-de-dados'
   },
   {
     id: 'event4',
     title: 'Lançamento do guia de eletromobilidade',
     description: 'Sexta da Mobilidade',
     image: videocast4,
-    href: '/projetos/tabela'
+    href: '/dados/pemob-tabela'
   },
   {
     id: 'event5',
     title: 'Soluções baseadas na natureza e mobilidade urbana',
     description: 'Sexta da Mobilidade',
     image: videocast5,
-    href: '/projetos/tabela'
+    href: '/dados/pemob-tabela'
   },
 ]
 
