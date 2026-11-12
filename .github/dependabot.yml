@@ -1,0 +1,27 @@
+version: 2
+
+# Padrão Insper: só atualizações de segurança, agrupadas, sem troca de major.
+# Os segredos dos registros privados ficam em Settings > Secrets and variables > Dependabot
+# (da org, liberados para este repo). O cofre do Dependabot é separado do Actions.
+
+updates:
+  - package-ecosystem: "npm"
+    directories:
+      - "/"
+    schedule:
+      interval: "daily"
+    # 0 = desliga version updates; security updates continuam funcionando
+    open-pull-requests-limit: 0
+    groups:
+      security-npm:
+        applies-to: security-updates
+        patterns: ["*"]
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    labels:
+      - "dependencies"
+      - "security"
+      - "sem-changelog"
+    commit-message:
+      prefix: "fix(deps)"
