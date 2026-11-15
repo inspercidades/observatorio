@@ -1,3 +1,4 @@
+import { getFirebaseAdminFirestore } from "@/lib/firebase-admin"
 import { getLiveStream } from "@/lib/live-stream"
 import { NextResponse } from "next/server"
 
@@ -5,18 +6,21 @@ import { NextResponse } from "next/server"
 export const dynamic = "force-dynamic"
 
 export async function GET() {
-  const data = await getLiveStream()
-
-  // Diagnóstico: inclui info de env vars (apenas presença, nunca o valor)
-  if (!data) {
+  // Diagnóstico direto: testa Firestore e captura o erro real
+  try {
+    const db = getFirebaseAdminFirestore()
+    const doc = await db.collection("site-config").doc("live-stream").get()
+    const data = await getLiveStream()
     return NextResponse.json({
-      _debug: {
-        FIREBASE_PROJECT_ID: !!process.env.FIREBASE_PROJECT_ID,
-        FIREBASE_CLIENT_EMAIL: !!process.env.FIREBASE_CLIENT_EMAIL,
-        FIREBASE_PRIVATE_KEY: !!process.env.FIREBASE_PRIVATE_KEY,
-      },
+      docExists: doc.exists,
+      docData: doc.exists ? doc.data() : null,
+      parsedResult: data,
     })
+  } catch (err) {
+    return NextResponse.json({
+      error: String(err),
+      message: err instanceof Error ? err.message : "unknown",
+      stack: err instanceof Error ? err.stack?.split("\n").slice(0, 5) : null,
+    }, { status: 500 })
   }
-
-  return NextResponse.json(data)
 }
