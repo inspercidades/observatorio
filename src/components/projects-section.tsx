@@ -90,13 +90,7 @@ export function ProjectsSection({ impact }: { impact: ReactNode }) {
         <h2 className="mb-6 text-3xl font-medium text-gray-900 md:text-4xl">Sobre o projeto</h2>
         <div className="flex max-w-3xl flex-col gap-4 text-base leading-relaxed text-gray-700">
           <p>
-            Trata-se de uma iniciativa do Centro de Estudos das Cidades - Laboratório Arq. Futuro do Insper, no âmbito do seu núcleo de Mobilidade Urbana, em parceria com a Motiva, cujo objetivo é coletar dados de fontes públicas e privadas, gerenciando essas informações e produzindo pesquisas, artigos e reportes consistentes, que sejam úteis para os tomadores decisão do ecossistema de mobilidade no território nacional.
-          </p>
-          <p>
-            A missão primordial do Observatório é prover o setor e os tomadores de decisão de um banco de dados robusto acerca dos sistemas de mobilidade urbana nas maiores cidades do país.
-          </p>
-          <p>
-            Além disso, o Observatório Nacional de Mobilidade Urbana tem o compromisso de entregar para a sociedade como um todo estudos baseados em dados e evidências, propiciando uma melhora no processo de gestão da área no Brasil.
+            O Observatório Nacional de Mobilidade Sustentável (ONMS), fundado em setembro de 2023, é uma iniciativa do Centro de Estudos das Cidades do Insper. Em parceria com a Motiva, o ONMS pretende consolidar-se como um centro de referência para produção, integração e aplicação de conhecimento voltado à mobilidade sustentável. O portal do ONMS, lançado em janeiro de 2026, reúne todas as produções do Observatório e é peça central para que as decisões em mobilidade no Brasil sejam qualificadas por evidências, conhecimento e aprendizagem coletiva.
           </p>
         </div>
       </section>
