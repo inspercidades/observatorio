@@ -11,7 +11,6 @@ import {
 import adriano_borges from "@/app/assets/images/adriano_borges.png";
 import antonio_henrique from "@/app/assets/images/antonio_henrique.png";
 import beatriz_vanzolini from "@/app/assets/images/beatriz_vanzolini.png";
-import caio_jacintho from "@/app/assets/images/caio.png";
 import denis_andia from "@/app/assets/images/denis_andia.png";
 import eliana_silva from "@/app/assets/images/eliana_silva.png";
 import gabriel_fajardo from "@/app/assets/images/gabriel_fajardo.png";
@@ -21,7 +20,6 @@ import ivanice_schutz from "@/app/assets/images/ivanice_schutz.png";
 import jose_police_neto from "@/app/assets/images/jose_police_neto.png";
 import juan_sebastian from "@/app/assets/images/juan_sebastian.png";
 import laryssa_kruger from "@/app/assets/images/laryssa_kruger.png";
-import lucas_bravo_rosin from "@/app/assets/images/lucas_bravo_rosin.webp";
 import lucas_tavares from "@/app/assets/images/lucas-tavares-da-silva-ferreira.png";
 import lucelio_moraes from "@/app/assets/images/lucelio_moraes.png";
 import marcela_costa from "@/app/assets/images/marcela_costa.png";
@@ -110,23 +108,15 @@ const equipeObservatorio: TeamMember[] = [
   {
     id: '3',
     name: 'Vinicius Oike',
-    role: 'Coordenador de dados',
+    role: 'Cientista de dados',
     image: vinicius_oike,
     email: 'viniciusor@insper.edu.br'
   },
   {
-    id: '4',
-    name: 'Lucas Bravo Rosin',
-    role: 'Especialista em mobilidade urbana',
-    image: lucas_bravo_rosin,
-    email: 'lucasbr5@insper.edu.br'
+    id: '6',
+    name: 'Vinícius Eduardo',
+    role: 'Bolsista de pesquisa',
   },
-  {
-    id: '5',
-    name: 'Philipe Dias',
-    role: 'Cientista de dados',
-    email: 'philipeld@al.insper.edu.br'
-  }
 ]
 
 // Conselho Gestor - Observatório
@@ -321,11 +311,6 @@ const equipeDeDesenvolvimento: DevelopmentTeamMember[] = [
     id: '3',
     name: 'Adriano Borges e Maurício Bouskela',
     role: 'Coordenação Portal de Dados',
-  },
-  {
-    id: '4',
-    name: 'Rinaldo Gama',
-    role: 'Coordenação e revisão de conteúdos'
   },
   {
     id: '5',
