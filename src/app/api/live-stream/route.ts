@@ -1,4 +1,3 @@
-import { getFirebaseAdminFirestore } from "@/lib/firebase-admin"
 import { getLiveStream } from "@/lib/live-stream"
 import { NextResponse } from "next/server"
 
@@ -6,21 +5,24 @@ import { NextResponse } from "next/server"
 export const dynamic = "force-dynamic"
 
 export async function GET() {
-  // Diagnóstico direto: testa Firestore e captura o erro real
+  // Diagnóstico temporário: mostra formato da chave sem expor o conteúdo
+  const rawKey = process.env.FIREBASE_PRIVATE_KEY ?? ""
+  const processed = rawKey.replace(/\\n/g, "\n")
+  const keyDiag = {
+    rawLength: rawKey.length,
+    startsWithQuote: rawKey.startsWith('"') || rawKey.startsWith("'"),
+    endsWithQuote: rawKey.endsWith('"') || rawKey.endsWith("'"),
+    rawStartsWith: rawKey.slice(0, 40),
+    rawEndsWith: rawKey.slice(-30),
+    processedStartsWith: processed.startsWith("-----BEGIN"),
+    processedEndsWithDashes: processed.trimEnd().endsWith("-----"),
+    newlineCount: (processed.match(/\n/g) ?? []).length,
+  }
+
   try {
-    const db = getFirebaseAdminFirestore()
-    const doc = await db.collection("site-config").doc("live-stream").get()
     const data = await getLiveStream()
-    return NextResponse.json({
-      docExists: doc.exists,
-      docData: doc.exists ? doc.data() : null,
-      parsedResult: data,
-    })
+    return NextResponse.json({ data, keyDiag })
   } catch (err) {
-    return NextResponse.json({
-      error: String(err),
-      message: err instanceof Error ? err.message : "unknown",
-      stack: err instanceof Error ? err.stack?.split("\n").slice(0, 5) : null,
-    }, { status: 500 })
+    return NextResponse.json({ error: String(err), keyDiag }, { status: 500 })
   }
 }
