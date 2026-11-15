@@ -4,6 +4,7 @@ import { BrandSlider } from "@/components/brand-slider"
 import { GeoPortalHighlight } from "@/components/geoportal-highlight"
 import { Header } from "@/components/header"
 import { HeroSwiper } from "@/components/hero-swiper"
+import { LiveStreamSection } from "@/components/live-stream-section"
 import { ProjectsSection } from "@/components/projects-section"
 import type { ReactNode } from "react"
 
@@ -21,6 +22,9 @@ export function HomeContent({ agenda, impact }: HomeContentProps) {
 
       {/* Hero Swiper */}
       <HeroSwiper />
+
+      {/* Transmissão ao vivo — aparece automaticamente quando URL está no Firestore */}
+      <LiveStreamSection />
 
       {/* GeoPortal */}
       <GeoPortalHighlight />
