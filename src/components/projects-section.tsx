@@ -6,9 +6,11 @@ import tabela from "@/app/assets/images/tabela.png"
 import wriDashboard from "@/app/assets/images/wri-dashboard.png"
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState, type ReactNode } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { FreeMode } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import type { Swiper as SwiperType } from 'swiper'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -57,6 +59,10 @@ const projects: Project[] = [
 export function ProjectsSection({ impact }: { impact: ReactNode }) {
   const [isHovering, setIsHovering] = useState(false)
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
+  const swiperRef = useRef<SwiperType | null>(null)
+  const swiperReady = useRef(false)
+  const [isBeginning, setIsBeginning] = useState(true)
+  const [isEnd, setIsEnd] = useState(false)
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -99,10 +105,38 @@ export function ProjectsSection({ impact }: { impact: ReactNode }) {
 
       <section className="py-26 pb-16 mx-auto bg-[#f9f9f6]">
         <div className="mx-auto">
-          {/* Section Title */}
-          <h2 className="text-3xl md:text-4xl px-4 2xl:px-16 font-medium text-gray-900 mb-6">
-            Dados
-          </h2>
+          {/* Section Title + Nav Buttons */}
+          <div className="flex items-center justify-between px-4 2xl:px-16 mb-6">
+            <h2 className="text-3xl md:text-4xl font-medium text-gray-900">
+              Dados
+            </h2>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => swiperRef.current?.slidePrev()}
+                disabled={isBeginning}
+                className={`flex h-10 w-10 items-center justify-center border transition-colors ${
+                  isBeginning
+                    ? 'cursor-not-allowed border-gray-200 text-gray-300'
+                    : 'cursor-pointer border-gray-300 text-gray-700 hover:border-gray-900 hover:text-gray-900'
+                }`}
+                aria-label="Slide anterior"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => swiperRef.current?.slideNext()}
+                disabled={isEnd}
+                className={`flex h-10 w-10 items-center justify-center border transition-colors ${
+                  isEnd
+                    ? 'cursor-not-allowed border-gray-200 text-gray-300'
+                    : 'cursor-pointer border-gray-300 text-gray-700 hover:border-gray-900 hover:text-gray-900'
+                }`}
+                aria-label="Próximo slide"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
 
           {/* Projects Horizontal Scroll */}
           <div 
@@ -111,10 +145,21 @@ export function ProjectsSection({ impact }: { impact: ReactNode }) {
             onMouseLeave={() => setIsHovering(false)}
           >
             <Swiper
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper
+                requestAnimationFrame(() => { swiperReady.current = true })
+              }}
+              onReachBeginning={() => { if (swiperReady.current) setIsBeginning(true) }}
+              onReachEnd={() => { if (swiperReady.current) setIsEnd(true) }}
+              onFromEdge={(swiper) => {
+                if (!swiperReady.current) return
+                setIsBeginning(swiper.isBeginning)
+                setIsEnd(swiper.isEnd)
+              }}
               slidesPerView="auto"
               spaceBetween={16}
               freeMode={true}
-              grabCursor={false} // Disable default grab cursor
+              grabCursor={false}
               modules={[FreeMode]}
               className="!overflow-visible"
             >

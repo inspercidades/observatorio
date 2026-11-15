@@ -41,9 +41,11 @@ import vinicius_oike from "@/app/assets/images/vinicius_oike.webp";
 
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState, type ReactNode } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { FreeMode } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import type { Swiper as SwiperType } from 'swiper';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -386,6 +388,21 @@ export default function Sobre() {
   const [isHovering, setIsHovering] = useState(false)
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
 
+  // Nav refs + edge state — Equipe Observatório
+  const swiperRef1 = useRef<SwiperType | null>(null)
+  const [isBeginning1, setIsBeginning1] = useState(true)
+  const [isEnd1, setIsEnd1] = useState(false)
+
+  // Nav refs + edge state — Conselho Gestor
+  const swiperRef2 = useRef<SwiperType | null>(null)
+  const [isBeginning2, setIsBeginning2] = useState(true)
+  const [isEnd2, setIsEnd2] = useState(false)
+
+  // Nav refs + edge state — Equipe Insper Cidades
+  const swiperRef3 = useRef<SwiperType | null>(null)
+  const [isBeginning3, setIsBeginning3] = useState(true)
+  const [isEnd3, setIsEnd3] = useState(false)
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setCursorPos({ x: e.clientX, y: e.clientY })
@@ -485,13 +502,37 @@ export default function Sobre() {
       {/* Section 1: Equipe Observatório */}
       <section className="py-16 mx-auto pt-30">
         <div className="mx-auto">
-          <h2 className="lg:absolute text-xl font-medium text-gray-900 px-4 2xl:px-16 pb-6 lg:pb-0">Equipe Observatório</h2>
+          <div className="lg:absolute px-4 2xl:px-16 flex items-center justify-between gap-4 pb-6 lg:flex-col lg:items-start lg:justify-start lg:pb-0">
+            <h2 className="text-xl font-medium text-gray-900">Equipe Observatório</h2>
+            <div className="flex gap-2">
+              <button
+                onClick={() => swiperRef1.current?.slidePrev()}
+                disabled={isBeginning1}
+                className={`flex h-10 w-10 items-center justify-center border transition-colors ${isBeginning1 ? 'cursor-not-allowed border-gray-200 text-gray-300' : 'cursor-pointer border-gray-300 text-gray-700 hover:border-gray-900 hover:text-gray-900'}`}
+                aria-label="Slide anterior"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => swiperRef1.current?.slideNext()}
+                disabled={isEnd1}
+                className={`flex h-10 w-10 items-center justify-center border transition-colors ${isEnd1 ? 'cursor-not-allowed border-gray-200 text-gray-300' : 'cursor-pointer border-gray-300 text-gray-700 hover:border-gray-900 hover:text-gray-900'}`}
+                aria-label="Próximo slide"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
           <div
             className="px-4 2xl:px-16 pb-4 overflow-x-hidden ml-0! pl-4! md:ml-0! lg:ml-100!"
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
           >
             <Swiper
+              onSwiper={(s) => { swiperRef1.current = s }}
+              onReachBeginning={() => setIsBeginning1(true)}
+              onReachEnd={() => setIsEnd1(true)}
+              onFromEdge={(s) => { setIsBeginning1(s.isBeginning); setIsEnd1(s.isEnd) }}
               slidesPerView="auto"
               spaceBetween={16}
               freeMode={true}
@@ -545,13 +586,37 @@ export default function Sobre() {
       {/* Section 2: Conselho Gestor - Observatório */}
       <section className="py-16 mx-auto">
         <div className="mx-auto">
-          <h2 className="lg:absolute text-xl font-medium text-gray-900 px-4 2xl:px-16 pb-6 lg:pb-0">Conselho Gestor - Observatório</h2>
+          <div className="lg:absolute px-4 2xl:px-16 flex items-center justify-between gap-4 pb-6 lg:flex-col lg:items-start lg:justify-start lg:pb-0">
+            <h2 className="text-xl font-medium text-gray-900">Conselho Gestor - Observatório</h2>
+            <div className="flex gap-2">
+              <button
+                onClick={() => swiperRef2.current?.slidePrev()}
+                disabled={isBeginning2}
+                className={`flex h-10 w-10 items-center justify-center border transition-colors ${isBeginning2 ? 'cursor-not-allowed border-gray-200 text-gray-300' : 'cursor-pointer border-gray-300 text-gray-700 hover:border-gray-900 hover:text-gray-900'}`}
+                aria-label="Slide anterior"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => swiperRef2.current?.slideNext()}
+                disabled={isEnd2}
+                className={`flex h-10 w-10 items-center justify-center border transition-colors ${isEnd2 ? 'cursor-not-allowed border-gray-200 text-gray-300' : 'cursor-pointer border-gray-300 text-gray-700 hover:border-gray-900 hover:text-gray-900'}`}
+                aria-label="Próximo slide"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
           <div
             className="px-4 2xl:px-16 pb-4 overflow-x-hidden ml-0! pl-4! md:ml-0! lg:ml-100!"
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
           >
             <Swiper
+              onSwiper={(s) => { swiperRef2.current = s }}
+              onReachBeginning={() => setIsBeginning2(true)}
+              onReachEnd={() => setIsEnd2(true)}
+              onFromEdge={(s) => { setIsBeginning2(s.isBeginning); setIsEnd2(s.isEnd) }}
               slidesPerView="auto"
               spaceBetween={16}
               freeMode={true}
@@ -605,13 +670,37 @@ export default function Sobre() {
       {/* Section 3: Equipe Insper Cidades */}
       <section className="py-16 mx-auto">
         <div className="mx-auto">
-          <h2 className="lg:absolute text-xl font-medium text-gray-900 px-4 2xl:px-16 pb-6 lg:pb-0">Equipe Insper Cidades</h2>
+          <div className="lg:absolute px-4 2xl:px-16 flex items-center justify-between gap-4 pb-6 lg:flex-col lg:items-start lg:justify-start lg:pb-0">
+            <h2 className="text-xl font-medium text-gray-900">Equipe Insper Cidades</h2>
+            <div className="flex gap-2">
+              <button
+                onClick={() => swiperRef3.current?.slidePrev()}
+                disabled={isBeginning3}
+                className={`flex h-10 w-10 items-center justify-center border transition-colors ${isBeginning3 ? 'cursor-not-allowed border-gray-200 text-gray-300' : 'cursor-pointer border-gray-300 text-gray-700 hover:border-gray-900 hover:text-gray-900'}`}
+                aria-label="Slide anterior"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => swiperRef3.current?.slideNext()}
+                disabled={isEnd3}
+                className={`flex h-10 w-10 items-center justify-center border transition-colors ${isEnd3 ? 'cursor-not-allowed border-gray-200 text-gray-300' : 'cursor-pointer border-gray-300 text-gray-700 hover:border-gray-900 hover:text-gray-900'}`}
+                aria-label="Próximo slide"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
           <div
             className="px-4 2xl:px-16 pb-4 overflow-x-hidden ml-0! pl-4! md:ml-0! lg:ml-100!"
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
           >
             <Swiper
+              onSwiper={(s) => { swiperRef3.current = s }}
+              onReachBeginning={() => setIsBeginning3(true)}
+              onReachEnd={() => setIsEnd3(true)}
+              onFromEdge={(s) => { setIsBeginning3(s.isBeginning); setIsEnd3(s.isEnd) }}
               slidesPerView="auto"
               spaceBetween={16}
               freeMode={true}
