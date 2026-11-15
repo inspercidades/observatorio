@@ -18,7 +18,9 @@ function getFirebaseAdminApp(): App {
     credential: cert({
       projectId: requireEnv("FIREBASE_PROJECT_ID"),
       clientEmail: requireEnv("FIREBASE_CLIENT_EMAIL"),
-      privateKey: requireEnv("FIREBASE_PRIVATE_KEY").replace(/\\n/g, "\n"),
+      privateKey: requireEnv("FIREBASE_PRIVATE_KEY")
+        .replace(/^["']|["']$/g, "") // remove aspas externas inseridas acidentalmente
+        .replace(/\\n/g, "\n"),      // converte \n literal em quebra de linha real
     }),
   })
 }

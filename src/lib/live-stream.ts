@@ -31,8 +31,8 @@ export async function getLiveStream(): Promise<LiveStreamData | null> {
       title: data.title ?? "Sexta da Mobilidade",
       description: data.description,
     }
-  } catch (err) {
-    console.error("[live-stream] Erro ao buscar documento no Firestore:", err)
+  } catch {
+    // Falha silenciosa: a home não deve quebrar por erro de leitura no Firestore
     return null
   }
 }
