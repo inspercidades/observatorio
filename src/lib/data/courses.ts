@@ -6,7 +6,7 @@ import cursoSegurancaViaria from "@/app/assets/images/curso_seguranca_viaria.web
 import { parseBrDate, startOfToday } from "@/lib/data/dates";
 import { Course } from "@/lib/types/course";
 
-export const CUSTOM_COURSES_EMAIL = "mobilidade@insper.edu.br";
+export const CUSTOM_COURSES_EMAIL = "mobilidade.contato@insper.edu.br";
 
 export const courses: Course[] = [
   // Cursos abertos (recorrentes)

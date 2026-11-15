@@ -29,77 +29,84 @@ interface Publication {
 
 const publications: Publication[] = [
   {
-    id: "10",
-    title: "Relatório de Indicadores QualiÔnibus - Edição 2026",
+    id: "relatorio-qualionibus-2026",
+    title: "Relatório de Indicadores QualiÔnibus — Edição 2026",
     description: "O Relatório de Indicadores QualiÔnibus reúne os principais indicadores de monitoramento da qualidade do transporte por ônibus no Brasil. Este relatório marca o início da parceria entre o Observatório Nacional de Mobilidade Sustentável e a WRI Brasil.",
     image: relatorioQualionibus2026,
     alt: "Relatório de Indicadores QualiÔnibus - Edição 2026",
     tipo: "relatorios",
     link: "/2026_relatorio_qualionibus.pdf",
-    tags: ["Transporte Público Coletivo", "Planejamento do Transporte"],
+    tags: ["Transporte Público Coletivo", "Planejamento do Transporte", "Mobilidade Urbana"],
   },
   {
-    id: "1",
+    id: "guia-eletromobilidade",
     title: "Guia de Eletromobilidade para Cidades Brasileiras",
     description: "Este Guia foi elaborado pelo Núcleo de Mobilidade Urbana do Centro de Estudos das Cidades – Laboratório Arq.Futuro do Insper, com apoio e cooperação técnica do Itaú Unibanco.",
     image: publicacao1,
     alt: "Guia de Eletromobilidade",
     tipo: "relatorios",
-    link: "https://repositorio-api.insper.edu.br/server/api/core/bitstreams/72e76cf4-e9b7-4a57-a9c5-2441c178db7c/content"
+    link: "https://repositorio-api.insper.edu.br/server/api/core/bitstreams/72e76cf4-e9b7-4a57-a9c5-2441c178db7c/content",
+    tags: ["Transporte Público Coletivo", "Descarbonização", "Gestão Pública"],
   },
   {
-    id: "2",
+    id: "guia-mobilidade-humana",
     title: "Guia de Mobilidade Humana",
     description: "O Guia de Mobilidade Humana tem o propósito de fornecer orientação prática a partir de referências relevantes baseadas em dados e evidências, experiências de gestão no setor da mobilidade e na literatura disponível.",
     image: publicacao2,
     alt: "Guia de Mobilidade Humana",
     tipo: "relatorios",
-    link: "https://repositorio.insper.edu.br/entities/publication/f0dcb9c3-8d56-4cf5-8149-a0c93cadd739"
+    link: "https://repositorio.insper.edu.br/entities/publication/f0dcb9c3-8d56-4cf5-8149-a0c93cadd739",
+    tags: ["Mobilidade Urbana", "Planejamento do Transporte", "Transporte Público Coletivo"],
   },
   {
-    id: "3",
+    id: "mobilidade-humana-2024",
     title: "Mobilidade Humana",
     description: "Documento para apoiar a elaboração de programas de governo com foco em mobilidade urbana sustentável para as eleições municipais de 2024.",
     image: publicacao3,
     alt: "Mobilidade Humana",
     tipo: "relatorios",
-    link: "https://repositorio-api.insper.edu.br/server/api/core/bitstreams/74ba137c-45f8-4f98-b20e-9462e8dbb76a/content"
+    link: "https://repositorio-api.insper.edu.br/server/api/core/bitstreams/74ba137c-45f8-4f98-b20e-9462e8dbb76a/content",
+    tags: ["Mobilidade Sustentável", "Eleições", "Política e Governo"],
   },
   {
-    id: "4",
+    id: "coalizao-transportes-completo",
     title: "Coalizão dos Transportes (Completo)",
     description: "Estudo Completo — Coalizão dos transportes: como tornar o setor de transportes um contribuidor ativo para a redução das emissões brasileiras.",
     image: publicacao4,
     alt: "Coalizão dos Transportes (Completo)",
     tipo: "relatorios",
-    link: "https://cdn.cnt.org.br/diretorioVirtual/23c3a08d-9fd6-4d8d-ba5c-3e935eed10fa.pdf"
+    link: "https://cdn.cnt.org.br/diretorioVirtual/23c3a08d-9fd6-4d8d-ba5c-3e935eed10fa.pdf",
+    tags: ["Transportes e Logística", "Descarbonização", "Emissões"],
   },
   {
-    id: "5",
+    id: "faixa-azul-sinistros",
     title: "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo",
-    description: "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo",
+    description: "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo.",
     image: publicacao5,
     alt: "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo",
     tipo: "policy_paper",
-    link: "https://repositorio.insper.edu.br/entities/publication/36ec3e70-30bd-4c24-92bb-515e18f233be"
+    link: "https://repositorio.insper.edu.br/entities/publication/36ec3e70-30bd-4c24-92bb-515e18f233be",
+    tags: ["Segurança Viária", "Mobilidade Sustentável", "Motocicleta"],
   },
   {
-    id: "8",
+    id: "coalizao-transportes-sintese",
     title: "Coalizão dos Transportes (Síntese)",
-    description: "Relatório Síntese — Coalizão dos transportes: como tornar o setor de transportes um contribuidor ativo para a redução das emissões brasileiras",
+    description: "Relatório Síntese — Coalizão dos transportes: como tornar o setor de transportes um contribuidor ativo para a redução das emissões brasileiras.",
     image: publi_princ_conc,
     alt: "Coalizão dos Transportes (Síntese)",
     tipo: "relatorios",
-    link: "https://insper-my.sharepoint.com/:b:/g/personal/laboratorioarqfuturo_insper_edu_br/EbQUkLDHw9BKsRjutjw0kfABvgvfNXh3QfvGciMOU2ULbQ?e=rB6tWf"
+    link: "https://insper-my.sharepoint.com/:b:/g/personal/laboratorioarqfuturo_insper_edu_br/EbQUkLDHw9BKsRjutjw0kfABvgvfNXh3QfvGciMOU2ULbQ?e=rB6tWf",
+    tags: ["Transportes e Logística", "Descarbonização", "Emissões"],
   },
   {
-    id: "9",
+    id: "economia-azul-e-cidades",
     title: "Economia Azul e Cidades",
-    description: "A Economia Azul, ou Economia do Mar, engloba atividades produtivas sustentáveis ligadas a corpos d’água com grande potencial de impacto em países como o Brasil. Com uma abordagem multidisciplinar, a obra reúne textos de especialistas e oferece um roteiro prático para a criação de planos estratégicos.",
+    description: "A Economia Azul, ou Economia do Mar, engloba atividades produtivas sustentáveis ligadas a corpos d'água com grande potencial de impacto em países como o Brasil. Com uma abordagem multidisciplinar, a obra reúne textos de especialistas e oferece um roteiro prático para a criação de planos estratégicos.",
     image: economia_azul,
     alt: "Economia Azul e Cidades",
     tipo: "livros",
-    link: "https://bei.com.br/livro/economia-azul-e-cidades/309"
+    link: "https://bei.com.br/livro/economia-azul-e-cidades/309",
+    tags: ["Transportes e Logística", "Mobilidade Sustentável", "Descarbonização"],
   },
 ];
 
@@ -206,6 +213,18 @@ function PublicacoesContent() {
               <p className="text-xs text-gray-600 mt-2">
                 {publication.description}
               </p>
+              {publication.tags && publication.tags.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  {publication.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-[10px] text-gray-500 bg-gray-100 border border-gray-200 rounded-md px-2.5 py-0.5 leading-tight"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
       </div>

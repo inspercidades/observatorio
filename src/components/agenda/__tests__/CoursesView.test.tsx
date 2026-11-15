@@ -74,7 +74,7 @@ describe("CoursesView", () => {
   it("oferece contato por e-mail para cursos customizados", () => {
     render(<CoursesView upcoming={[]} open={open} custom={custom} />);
     const cta = screen.getByRole("link", { name: /fale conosco/i });
-    expect(cta).toHaveAttribute("href", expect.stringContaining("mailto:mobilidade@insper.edu.br"));
+    expect(cta).toHaveAttribute("href", expect.stringContaining("mailto:mobilidade.contato@insper.edu.br"));
   });
 
   it("destaca o curso com inscrições abertas e o prazo", () => {
