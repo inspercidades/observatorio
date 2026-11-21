@@ -43,4 +43,5 @@ next-env.d.ts
 # clerk configuration (can include secrets)
 /.clerk/
 
-/scripts/data
+# local testing artifacts from the playwright MCP server
+/.playwright-mcp/
