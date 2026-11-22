@@ -11,7 +11,7 @@ describe("Eventos", () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date(2026, 10, 2));
     render(<Eventos />);
-    const title = screen.getByRole("heading", { name: "Sexta da Mobilidade: Dados e estratégias de segurança viária" });
+    const title = screen.getByRole("heading", { name: "Sexta da Mobilidade: dados e estratégias de segurança viária" });
     const card = title.parentElement!;
     expect(within(card).getByText("Vídeo em breve")).toBeInTheDocument();
     expect(card).toHaveAttribute("href", "https://www.insper.edu.br/pt/eventos/2026/10/sexta-da-mobilidade-dados-e-estrategias-de-seguranca-viaria");
