@@ -83,3 +83,38 @@ export function getAgenda(
     .map((event) => toAgendaItem(event, true));
   return [...limited, ...recentPast];
 }
+
+export interface HomeAgenda {
+  featured?: AgendaItem;
+  upcoming: AgendaItem[];
+  past: AgendaItem[];
+}
+
+const DATED = /^\d{2}\/\d{2}\/\d{4}$/;
+
+/**
+ * Agenda da home: o próximo item em destaque, até três seguintes e até dois
+ * realizados nos últimos 60 dias. Sem nada pela frente, o último evento
+ * realizado ocupa o destaque, para a seção nunca ficar vazia.
+ */
+export function getHomeAgenda(
+  today = startOfToday(),
+  events: EventData[] = eventsData,
+  courseList: Course[] = courses,
+): HomeAgenda {
+  const items = getAgenda(today, events, courseList, undefined, { recentPastDays: 60 });
+  const [featured, ...rest] = items.filter((item) => !item.isPast);
+
+  if (featured) {
+    return {
+      featured,
+      upcoming: rest.slice(0, 3),
+      past: items.filter((item) => item.isPast).slice(0, 2),
+    };
+  }
+
+  const past = getPastEvents(today, events)
+    .filter((event) => DATED.test(event.date))
+    .map((event) => toAgendaItem(event, true));
+  return { featured: past[0], upcoming: [], past: past.slice(1, 3) };
+}

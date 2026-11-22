@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getAgenda } from "@/lib/data/agenda";
+import { getAgenda, getHomeAgenda } from "@/lib/data/agenda";
 import type { EventData } from "@/lib/data/events";
 import type { Course } from "@/lib/types/course";
 
@@ -63,5 +63,20 @@ describe("getAgenda", () => {
     const [item] = getAgenda(today, multi, []);
     expect(item.endDate).toEqual(new Date(2026, 10, 19));
     expect(item.dateLabel).toBe("17 a 19/11/2026");
+  });
+});
+
+describe("getHomeAgenda", () => {
+  it("destaca o próximo item e lista os seguintes", () => {
+    const home = getHomeAgenda(today, mockEvents, mockCourses);
+    expect(home.featured?.id).toBe("sexta-out");
+    expect(home.upcoming.map((i) => i.id)).toEqual(["seguranca", "sexta-nov"]);
+  });
+
+  it("sem itens futuros, destaca o último evento realizado mesmo fora da janela recente", () => {
+    const home = getHomeAgenda(new Date(2027, 1, 15), mockEvents, mockCourses);
+    expect(home.featured).toMatchObject({ id: "sexta-nov", isPast: true });
+    expect(home.upcoming).toEqual([]);
+    expect(home.past.map((i) => i.id)).toEqual(["sexta-out", "passado"]);
   });
 });
