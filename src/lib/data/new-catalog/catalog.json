@@ -607,51 +607,6 @@
     ]
   },
   {
-    "id": "bilhetagem-salvador",
-    "title": "Bilhetagem eletrônica – Salvador",
-    "description": "Embarques nos ônibus de Salvador registrados pela bilhetagem eletrônica, incluindo os dados do sistema de clearing.",
-    "theme": "Transporte Público Coletivo",
-    "geographicScope": "Municipal",
-    "category": "Demanda",
-    "formats": [
-      "Tabela"
-    ],
-    "region": "Salvador",
-    "cities": [
-      "Salvador"
-    ],
-    "source": "Prefeitura de Salvador / SETIN",
-    "sourceLink": "https://salvador.ba.gov.br",
-    "keywords": [
-      "Bilhetagem eletrônica",
-      "Ônibus",
-      "Embarques",
-      "Série histórica"
-    ],
-    "period": "2025",
-    "updatedAt": "2025-10-30",
-    "tags": [
-      "Transporte Público Coletivo",
-      "Demanda"
-    ],
-    "dataset_info": [
-      {
-        "dataset_title": "Bilhetagem Eletrônica (Clearing) – Salvador",
-        "dataset_description": "Registros de embarques no transporte público de Salvador via sistema de clearing de bilhetagem eletrônica.",
-        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/RUA5LW",
-        "dataset_period": "2025",
-        "dataset_format": "Tabela"
-      },
-      {
-        "dataset_title": "Bilhetagem Eletrônica – Salvador",
-        "dataset_description": "Registros de embarques no transporte público de Salvador via bilhetagem eletrônica.",
-        "dataset_link": "https://dataverse.datascience.insper.edu.br/dataset.xhtml?persistentId=doi:10.60873/FK2/QIKHOC",
-        "dataset_period": "2025",
-        "dataset_format": "Tabela"
-      }
-    ]
-  },
-  {
     "id": "ciclovias-salvador",
     "title": "Rede cicloviária – Salvador",
     "description": "Shapefile da rede cicloviária do município de Salvador.",
