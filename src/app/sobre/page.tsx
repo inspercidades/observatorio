@@ -127,6 +127,12 @@ const equipeObservatorio: TeamMember[] = [
     email: 'philipeld@al.insper.edu.br'
   },
   {
+    id: '7',
+    name: 'Camilo Andres Bello Portela',
+    role: 'Pesquisador',
+    email: 'camiloabp@insper.edu.br'
+  },
+  {
     id: '6',
     name: 'Vinícius Eduardo',
     role: 'Bolsista de pesquisa',
