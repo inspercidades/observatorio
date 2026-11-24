@@ -22,7 +22,7 @@ const serieVideosData: VideoData[] = [
   {
     id: 2,
     youtubeId: "TG8uj64SAKo",
-    title: "Urbanismo Social",
+    title: "Urbanismo social",
     date: "26/09/2025",
     format: "Série Insper Cidades na Mobilidade",
     href: "https://www.youtube.com/watch?v=TG8uj64SAKo&list=PLw0ygoHfe_jNvLKVkH9sLstXyfChNwx_r&index=10",
@@ -46,7 +46,7 @@ const serieVideosData: VideoData[] = [
   {
     id: 5,
     youtubeId: "KjxxS5nkrpg",
-    title: "Financiamento do Transporte Público",
+    title: "Financiamento do transporte público",
     date: "30/10/2025",
     format: "Série Insper Cidades na Mobilidade",
     href: "https://www.youtube.com/watch?v=KjxxS5nkrpg&list=PLw0ygoHfe_jNvLKVkH9sLstXyfChNwx_r&index=7",
@@ -54,7 +54,7 @@ const serieVideosData: VideoData[] = [
   {
     id: 6,
     youtubeId: "TegcEnZHIMc",
-    title: "Mobilidade Ativa",
+    title: "Mobilidade ativa",
     date: "07/11/2025",
     format: "Série Insper Cidades na Mobilidade",
     href: "https://www.youtube.com/watch?v=TegcEnZHIMc&list=PLw0ygoHfe_jNvLKVkH9sLstXyfChNwx_r&index=6",
@@ -78,7 +78,7 @@ const serieVideosData: VideoData[] = [
   {
     id: 9,
     youtubeId: "eXuZqX-LdTc",
-    title: "Mulheres e Territórios",
+    title: "Mulheres e territórios",
     date: "25/11/2025",
     format: "Série Insper Cidades na Mobilidade",
     href: "https://www.youtube.com/watch?v=eXuZqX-LdTc&list=PLw0ygoHfe_jNvLKVkH9sLstXyfChNwx_r&index=3",
@@ -94,7 +94,7 @@ const serieVideosData: VideoData[] = [
   {
     id: 11,
     youtubeId: "1lDxZaarXUQ",
-    title: "Segurança Viária",
+    title: "Segurança viária",
     date: "17/12/2025",
     format: "Série Insper Cidades na Mobilidade",
     href: "https://www.youtube.com/watch?v=1lDxZaarXUQ&list=PLw0ygoHfe_jNvLKVkH9sLstXyfChNwx_r&index=1",

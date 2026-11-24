@@ -36,7 +36,7 @@ const publications: Publication[] = [
     alt: "Relatório de Indicadores QualiÔnibus - Edição 2026",
     tipo: "relatorios",
     link: "/2026_relatorio_qualionibus.pdf",
-    tags: ["Transporte Público Coletivo", "Planejamento do Transporte", "Mobilidade Urbana"],
+    tags: ["Transporte público coletivo", "Planejamento do transporte", "Mobilidade urbana"],
   },
   {
     id: "guia-eletromobilidade",
@@ -46,7 +46,7 @@ const publications: Publication[] = [
     alt: "Guia de Eletromobilidade",
     tipo: "relatorios",
     link: "https://repositorio-api.insper.edu.br/server/api/core/bitstreams/72e76cf4-e9b7-4a57-a9c5-2441c178db7c/content",
-    tags: ["Transporte Público Coletivo", "Descarbonização", "Gestão Pública"],
+    tags: ["Transporte público coletivo", "Descarbonização", "Gestão pública"],
   },
   {
     id: "guia-mobilidade-humana",
@@ -56,7 +56,7 @@ const publications: Publication[] = [
     alt: "Guia de Mobilidade Humana",
     tipo: "relatorios",
     link: "https://repositorio.insper.edu.br/entities/publication/f0dcb9c3-8d56-4cf5-8149-a0c93cadd739",
-    tags: ["Mobilidade Urbana", "Planejamento do Transporte", "Transporte Público Coletivo"],
+    tags: ["Mobilidade urbana", "Planejamento do transporte", "Transporte público coletivo"],
   },
   {
     id: "mobilidade-humana-2024",
@@ -66,7 +66,7 @@ const publications: Publication[] = [
     alt: "Mobilidade Humana",
     tipo: "relatorios",
     link: "https://repositorio-api.insper.edu.br/server/api/core/bitstreams/74ba137c-45f8-4f98-b20e-9462e8dbb76a/content",
-    tags: ["Mobilidade Sustentável", "Eleições", "Política e Governo"],
+    tags: ["Mobilidade sustentável", "Eleições", "Política e governo"],
   },
   {
     id: "coalizao-transportes-completo",
@@ -76,7 +76,7 @@ const publications: Publication[] = [
     alt: "Coalizão dos Transportes (Completo)",
     tipo: "relatorios",
     link: "https://cdn.cnt.org.br/diretorioVirtual/23c3a08d-9fd6-4d8d-ba5c-3e935eed10fa.pdf",
-    tags: ["Transportes e Logística", "Descarbonização", "Emissões"],
+    tags: ["Transportes e logística", "Descarbonização", "Emissões"],
   },
   {
     id: "faixa-azul-sinistros",
@@ -86,7 +86,7 @@ const publications: Publication[] = [
     alt: "Avaliação do impacto da Faixa Azul nos sinistros de trânsito em São Paulo",
     tipo: "policy_paper",
     link: "https://repositorio.insper.edu.br/entities/publication/36ec3e70-30bd-4c24-92bb-515e18f233be",
-    tags: ["Segurança Viária", "Mobilidade Sustentável", "Motocicleta"],
+    tags: ["Segurança viária", "Mobilidade sustentável", "Motocicleta"],
   },
   {
     id: "coalizao-transportes-sintese",
@@ -96,7 +96,7 @@ const publications: Publication[] = [
     alt: "Coalizão dos Transportes (Síntese)",
     tipo: "relatorios",
     link: "https://insper-my.sharepoint.com/:b:/g/personal/laboratorioarqfuturo_insper_edu_br/EbQUkLDHw9BKsRjutjw0kfABvgvfNXh3QfvGciMOU2ULbQ?e=rB6tWf",
-    tags: ["Transportes e Logística", "Descarbonização", "Emissões"],
+    tags: ["Transportes e logística", "Descarbonização", "Emissões"],
   },
   {
     id: "economia-azul-e-cidades",
@@ -106,7 +106,7 @@ const publications: Publication[] = [
     alt: "Economia Azul e Cidades",
     tipo: "livros",
     link: "https://bei.com.br/livro/economia-azul-e-cidades/309",
-    tags: ["Transportes e Logística", "Mobilidade Sustentável", "Descarbonização"],
+    tags: ["Transportes e logística", "Mobilidade sustentável", "Descarbonização"],
   },
 ];
 

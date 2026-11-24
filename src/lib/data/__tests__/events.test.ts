@@ -133,3 +133,13 @@ it("preserva as datas dos encontros conferidas nas fontes do inventário", () =>
     expect(event?.date, video.title).toBe(video.eventDate);
   }
 });
+
+describe("títulos em caixa de frase", () => {
+  const titles = eventsData.flatMap((event) => [event.title, ...(event.sessions ?? []).map((s) => s.title)]);
+
+  it("começam com letra maiúscula", () => {
+    const lowercase = titles.filter((title) => /^\p{Ll}/u.test(title));
+    expect(lowercase).toEqual([]);
+  });
+
+});

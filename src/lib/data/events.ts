@@ -205,7 +205,7 @@ export const eventsData: EventData[] = [
     sessions: [
       {
         stage: "Palco PMU 13 · Mobilidade que Inclui",
-        title: "Inovação e Modernização da Gestão da Mobilidade Urbana: do Novo Marco à Transformação do Setor",
+        title: "Inovação e modernização da gestão da mobilidade urbana: do novo marco à transformação do setor",
         date: "17/11/2026",
         time: "10h30 às 11h30",
         track: "Mobilidade Inclusiva",
@@ -280,7 +280,7 @@ export const eventsData: EventData[] = [
   {
     id: "sexta-da-mobilidade-seguranca-viaria-2026",
     series: "sexta-da-mobilidade",
-    title: "Sexta da Mobilidade: Dados e estratégias de segurança viária",
+    title: "Sexta da Mobilidade: dados e estratégias de segurança viária",
     description: "30/10/2026 • Sexta da Mobilidade",
     image: sextaMobilidadeSegurancaViaria2026,
     href: "https://www.insper.edu.br/pt/eventos/2026/10/sexta-da-mobilidade-dados-e-estrategias-de-seguranca-viaria",
@@ -373,7 +373,7 @@ export const eventsData: EventData[] = [
   {
     id: "transmitted2",
     isTransmitted: true,
-    title: "Dados e Mobilidade Urbana",
+    title: "Dados e mobilidade urbana",
     description: "Sexta da Mobilidade",
     image: sextaVideo2,
     showInHome: false,
@@ -384,7 +384,7 @@ export const eventsData: EventData[] = [
   {
     id: "transmitted3",
     isTransmitted: true,
-    title: "Soluções brasileiras para o futuro da Mobilidade, o caso do Aeromóvel",
+    title: "Soluções brasileiras para o futuro da mobilidade: o caso do Aeromóvel",
     description: "Sexta da Mobilidade",
     image: transmitted3,
     showInHome: false,
@@ -417,7 +417,7 @@ export const eventsData: EventData[] = [
   {
     id: "transmitted6",
     isTransmitted: true,
-    title: "Segurança viária e visão 0 - Como eliminar mortes/feridos graves na cidade",
+    title: "Segurança viária e Visão Zero: como eliminar mortes e feridos graves na cidade",
     description: "Sexta da Mobilidade",
     image: transmitted6,
     showInHome: false,
@@ -450,7 +450,7 @@ export const eventsData: EventData[] = [
   {
     id: "transmitted9",
     isTransmitted: true,
-    title: "Urbanismo Social e teleférico – soluções latino-americanas + Insper Cidades",
+    title: "Urbanismo social e teleférico – soluções latino-americanas + Insper Cidades",
     description: "Sexta da Mobilidade",
     image: sextaVideo9,
     showInHome: false,
@@ -461,7 +461,7 @@ export const eventsData: EventData[] = [
   {
     id: "transmitted10",
     isTransmitted: true,
-    title: "a mobilidade urbana liderada por mulheres",
+    title: "A mobilidade urbana liderada por mulheres",
     description: "Sexta da Mobilidade",
     image: sextaVideo10,
     showInHome: false,
@@ -472,7 +472,7 @@ export const eventsData: EventData[] = [
   {
     id: "transmitted11",
     isTransmitted: true,
-    title: "uso de dados em favor da segurança viária",
+    title: "Uso de dados em favor da segurança viária",
     description: "Sexta da Mobilidade",
     image: sextaVideo11,
     showInHome: false,
@@ -483,7 +483,7 @@ export const eventsData: EventData[] = [
   {
     id: "transmitted12",
     isTransmitted: true,
-    title: "Tarifa Zero: o avanço dos subsídios e da tarifa zero nas cidades brasileiras",
+    title: "Tarifa zero: o avanço dos subsídios e da tarifa zero nas cidades brasileiras",
     description: "Sexta da Mobilidade",
     image: sextaVideo12,
     showInHome: false,
@@ -505,7 +505,7 @@ export const eventsData: EventData[] = [
   {
     id: "transmitted14",
     isTransmitted: true,
-    title: "Mobilidade nas Eleições 2026: Segurança Viária",
+    title: "Mobilidade nas eleições 2026: segurança viária",
     description: "Sexta da Mobilidade",
     image: sextaVideo14,
     showInHome: false,
@@ -516,7 +516,7 @@ export const eventsData: EventData[] = [
   {
     id: "transmitted15",
     isTransmitted: true,
-    title: "Mobilidade Nas Eleições 2026: Descarbonização do Transporte",
+    title: "Mobilidade nas eleições 2026: descarbonização do transporte",
     description: "Sexta da Mobilidade",
     image: sextaVideo15,
     showInHome: false,
