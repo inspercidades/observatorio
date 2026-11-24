@@ -324,7 +324,6 @@ export default function PropertyMap() {
         mapInstance.setPaintProperty(layerId, 'icon-opacity', opacityValue)
       }
       
-      console.log(`Updated opacity for layer ${layerId} to ${opacity}%`)
     } catch (error) {
       console.error(`Error updating opacity for layer ${layerId}:`, error)
     }
@@ -332,17 +331,14 @@ export default function PropertyMap() {
 
   // Function to handle opacity changes
   const handleOpacityChange = (layerId: string, opacity: number) => {
-    console.log(`handleOpacityChange called: layerId=${layerId}, opacity=${opacity}, isComparisonMode=${isComparisonMode}`)
     setLayerOpacities(prev => ({ ...prev, [layerId]: opacity }))
     
     if (isComparisonMode) {
       // In comparison mode, update opacity on the map that contains the layer
       if (beforeMap.current && beforeMap.current.getLayer(layerId)) {
-        console.log(`Updating opacity for layer ${layerId} on beforeMap`)
         updateLayerOpacity(layerId, opacity, beforeMap.current)
       }
       if (afterMap.current && afterMap.current.getLayer(layerId)) {
-        console.log(`Updating opacity for layer ${layerId} on afterMap`)
         updateLayerOpacity(layerId, opacity, afterMap.current)
       }
     } else {
@@ -481,7 +477,6 @@ export default function PropertyMap() {
           const opacity = layerOpacities[layerId] ?? 80
           updateLayerOpacity(layerId, opacity, mapInstance)
 
-          console.log(`Re-added layer ${layerId} after style change`)
         } catch (error) {
           console.error(`Error re-adding layer ${layerId}:`, error)
         }
@@ -687,7 +682,6 @@ export default function PropertyMap() {
       const layerConfig = cityLayers.find(l => l.id === selectedLayer1)
 
       if (layerConfig?.tilesetId && layerConfig?.sourceLayer && !beforeMap.current.getLayer(selectedLayer1)) {
-        console.log(`Adding layer1 to comparison map: ${selectedLayer1}`)
         handleComparisonLayerChange(selectedLayer1, true)
       }
     }
@@ -699,7 +693,6 @@ export default function PropertyMap() {
       const layerConfig = cityLayers.find(l => l.id === selectedLayer2)
 
       if (layerConfig?.tilesetId && layerConfig?.sourceLayer && !afterMap.current.getLayer(selectedLayer2)) {
-        console.log(`Adding layer2 to comparison map: ${selectedLayer2}`)
         handleComparisonLayerChange(selectedLayer2, false)
       }
     }
@@ -718,7 +711,6 @@ export default function PropertyMap() {
       selectedLayers.forEach(layerId => {
         const layerConfig = cityLayers.find(l => l.id === layerId)
         if (layerConfig?.tilesetId && layerConfig?.sourceLayer && !map.current?.getLayer(layerId)) {
-          console.log(`Adding layer to normal map after mode switch: ${layerId}`)
 
           try {
             // Add source
@@ -959,7 +951,6 @@ export default function PropertyMap() {
     const layerConfig = cityLayers.find(l => l.id === layerId)
     
     if (layerConfig?.tilesetId && layerConfig?.sourceLayer) {
-      console.log(`Adding comparison layer: ${layerId}`, { isLayer1, tilesetId: layerConfig.tilesetId, sourceLayer: layerConfig.sourceLayer })
       
       // Set loading state
       setLayerLoadingStates(prev => ({ ...prev, [layerId]: 'loading' }))
@@ -987,14 +978,12 @@ export default function PropertyMap() {
               visibility: 'visible'
             }
           }
-          console.log(`Using custom style for comparison layer: ${layerId}`)
         } else {
           // Fallback to default style if custom style not found
           layerConfigToAdd = createDefaultLayerConfig(layerId, {
             layerType: layerConfig.layerType,
             sourceLayer: layerConfig.sourceLayer
           })
-          console.log(`Custom style not found, using default for comparison layer: ${layerId}`)
         }
         
         targetMap!.addLayer(layerConfigToAdd)
@@ -1007,7 +996,6 @@ export default function PropertyMap() {
         setLayerOpacities(prev => ({ ...prev, [layerId]: defaultOpacity }))
         updateLayerOpacity(layerId, defaultOpacity, targetMap)
         
-        console.log(`Successfully added comparison layer: ${layerId}`)
         
         // Set loaded state
         setLayerLoadingStates(prev => ({ ...prev, [layerId]: 'loaded' }))
@@ -1027,7 +1015,6 @@ export default function PropertyMap() {
     const layerConfig = cityLayers.find(l => l.id === layerId)
     
     if (layerConfig?.tilesetId) {
-      console.log(`Removing comparison layer: ${layerId}`)
       
       // Remove from both maps
       const mapsToClean = [beforeMap.current, afterMap.current]
@@ -1065,7 +1052,6 @@ export default function PropertyMap() {
     if (!map.current || !mapLoaded) return
     
     const targetCity = selectedCity || "Brasil"
-    console.log('Handling layers change:', { previous: selectedLayers, new: layers, city: targetCity })
     
     const cityLayers = cityLayersConfig[targetCity] || []
     const previousLayers = selectedLayers
@@ -1076,7 +1062,6 @@ export default function PropertyMap() {
       if (!newLayers.includes(layerId)) {
         const layerConfig = cityLayers.find(l => l.id === layerId)
         if (layerConfig?.tilesetId) {
-          console.log(`Removing layer: ${layerId}`)
           
           // Remove hover handlers first
           removeHoverHandlers(layerId, map.current!)
@@ -1108,7 +1093,6 @@ export default function PropertyMap() {
       if (!previousLayers.includes(layerId)) {
         const layerConfig = cityLayers.find(l => l.id === layerId)
         if (layerConfig?.tilesetId && layerConfig?.sourceLayer) {
-          console.log(`Adding layer: ${layerId}`, { tilesetId: layerConfig.tilesetId, sourceLayer: layerConfig.sourceLayer })
           
           // Set loading state
           setLayerLoadingStates(prev => ({ ...prev, [layerId]: 'loading' }))
@@ -1133,14 +1117,12 @@ export default function PropertyMap() {
                   visibility: 'visible'
                 }
               }
-              console.log(`Using custom style for layer: ${layerId}`)
             } else {
               // Fallback to default style if custom style not found
               layerConfigToAdd = createDefaultLayerConfig(layerId, {
                 layerType: layerConfig.layerType,
                 sourceLayer: layerConfig.sourceLayer
               })
-              console.log(`Custom style not found, using default for layer: ${layerId}`)
             }
             
             map.current!.addLayer(layerConfigToAdd)
@@ -1153,7 +1135,6 @@ export default function PropertyMap() {
             setLayerOpacities(prev => ({ ...prev, [layerId]: defaultOpacity }))
             updateLayerOpacity(layerId, defaultOpacity, map.current!)
             
-            console.log(`Successfully added layer: ${layerId}`)
             
             // Set loaded state
             setLayerLoadingStates(prev => ({ ...prev, [layerId]: 'loaded' }))

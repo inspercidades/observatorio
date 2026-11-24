@@ -10,12 +10,6 @@ import { useState } from "react"
 // Get real data from JSON
 const citiesData: CityData[] = getCitiesByGroup('Cidade Parceira')
 
-// // Debug: Log some cities to check the logic
-// console.log('Cities data (Parceiras):')
-// console.log('Abreu e Lima:', citiesData.find(c => c.cidade === 'Abreu e Lima'))
-// console.log('Campinas:', citiesData.find(c => c.cidade === 'Campinas'))
-
-
 type SortOrder = "asc" | "desc" | null
 type SortField = "cidade" | "gtfs" | "gpsEmbarcados" | "bilhetagem" | "arquivosVetoriais"
 
