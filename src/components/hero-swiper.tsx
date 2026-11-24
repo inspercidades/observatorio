@@ -27,7 +27,7 @@ const slides: SlideData[] = [
     id: 1,
     videoSrc: "/videos/v1.mp4",
     imageSrc: "/images/city-aerial.jpg",
-    title: "Mobilidade inteligente  e humana para um Brasil mais conectado e sustentável",
+    title: "Mobilidade inteligente e humana para um Brasil mais conectado e sustentável",
     subtitle: "Indicadores e evidências para transformar a mobilidade urbana brasileira",
     link: "/sobre"
   },
@@ -35,15 +35,15 @@ const slides: SlideData[] = [
     id: 2,
     videoSrc: "/videos/v2.mp4",
     imageSrc: "/images/transportation.jpg",
-    title: "Evento - Gestão metropolitana: desafios e oportunidades",
-    subtitle: "Desafio da implementação das autoridades metropolitanas no Brasil",
-    link: "https://youtu.be/F45qQPCDtJk?si=FwHsDuCksT7Ieco8"
+    title: "Painel QualiÔnibus",
+    subtitle: "Indicadores de qualidade do transporte por ônibus no Brasil, em parceria com o WRI Brasil",
+    link: "/dados/wri-dashboard"
   },
   {
     id: 3,
     videoSrc: "/videos/v3.mp4",
     imageSrc: "/images/sustainable-city.jpg",
-    title: "Criar uma ampla base de dados de mobilidade urbana e conectar cidades",
+    title: "Catálogo de dados de mobilidade urbana",
     subtitle: "Construir caminhos para a democratização e acesso aos dados de mobilidade urbana",
     link: "/dados/catalogo-de-dados"
   },
@@ -51,9 +51,9 @@ const slides: SlideData[] = [
     id: 4,
     videoSrc: "/videos/v4.mp4",
     imageSrc: "/images/sustainable-city.jpg",
-    title: "Insper Cidades na mobilidade: Urbanismo social",
+    title: "Insper Cidades na mobilidade: urbanismo social",
     subtitle: "A transformação do território a partir do urbanismo social sob o olhar da mobilidade urbana",
-    link: "https://www.youtube.com/watch?v=TG8uj64SAKo&t=40s"
+    link: "/videos"
   },
 
 ]
