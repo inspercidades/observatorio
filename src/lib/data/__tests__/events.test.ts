@@ -77,6 +77,12 @@ describe("classificação da Sexta da Mobilidade", () => {
     expect(getEventSections(today).sexta.map((item) => item.id)).not.toContain(id);
   });
 
+  it("atualiza o título e o link da edição de novembro", () => {
+    const event = getUpcomingEvents(today).find((item) => item.id === "sexta-da-mobilidade-novembro-2026");
+    expect(event?.title).toBe("Sexta da Mobilidade: Coalizão pela Transição Climática - Atualização e avanços no setor dos Transportes");
+    expect(event?.href).toBe("https://www.insper.edu.br/pt/eventos/2026/11/sexta-da-mobilidade-coalizacao-pela-transicao-climatica-atualizacao-e-avancos-no-setor-dos-transportes");
+  });
+
   it("ordena as edições realizadas da mais recente para a mais antiga", () => {
     const series = getEventSections(today).sexta;
     expect(series[0].id).toBe("sexta-da-mobilidade-seguranca-viaria-2026");

@@ -349,12 +349,14 @@ export const eventsData: EventData[] = [
   {
     id: "sexta-da-mobilidade-novembro-2026",
     series: "sexta-da-mobilidade",
-    title: "Sexta da Mobilidade: última edição do ano de 2026",
+    title: "Sexta da Mobilidade: Coalizão pela Transição Climática - Atualização e avanços no setor dos Transportes",
     description: "27/11/2026 • Sexta da Mobilidade",
     image: sextaMobilidadeNovembro2026,
+    href: "https://www.insper.edu.br/pt/eventos/2026/11/sexta-da-mobilidade-coalizacao-pela-transicao-climatica-atualizacao-e-avancos-no-setor-dos-transportes",
     showInHome: false,
     date: "27/11/2026",
     location: "Sexta da Mobilidade",
+    about: "O evento contará com a participação de Renata Ruggiero (Motiva), Daniela Mignani (CEDBS), Erica Vieira Marcos (CNT) e Thais Esteves (BCG), com mediação de Suzana Nogueira e Sergio Avelleda. Sexta-feira, 27 de novembro, das 12h às 14h. Local: Rua Quatá, 67 - sala 521 (ou online, via Zoom).",
   },
 
   // Sexta da Mobilidade
