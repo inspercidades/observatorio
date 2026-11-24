@@ -20,6 +20,7 @@ import ivanice_schutz from "@/app/assets/images/ivanice_schutz.png";
 import jose_police_neto from "@/app/assets/images/jose_police_neto.png";
 import juan_sebastian from "@/app/assets/images/juan_sebastian.png";
 import laryssa_kruger from "@/app/assets/images/laryssa_kruger.png";
+import lucas_bravo_rosin from "@/app/assets/images/lucas_bravo_rosin.webp";
 import lucas_tavares from "@/app/assets/images/lucas-tavares-da-silva-ferreira.png";
 import lucelio_moraes from "@/app/assets/images/lucelio_moraes.png";
 import marcela_costa from "@/app/assets/images/marcela_costa.png";
@@ -111,6 +112,25 @@ const equipeObservatorio: TeamMember[] = [
     role: 'Cientista de dados',
     image: vinicius_oike,
     email: 'viniciusor@insper.edu.br'
+  },
+  {
+    id: '4',
+    name: 'Lucas Bravo Rosin',
+    role: 'Especialista em mobilidade urbana',
+    image: lucas_bravo_rosin,
+    email: 'lucasbr5@insper.edu.br'
+  },
+  {
+    id: '5',
+    name: 'Philipe Dias',
+    role: 'Cientista de dados',
+    email: 'philipeld@al.insper.edu.br'
+  },
+  {
+    id: '7',
+    name: 'Camilo Andres Bello Portela',
+    role: 'Pesquisador',
+    email: 'camiloabp@insper.edu.br'
   },
   {
     id: '6',
@@ -311,6 +331,11 @@ const equipeDeDesenvolvimento: DevelopmentTeamMember[] = [
     id: '3',
     name: 'Adriano Borges e Maurício Bouskela',
     role: 'Coordenação Portal de Dados',
+  },
+  {
+    id: '4',
+    name: 'Rinaldo Gama',
+    role: 'Coordenação e revisão de conteúdos'
   },
   {
     id: '5',
