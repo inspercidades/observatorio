@@ -1,4 +1,4 @@
-import { getAgenda, type AgendaItem } from "@/lib/data/agenda"
+import { getHomeAgenda, type AgendaItem } from "@/lib/data/agenda"
 import { classifyHref } from "@/lib/links"
 import { ArrowRight } from "lucide-react"
 import Image from "next/image"
@@ -126,10 +126,7 @@ function ListItem({ item }: { item: AgendaItem }) {
 }
 
 export function AgendaHome() {
-  const items = getAgenda(undefined, undefined, undefined, undefined, { recentPastDays: 60 })
-  const upcoming = items.filter((item) => !item.isPast)
-  const past = items.filter((item) => item.isPast).slice(0, 2)
-  const [featured, ...rest] = upcoming
+  const { featured, upcoming, past } = getHomeAgenda()
 
   return (
     <section className="bg-[#f9f9f6] px-4 py-16 2xl:px-16 pb-40">
@@ -157,7 +154,7 @@ export function AgendaHome() {
         {featured ? <FeaturedCard item={featured} /> : null}
 
         <div className="flex flex-col gap-8">
-          {rest.slice(0, 3).map((item) => (
+          {upcoming.map((item) => (
             <ListItem key={item.id} item={item} />
           ))}
 
